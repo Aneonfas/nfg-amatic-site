@@ -1,6 +1,10 @@
-# NFG A-Matic Player
+# NFG A-Matic Website
 
-NFG A-Matic Player is a Windows runtime for installing and running screen-aware automation packages.
+This repository contains the public website and Cloudflare Worker for NFG A-Matic.
+
+The Player release artifacts are still published from the product repository:
+
+https://github.com/Aneonfas/nfg-amatic-player
 
 ## Official links
 
@@ -56,13 +60,13 @@ The package catalog source lives in:
 
 https://github.com/Aneonfas/nfg-amatic-packages
 
-## Website deployment
+## Deployment
 
 The website is served by the Cloudflare Worker `polished-poetry-b345` on `nfg-system.online`.
 
 Source:
 
-- `index.html`, `foxhole-clicker/`, `packages/`, `support/` - static site pages.
+- `index.html`, `foxhole-clicker/`, `packages/`, `support/` - static pages.
 - `assets/` - CSS, JavaScript, brand assets, and public screenshots.
 - `worker.js` - lightweight Cloudflare Worker router that serves site files from this repository and redirects downloads to GitHub Releases.
 - `wrangler.toml` - deployment metadata for the Worker name and compatibility date.
