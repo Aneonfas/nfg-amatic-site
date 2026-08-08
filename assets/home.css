@@ -111,19 +111,6 @@ a {
   padding-block: 62px 92px;
 }
 
-.intro {
-  padding-bottom: 46px;
-}
-
-.intro h1 {
-  max-width: 900px;
-  margin: 0;
-  font-size: clamp(48px, 4.35vw, 64px);
-  font-weight: 700;
-  line-height: 1.02;
-  letter-spacing: -0.045em;
-}
-
 .project-list {
   border-top: 1px solid var(--line);
 }
@@ -280,15 +267,6 @@ a {
 
   .page-main {
     padding-block: 50px 36px;
-  }
-
-  .intro {
-    padding-bottom: 42px;
-  }
-
-  .intro h1 {
-    font-size: clamp(42px, 13vw, 54px);
-    line-height: 1.04;
   }
 
   .project-row,
