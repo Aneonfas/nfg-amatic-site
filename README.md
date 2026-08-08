@@ -2,7 +2,7 @@
 
 Local working version of the `nfg-system.online` homepage.
 
-The current page contains two real projects: Anvil Planner and the Anvil Empires Russian translation. There are no placeholder rows. The older A-Matic pages remain in the repository for now, but the new homepage does not link to them.
+The current page contains four real projects: Anvil Planner, the Anvil Empires Russian translation, Anvil Forge Helper, and NFG Hub. There are no placeholder rows. The older A-Matic pages remain in the repository for now, but the new homepage does not link to them.
 
 The NFG Discord invite is kept separate from the project list in the page footer: `https://discord.gg/RNJaFUyeyx`.
 
