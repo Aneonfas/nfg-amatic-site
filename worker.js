@@ -6,8 +6,8 @@ const ZIP_URL = "https://github.com/Aneonfas/nfg-amatic-player/releases/download
 const REPO_URL = "https://github.com/Aneonfas/nfg-amatic-player";
 const PACKAGE_REPO_URL = "https://github.com/Aneonfas/nfg-amatic-packages";
 const DISCORD_URL = "https://discord.gg/RNJaFUyeyx";
-const STATIC_BASE = "https://raw.githubusercontent.com/Aneonfas/nfg-amatic-site/refs/heads/main";
-const STATIC_REV = "2026-08-08-project-index";
+const STATIC_BASE = "https://raw.githubusercontent.com/Aneonfas/nfg-amatic-site/main";
+const STATIC_REV = "2026-08-09-d0969a6";
 
 const STATIC_ROUTES = {
   "/": "index.html",
