@@ -1,3 +1,7 @@
 name = "polished-poetry-b345"
 main = "worker.js"
 compatibility_date = "2026-05-26"
+
+[[routes]]
+pattern = "nfg-system.online"
+custom_domain = true
