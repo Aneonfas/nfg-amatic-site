@@ -119,7 +119,6 @@ a {
 .section-link:focus-visible,
 .language-menu summary:focus-visible,
 .language-options a:focus-visible,
-.locale-suggestion a:focus-visible,
 .project-link:focus-visible,
 .footer-link:focus-visible {
   outline: 3px solid var(--focus);
@@ -208,29 +207,6 @@ a {
 
 .project-list {
   border-top: 1px solid var(--line);
-}
-
-.locale-suggestion {
-  margin-bottom: 18px;
-  padding: 13px 18px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  border: 1px solid var(--line);
-  background: var(--active-surface);
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.locale-suggestion[hidden] {
-  display: none;
-}
-
-.locale-suggestion a {
-  color: var(--accent);
-  font-weight: 700;
-  text-underline-offset: 3px;
 }
 
 .project-row {

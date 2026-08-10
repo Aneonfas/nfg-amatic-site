@@ -2,17 +2,16 @@
 
 Local working version of the `nfg-system.online` project index.
 
-The root page is the canonical English project index. Nine additional,
-server-rendered locale URLs are published under `ru`, `es`, `de`, `fr`,
-`pt-br`, `zh-cn`, `ja`, `ko`, and `tr`; the legacy `/en/` URL redirects to the
-root. Each index contains five real projects: Anvil Planner, the Anvil Empires
-Russian and Spanish localization packages, Anvil Forge Helper, and NFG Hub.
-There are no placeholder rows.
+The root URL is a language router. Ten server-rendered canonical locale URLs
+are published under `en`, `ru`, `es`, `de`, `fr`, `pt-br`, `zh-cn`, `ja`, `ko`,
+and `tr`. Each index contains five real projects: Anvil Planner, the Anvil
+Empires Russian and Spanish localization packages, Anvil Forge Helper, and NFG
+Hub. There are no placeholder rows and no standalone language-selection page.
 
-On the first English-root visit, a supported non-English browser language is
-offered as a one-click suggestion. The site does not force a language redirect.
-An explicit language choice is remembered and takes effect on future root
-visits.
+Root visits are redirected with a temporary `302`. An explicit remembered
+choice wins, followed by the browser's `Accept-Language`, then Cloudflare's
+country signal as a fallback, and finally English. Language-menu links go
+directly to their canonical locale URL and remember the user's choice.
 
 Localized copy lives in `content/home.locales.json`. Generated HTML, the sitemap,
 and `llms.txt` are committed so that crawlers and users do not depend on
@@ -27,6 +26,7 @@ Generate or verify the localized pages:
 ```powershell
 node scripts/generate-localized-home.mjs
 node scripts/generate-localized-home.mjs --check
+node --test tests/worker-locale-routing.test.mjs
 ```
 
 For an HTTP preview, from the repository root run:
@@ -35,8 +35,9 @@ For an HTTP preview, from the repository root run:
 python -m http.server 4175 --bind 127.0.0.1
 ```
 
-Then open `http://127.0.0.1:4175/` or a locale such as
-`http://127.0.0.1:4175/ru/`.
+Then open a locale such as `http://127.0.0.1:4175/en/` or
+`http://127.0.0.1:4175/ru/`. The checked-in root HTML is only a static fallback
+to `/en/`; Cloudflare performs the production language routing.
 
 There is no production runtime dependency. The published pages are plain
 semantic HTML and CSS; Node.js is used only to regenerate checked-in files.
@@ -48,4 +49,5 @@ semantic HTML and CSS; Node.js is used only to regenerate checked-in files.
 
 The Cloudflare Worker configuration in `wrangler.toml` and `worker.js` serves
 the public site, maps locale URLs to their generated `index.html` files, and
-applies an explicitly selected language preference.
+redirects root visits using the remembered choice, browser language, country
+fallback, and English in that order.

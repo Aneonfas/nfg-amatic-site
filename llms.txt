@@ -4,7 +4,7 @@
 
 ## Localized project index
 
-- [English](https://nfg-system.online/)
+- [English](https://nfg-system.online/en/)
 - [Русский](https://nfg-system.online/ru/)
 - [Español](https://nfg-system.online/es/)
 - [Deutsch](https://nfg-system.online/de/)
