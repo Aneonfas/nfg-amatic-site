@@ -1,0 +1,526 @@
+{
+  "lastModified": "2026-08-10",
+  "assetRevision": "2026-08-10-i18n",
+  "locales": {
+    "en": {
+      "lang": "en",
+      "hreflang": "en",
+      "ogLocale": "en_US",
+      "autonym": "English",
+      "shortLabel": "EN",
+      "title": "NFG Projects",
+      "description": "NFG projects: Anvil Planner, Russian and Spanish localizations for Anvil Empires, Anvil Forge Helper, and NFG Hub.",
+      "skipLink": "Skip to projects",
+      "homeAria": "NFG — home",
+      "projectsNav": "Projects",
+      "languageLabel": "Choose language",
+      "projectsAria": "NFG project list",
+      "discordAria": "Open the NFG Discord server in a new tab",
+      "projects": [
+        {
+          "title": "Anvil Planner",
+          "primary": "A Wild Homestead building planner for Anvil Empires.",
+          "secondary": "Place structures, calculate materials, and save your layout.",
+          "action": "Open project",
+          "aria": "Open Anvil Planner in a new tab"
+        },
+        {
+          "title": "Anvil Empires Russian Localization",
+          "primary": "An unofficial Russian translation for Anvil Empires Pre-Alpha on Windows/Steam.",
+          "secondary": "Covers the interface, items, structures, production, quests, and system messages.",
+          "action": "Download 1.0.1",
+          "aria": "Download Anvil Empires Russian Localization 1.0.1 from GitHub in a new tab"
+        },
+        {
+          "title": "Anvil Empires Spanish Localization",
+          "primary": "An unofficial Spanish translation for Anvil Empires Pre-Alpha on Windows/Steam.",
+          "secondary": "A ready-to-install beta language pack for the current game build.",
+          "action": "Download 0.1.0 beta",
+          "aria": "Download Anvil Empires Spanish Localization 0.1.0 beta from GitHub in a new tab"
+        },
+        {
+          "title": "Anvil Forge Helper",
+          "primary": "An Anvil Empires interface mod with compact forging quality markers.",
+          "secondary": "Helps align the result precisely with the cooling bar.",
+          "action": "Open on GitHub",
+          "aria": "Open Anvil Forge Helper on GitHub in a new tab"
+        },
+        {
+          "title": "NFG Hub",
+          "primary": "A catalog, installer, and library for NFG projects on Windows.",
+          "secondary": "Version 0.2.0 with English, Russian, and Spanish interface languages.",
+          "action": "Download 0.2.0",
+          "aria": "Download NFG Hub 0.2.0 for Windows x64 from GitHub in a new tab"
+        }
+      ]
+    },
+    "ru": {
+      "lang": "ru",
+      "hreflang": "ru",
+      "ogLocale": "ru_RU",
+      "autonym": "Русский",
+      "shortLabel": "RU",
+      "title": "Проекты NFG",
+      "description": "Проекты NFG: Anvil Planner, локализации Anvil Empires на русском и испанском, Anvil Forge Helper и NFG Hub.",
+      "skipLink": "Перейти к проектам",
+      "homeAria": "NFG — главная",
+      "projectsNav": "Проекты",
+      "languageLabel": "Выбрать язык",
+      "projectsAria": "Список проектов NFG",
+      "discordAria": "Открыть Discord-сервер NFG в новой вкладке",
+      "projects": [
+        {
+          "title": "Anvil Planner",
+          "primary": "Планировщик строительства Wild Homestead для Anvil Empires.",
+          "secondary": "Размещение строений, подсчёт материалов и сохранение макета.",
+          "action": "Открыть проект",
+          "aria": "Открыть Anvil Planner в новой вкладке"
+        },
+        {
+          "title": "Русская локализация Anvil Empires",
+          "primary": "Неофициальный русский перевод Anvil Empires Pre-Alpha для Windows/Steam.",
+          "secondary": "Перевод интерфейса, предметов, сооружений, производства, заданий и системных сообщений.",
+          "action": "Скачать 1.0.1",
+          "aria": "Скачать русскую локализацию Anvil Empires 1.0.1 с GitHub в новой вкладке"
+        },
+        {
+          "title": "Испанская локализация Anvil Empires",
+          "primary": "Неофициальный испанский перевод Anvil Empires Pre-Alpha для Windows/Steam.",
+          "secondary": "Готовый тестовый языковой пакет для актуальной версии игры.",
+          "action": "Скачать 0.1.0 beta",
+          "aria": "Скачать испанскую локализацию Anvil Empires 0.1.0 beta с GitHub в новой вкладке"
+        },
+        {
+          "title": "Anvil Forge Helper",
+          "primary": "Модификация интерфейса Anvil Empires с компактными метками качества ковки.",
+          "secondary": "Помогает точно совмещать результат с полосой охлаждения.",
+          "action": "Открыть на GitHub",
+          "aria": "Открыть Anvil Forge Helper на GitHub в новой вкладке"
+        },
+        {
+          "title": "NFG Hub",
+          "primary": "Каталог, установщик и библиотека проектов NFG для Windows.",
+          "secondary": "Версия 0.2.0 с интерфейсом на русском, английском и испанском языках.",
+          "action": "Скачать 0.2.0",
+          "aria": "Скачать NFG Hub 0.2.0 для Windows x64 с GitHub в новой вкладке"
+        }
+      ]
+    },
+    "es": {
+      "lang": "es",
+      "hreflang": "es",
+      "ogLocale": "es_ES",
+      "autonym": "Español",
+      "shortLabel": "ES",
+      "title": "Proyectos NFG",
+      "description": "Proyectos NFG: Anvil Planner, localizaciones de Anvil Empires en ruso y español, Anvil Forge Helper y NFG Hub.",
+      "skipLink": "Ir a los proyectos",
+      "homeAria": "NFG — inicio",
+      "projectsNav": "Proyectos",
+      "languageLabel": "Elegir idioma",
+      "projectsAria": "Lista de proyectos NFG",
+      "discordAria": "Abrir el servidor de Discord de NFG en una pestaña nueva",
+      "projects": [
+        {
+          "title": "Anvil Planner",
+          "primary": "Planificador de construcción de Wild Homestead para Anvil Empires.",
+          "secondary": "Coloca estructuras, calcula materiales y guarda el diseño.",
+          "action": "Abrir proyecto",
+          "aria": "Abrir Anvil Planner en una pestaña nueva"
+        },
+        {
+          "title": "Localización rusa de Anvil Empires",
+          "primary": "Traducción no oficial al ruso de Anvil Empires Pre-Alpha para Windows/Steam.",
+          "secondary": "Traduce la interfaz, los objetos, las estructuras, la producción, las misiones y los mensajes del sistema.",
+          "action": "Descargar 1.0.1",
+          "aria": "Descargar la localización rusa de Anvil Empires 1.0.1 desde GitHub en una pestaña nueva"
+        },
+        {
+          "title": "Localización española de Anvil Empires",
+          "primary": "Traducción no oficial al español de Anvil Empires Pre-Alpha para Windows/Steam.",
+          "secondary": "Paquete de idioma beta listo para instalar para la versión actual del juego.",
+          "action": "Descargar 0.1.0 beta",
+          "aria": "Descargar la localización española de Anvil Empires 0.1.0 beta desde GitHub en una pestaña nueva"
+        },
+        {
+          "title": "Anvil Forge Helper",
+          "primary": "Mod de interfaz de Anvil Empires con marcadores compactos de calidad de forja.",
+          "secondary": "Ayuda a alinear el resultado con precisión con la barra de enfriamiento.",
+          "action": "Abrir en GitHub",
+          "aria": "Abrir Anvil Forge Helper en GitHub en una pestaña nueva"
+        },
+        {
+          "title": "NFG Hub",
+          "primary": "Catálogo, instalador y biblioteca de proyectos NFG para Windows.",
+          "secondary": "Versión 0.2.0 con interfaz en ruso, inglés y español.",
+          "action": "Descargar 0.2.0",
+          "aria": "Descargar NFG Hub 0.2.0 para Windows x64 desde GitHub en una pestaña nueva"
+        }
+      ]
+    },
+    "de": {
+      "lang": "de",
+      "hreflang": "de",
+      "ogLocale": "de_DE",
+      "autonym": "Deutsch",
+      "shortLabel": "DE",
+      "title": "NFG-Projekte",
+      "description": "Projekte von NFG: Anvil Planner, russische und spanische Lokalisierungen für Anvil Empires, Anvil Forge Helper und NFG Hub.",
+      "skipLink": "Zu den Projekten springen",
+      "homeAria": "NFG – Startseite",
+      "projectsNav": "Projekte",
+      "languageLabel": "Sprache auswählen",
+      "projectsAria": "Liste der NFG-Projekte",
+      "discordAria": "NFG-Discord-Server in einem neuen Tab öffnen",
+      "projects": [
+        {
+          "title": "Anvil Planner",
+          "primary": "Planungstool für den Bau eines Wild Homestead in Anvil Empires.",
+          "secondary": "Gebäude platzieren, Materialbedarf berechnen und das Layout speichern.",
+          "action": "Projekt öffnen",
+          "aria": "Anvil Planner in einem neuen Tab öffnen"
+        },
+        {
+          "title": "Russische Lokalisierung für Anvil Empires",
+          "primary": "Inoffizielle russische Übersetzung von Anvil Empires Pre-Alpha für Windows/Steam.",
+          "secondary": "Übersetzt Benutzeroberfläche, Gegenstände, Gebäude, Produktion, Quests und Systemmeldungen.",
+          "action": "1.0.1 herunterladen",
+          "aria": "Russische Lokalisierung für Anvil Empires 1.0.1 von GitHub in einem neuen Tab herunterladen"
+        },
+        {
+          "title": "Spanische Lokalisierung für Anvil Empires",
+          "primary": "Inoffizielle spanische Übersetzung von Anvil Empires Pre-Alpha für Windows/Steam.",
+          "secondary": "Fertiges Test-Sprachpaket für die aktuelle Spielversion.",
+          "action": "0.1.0 beta herunterladen",
+          "aria": "Spanische Lokalisierung für Anvil Empires 0.1.0 beta von GitHub in einem neuen Tab herunterladen"
+        },
+        {
+          "title": "Anvil Forge Helper",
+          "primary": "Benutzeroberflächen-Mod für Anvil Empires mit kompakten Qualitätsmarkierungen beim Schmieden.",
+          "secondary": "Hilft dabei, das Ergebnis präzise an der Abkühlleiste auszurichten.",
+          "action": "Auf GitHub öffnen",
+          "aria": "Anvil Forge Helper auf GitHub in einem neuen Tab öffnen"
+        },
+        {
+          "title": "NFG Hub",
+          "primary": "Katalog, Installationsprogramm und Bibliothek für NFG-Projekte unter Windows.",
+          "secondary": "Version 0.2.0 mit einer Benutzeroberfläche auf Russisch, Englisch und Spanisch.",
+          "action": "0.2.0 herunterladen",
+          "aria": "NFG Hub 0.2.0 für Windows x64 von GitHub in einem neuen Tab herunterladen"
+        }
+      ]
+    },
+    "fr": {
+      "lang": "fr",
+      "hreflang": "fr",
+      "ogLocale": "fr_FR",
+      "autonym": "Français",
+      "shortLabel": "FR",
+      "title": "Projets NFG",
+      "description": "Projets NFG : Anvil Planner, localisations russe et espagnole d’Anvil Empires, Anvil Forge Helper et NFG Hub.",
+      "skipLink": "Aller aux projets",
+      "homeAria": "NFG — accueil",
+      "projectsNav": "Projets",
+      "languageLabel": "Choisir la langue",
+      "projectsAria": "Liste des projets NFG",
+      "discordAria": "Ouvrir le serveur Discord de NFG dans un nouvel onglet",
+      "projects": [
+        {
+          "title": "Anvil Planner",
+          "primary": "Outil de planification pour construire un Wild Homestead dans Anvil Empires.",
+          "secondary": "Placez les bâtiments, calculez les matériaux nécessaires et enregistrez votre plan.",
+          "action": "Ouvrir le projet",
+          "aria": "Ouvrir Anvil Planner dans un nouvel onglet"
+        },
+        {
+          "title": "Localisation russe d’Anvil Empires",
+          "primary": "Traduction russe non officielle de la version pré-alpha d’Anvil Empires pour Windows/Steam.",
+          "secondary": "Traduit l’interface, les objets, les bâtiments, la production, les quêtes et les messages système.",
+          "action": "Télécharger 1.0.1",
+          "aria": "Télécharger la localisation russe 1.0.1 d’Anvil Empires depuis GitHub dans un nouvel onglet"
+        },
+        {
+          "title": "Localisation espagnole d’Anvil Empires",
+          "primary": "Traduction espagnole non officielle de la version pré-alpha d’Anvil Empires pour Windows/Steam.",
+          "secondary": "Pack linguistique de test prêt à l’emploi pour la version actuelle du jeu.",
+          "action": "Télécharger 0.1.0 beta",
+          "aria": "Télécharger la localisation espagnole 0.1.0 beta d’Anvil Empires depuis GitHub dans un nouvel onglet"
+        },
+        {
+          "title": "Anvil Forge Helper",
+          "primary": "Mod d’interface pour Anvil Empires avec des indicateurs compacts de qualité de forge.",
+          "secondary": "Aide à aligner précisément le résultat sur la barre de refroidissement.",
+          "action": "Ouvrir sur GitHub",
+          "aria": "Ouvrir Anvil Forge Helper sur GitHub dans un nouvel onglet"
+        },
+        {
+          "title": "NFG Hub",
+          "primary": "Catalogue, programme d’installation et bibliothèque de projets NFG pour Windows.",
+          "secondary": "Version 0.2.0 avec une interface en russe, anglais et espagnol.",
+          "action": "Télécharger 0.2.0",
+          "aria": "Télécharger NFG Hub 0.2.0 pour Windows x64 depuis GitHub dans un nouvel onglet"
+        }
+      ]
+    },
+    "pt-br": {
+      "lang": "pt-BR",
+      "hreflang": "pt-BR",
+      "ogLocale": "pt_BR",
+      "autonym": "Português (Brasil)",
+      "shortLabel": "PT-BR",
+      "title": "Projetos da NFG",
+      "description": "Projetos da NFG: Anvil Planner, localizações de Anvil Empires em russo e espanhol, Anvil Forge Helper e NFG Hub.",
+      "skipLink": "Ir para os projetos",
+      "homeAria": "NFG — página inicial",
+      "projectsNav": "Projetos",
+      "languageLabel": "Escolher idioma",
+      "projectsAria": "Lista de projetos da NFG",
+      "discordAria": "Abrir o servidor da NFG no Discord em uma nova guia",
+      "projects": [
+        {
+          "title": "Anvil Planner",
+          "primary": "Planejador para construir um Wild Homestead em Anvil Empires.",
+          "secondary": "Posicione construções, calcule os materiais e salve o layout.",
+          "action": "Abrir projeto",
+          "aria": "Abrir o Anvil Planner em uma nova guia"
+        },
+        {
+          "title": "Localização de Anvil Empires em russo",
+          "primary": "Tradução não oficial para o russo da versão pré-alfa de Anvil Empires para Windows/Steam.",
+          "secondary": "Traduz a interface, os itens, as construções, a produção, as missões e as mensagens do sistema.",
+          "action": "Baixar 1.0.1",
+          "aria": "Baixar a localização de Anvil Empires em russo, versão 1.0.1, do GitHub em uma nova guia"
+        },
+        {
+          "title": "Localização de Anvil Empires em espanhol",
+          "primary": "Tradução não oficial para o espanhol da versão pré-alfa de Anvil Empires para Windows/Steam.",
+          "secondary": "Pacote de idioma de teste pronto para uso na versão atual do jogo.",
+          "action": "Baixar 0.1.0 beta",
+          "aria": "Baixar a localização de Anvil Empires em espanhol, versão 0.1.0 beta, do GitHub em uma nova guia"
+        },
+        {
+          "title": "Anvil Forge Helper",
+          "primary": "Mod de interface para Anvil Empires com marcadores compactos de qualidade da forja.",
+          "secondary": "Ajuda a alinhar com precisão o resultado com a barra de resfriamento.",
+          "action": "Abrir no GitHub",
+          "aria": "Abrir o Anvil Forge Helper no GitHub em uma nova guia"
+        },
+        {
+          "title": "NFG Hub",
+          "primary": "Catálogo, instalador e biblioteca de projetos da NFG para Windows.",
+          "secondary": "Versão 0.2.0 com interface em russo, inglês e espanhol.",
+          "action": "Baixar 0.2.0",
+          "aria": "Baixar o NFG Hub 0.2.0 para Windows x64 do GitHub em uma nova guia"
+        }
+      ]
+    },
+    "zh-cn": {
+      "lang": "zh-CN",
+      "hreflang": "zh-CN",
+      "ogLocale": "zh_CN",
+      "autonym": "简体中文",
+      "shortLabel": "中文",
+      "title": "NFG 项目",
+      "description": "NFG 项目：Anvil Planner、Anvil Empires 的俄语与西班牙语本地化、Anvil Forge Helper 以及 NFG Hub。",
+      "skipLink": "跳转到项目",
+      "homeAria": "NFG 首页",
+      "projectsNav": "项目",
+      "languageLabel": "选择语言",
+      "projectsAria": "NFG 项目列表",
+      "discordAria": "在新标签页中打开 NFG Discord 服务器",
+      "projects": [
+        {
+          "title": "Anvil Planner",
+          "primary": "Anvil Empires 的 Wild Homestead 建造规划工具。",
+          "secondary": "规划建筑布局、计算材料用量并保存方案。",
+          "action": "打开项目",
+          "aria": "在新标签页中打开 Anvil Planner"
+        },
+        {
+          "title": "Anvil Empires 俄语本地化",
+          "primary": "面向 Windows/Steam 版 Anvil Empires Pre-Alpha 的非官方俄语翻译。",
+          "secondary": "涵盖界面、物品、建筑、生产、任务和系统消息。",
+          "action": "下载 1.0.1",
+          "aria": "在新标签页中从 GitHub 下载 Anvil Empires 俄语本地化 1.0.1"
+        },
+        {
+          "title": "Anvil Empires 西班牙语本地化",
+          "primary": "面向 Windows/Steam 版 Anvil Empires Pre-Alpha 的非官方西班牙语翻译。",
+          "secondary": "适配当前游戏版本、可直接使用的测试语言包。",
+          "action": "下载 0.1.0 beta",
+          "aria": "在新标签页中从 GitHub 下载 Anvil Empires 西班牙语本地化 0.1.0 beta"
+        },
+        {
+          "title": "Anvil Forge Helper",
+          "primary": "为 Anvil Empires 添加紧凑锻造品质标记的界面模组。",
+          "secondary": "帮助将锻造结果精准对齐冷却条。",
+          "action": "在 GitHub 上查看",
+          "aria": "在新标签页中打开 Anvil Forge Helper 的 GitHub 页面"
+        },
+        {
+          "title": "NFG Hub",
+          "primary": "适用于 Windows 的 NFG 项目目录、安装器和项目库。",
+          "secondary": "0.2.0 版，提供俄语、英语和西班牙语界面。",
+          "action": "下载 0.2.0",
+          "aria": "在新标签页中从 GitHub 下载适用于 Windows x64 的 NFG Hub 0.2.0"
+        }
+      ]
+    },
+    "ja": {
+      "lang": "ja",
+      "hreflang": "ja",
+      "ogLocale": "ja_JP",
+      "autonym": "日本語",
+      "shortLabel": "JA",
+      "title": "NFGプロジェクト",
+      "description": "NFGプロジェクト：Anvil Planner、Anvil Empiresのロシア語・スペイン語ローカライズ、Anvil Forge Helper、NFG Hub。",
+      "skipLink": "プロジェクト一覧へスキップ",
+      "homeAria": "NFGホーム",
+      "projectsNav": "プロジェクト",
+      "languageLabel": "言語を選択",
+      "projectsAria": "NFGプロジェクト一覧",
+      "discordAria": "NFGのDiscordサーバーを新しいタブで開く",
+      "projects": [
+        {
+          "title": "Anvil Planner",
+          "primary": "Anvil Empires向けのWild Homestead建設プランナー。",
+          "secondary": "建物の配置、必要資材の計算、レイアウトの保存に対応。",
+          "action": "プロジェクトを開く",
+          "aria": "Anvil Plannerを新しいタブで開く"
+        },
+        {
+          "title": "Anvil Empires ロシア語ローカライズ",
+          "primary": "Windows/Steam版Anvil Empires Pre-Alpha向けの非公式ロシア語翻訳。",
+          "secondary": "UI、アイテム、建造物、生産、クエスト、システムメッセージを翻訳。",
+          "action": "1.0.1をダウンロード",
+          "aria": "GitHubからAnvil Empires ロシア語ローカライズ 1.0.1をダウンロード（新しいタブで開きます）"
+        },
+        {
+          "title": "Anvil Empires スペイン語ローカライズ",
+          "primary": "Windows/Steam版Anvil Empires Pre-Alpha向けの非公式スペイン語翻訳。",
+          "secondary": "現行ゲームバージョンに対応し、すぐに使えるテスト版言語パック。",
+          "action": "0.1.0 betaをダウンロード",
+          "aria": "GitHubからAnvil Empires スペイン語ローカライズ 0.1.0 betaをダウンロード（新しいタブで開きます）"
+        },
+        {
+          "title": "Anvil Forge Helper",
+          "primary": "鍛造品質をコンパクトなマーカーで表示するAnvil Empires向けUI Mod。",
+          "secondary": "鍛造結果を冷却バーに正確に合わせやすくします。",
+          "action": "GitHubで見る",
+          "aria": "Anvil Forge HelperのGitHubページを新しいタブで開く"
+        },
+        {
+          "title": "NFG Hub",
+          "primary": "Windows向けのNFGプロジェクトカタログ、インストーラー、ライブラリ。",
+          "secondary": "ロシア語・英語・スペイン語のUIを備えたバージョン0.2.0。",
+          "action": "0.2.0をダウンロード",
+          "aria": "Windows x64版NFG Hub 0.2.0をGitHubからダウンロード（新しいタブで開きます）"
+        }
+      ]
+    },
+    "ko": {
+      "lang": "ko",
+      "hreflang": "ko",
+      "ogLocale": "ko_KR",
+      "autonym": "한국어",
+      "shortLabel": "KO",
+      "title": "NFG 프로젝트",
+      "description": "NFG 프로젝트: Anvil Planner, Anvil Empires 러시아어·스페인어 현지화, Anvil Forge Helper, NFG Hub.",
+      "skipLink": "프로젝트로 건너뛰기",
+      "homeAria": "NFG 홈",
+      "projectsNav": "프로젝트",
+      "languageLabel": "언어 선택",
+      "projectsAria": "NFG 프로젝트 목록",
+      "discordAria": "새 탭에서 NFG Discord 서버 열기",
+      "projects": [
+        {
+          "title": "Anvil Planner",
+          "primary": "Anvil Empires용 Wild Homestead 건설 플래너입니다.",
+          "secondary": "건물을 배치하고 필요한 재료를 계산하며 레이아웃을 저장할 수 있습니다.",
+          "action": "프로젝트 열기",
+          "aria": "새 탭에서 Anvil Planner 열기"
+        },
+        {
+          "title": "Anvil Empires 러시아어 현지화",
+          "primary": "Windows/Steam용 Anvil Empires Pre-Alpha의 비공식 러시아어 번역입니다.",
+          "secondary": "인터페이스, 아이템, 건축물, 생산, 퀘스트, 시스템 메시지를 번역합니다.",
+          "action": "1.0.1 다운로드",
+          "aria": "새 탭에서 GitHub를 열어 Anvil Empires 러시아어 현지화 1.0.1 다운로드하기"
+        },
+        {
+          "title": "Anvil Empires 스페인어 현지화",
+          "primary": "Windows/Steam용 Anvil Empires Pre-Alpha의 비공식 스페인어 번역입니다.",
+          "secondary": "현재 게임 버전에 맞춘 바로 사용 가능한 테스트용 언어 팩입니다.",
+          "action": "0.1.0 beta 다운로드",
+          "aria": "새 탭에서 GitHub를 열어 Anvil Empires 스페인어 현지화 0.1.0 beta 다운로드하기"
+        },
+        {
+          "title": "Anvil Forge Helper",
+          "primary": "Anvil Empires에 간결한 단조 품질 표식을 추가하는 UI 모드입니다.",
+          "secondary": "단조 결과를 냉각 게이지에 정확히 맞출 수 있도록 도와줍니다.",
+          "action": "GitHub에서 보기",
+          "aria": "새 탭에서 Anvil Forge Helper GitHub 페이지 열기"
+        },
+        {
+          "title": "NFG Hub",
+          "primary": "Windows용 NFG 프로젝트 카탈로그, 설치 관리자, 라이브러리입니다.",
+          "secondary": "러시아어, 영어, 스페인어 인터페이스를 제공하는 버전 0.2.0입니다.",
+          "action": "0.2.0 다운로드",
+          "aria": "새 탭에서 GitHub를 열어 Windows x64용 NFG Hub 0.2.0 다운로드하기"
+        }
+      ]
+    },
+    "tr": {
+      "lang": "tr",
+      "hreflang": "tr",
+      "ogLocale": "tr_TR",
+      "autonym": "Türkçe",
+      "shortLabel": "TR",
+      "title": "NFG Projeleri",
+      "description": "NFG projeleri: Anvil Planner, Anvil Empires için Rusça ve İspanyolca yerelleştirmeler, Anvil Forge Helper ve NFG Hub.",
+      "skipLink": "Projelere geç",
+      "homeAria": "NFG — ana sayfa",
+      "projectsNav": "Projeler",
+      "languageLabel": "Dil seç",
+      "projectsAria": "NFG projeleri listesi",
+      "discordAria": "NFG Discord sunucusunu yeni sekmede aç",
+      "projects": [
+        {
+          "title": "Anvil Planner",
+          "primary": "Anvil Empires için Wild Homestead inşa planlayıcısı.",
+          "secondary": "Yapıları yerleştirin, malzemeleri hesaplayın ve düzeninizi kaydedin.",
+          "action": "Projeyi aç",
+          "aria": "Anvil Planner’ı yeni sekmede aç"
+        },
+        {
+          "title": "Anvil Empires için Rusça yerelleştirme",
+          "primary": "Anvil Empires Pre-Alpha’nın Windows/Steam için resmî olmayan Rusça çevirisi.",
+          "secondary": "Arayüzü, eşyaları, yapıları, üretimi, görevleri ve sistem mesajlarını kapsar.",
+          "action": "1.0.1 sürümünü indir",
+          "aria": "Anvil Empires Rusça yerelleştirmesi 1.0.1 sürümünü GitHub’dan yeni sekmede indir"
+        },
+        {
+          "title": "Anvil Empires için İspanyolca yerelleştirme",
+          "primary": "Anvil Empires Pre-Alpha’nın Windows/Steam için resmî olmayan İspanyolca çevirisi.",
+          "secondary": "Oyunun güncel sürümü için kullanıma hazır test dil paketi.",
+          "action": "0.1.0 beta sürümünü indir",
+          "aria": "Anvil Empires İspanyolca yerelleştirmesi 0.1.0 beta sürümünü GitHub’dan yeni sekmede indir"
+        },
+        {
+          "title": "Anvil Forge Helper",
+          "primary": "Dövme kalitesini gösteren kompakt işaretlere sahip Anvil Empires arayüz modu.",
+          "secondary": "Sonucu soğuma çubuğuyla hassas biçimde hizalamaya yardımcı olur.",
+          "action": "GitHub’da aç",
+          "aria": "Anvil Forge Helper’ı GitHub’da yeni sekmede aç"
+        },
+        {
+          "title": "NFG Hub",
+          "primary": "Windows için NFG proje kataloğu, yükleyicisi ve kitaplığı.",
+          "secondary": "0.2.0 sürümü Rusça, İngilizce ve İspanyolca arayüz sunar.",
+          "action": "0.2.0 sürümünü indir",
+          "aria": "Windows x64 için NFG Hub 0.2.0 sürümünü GitHub’dan yeni sekmede indir"
+        }
+      ]
+    }
+  }
+}
