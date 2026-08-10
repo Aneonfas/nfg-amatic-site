@@ -21,7 +21,7 @@
 - [Anvil Empires Russian localization](https://github.com/nullith2/anvil-empires-russian/releases/download/v1.0.1/Anvil-Empires-Russian-v1.0.1-steam-build-24619810.zip)
 - [Anvil Empires Spanish localization](https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v0.1.0/Anvil-Empires-Spanish-v0.1.0-steam-build-24619810.zip)
 - [Anvil Forge Helper](https://github.com/nullith2/Anvil-forge-helper)
-- [NFG Hub](https://github.com/Aneonfas/nfg-hub/releases/download/v0.2.0/NFG-Hub-v0.2.0-win-x64.zip)
+- [NFG Hub](https://github.com/Aneonfas/nfg-hub/releases/download/v0.3.0/NFG-Hub-v0.3.0-win-x64.zip)
 
 ## Notes
 
