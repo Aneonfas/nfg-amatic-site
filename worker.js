@@ -7,7 +7,9 @@ const REPO_URL = "https://github.com/Aneonfas/nfg-amatic-player";
 const PACKAGE_REPO_URL = "https://github.com/Aneonfas/nfg-amatic-packages";
 const DISCORD_URL = "https://discord.gg/RNJaFUyeyx";
 const STATIC_BASE = "https://raw.githubusercontent.com/Aneonfas/nfg-amatic-site/main";
-const STATIC_REV = "2026-08-10-i18n";
+const STATIC_REV = "2026-08-10-root-language";
+const DEFAULT_LOCALE = "en";
+const LOCALE_COOKIE = "nfg_locale";
 const LOCALE_SLUGS = new Set([
   "en",
   "ru",
@@ -60,6 +62,34 @@ async function handleRequest(request) {
     return new Response("Method Not Allowed", {
       status: 405,
       headers: { allow: "GET, HEAD" },
+    });
+  }
+
+  const isRoot = path === "/" || path === "/index.html";
+  if (isRoot) {
+    const requestedLocale = url.searchParams.get("lang")?.toLowerCase();
+    if (requestedLocale && LOCALE_SLUGS.has(requestedLocale)) {
+      return redirectToLocale(url, requestedLocale, true);
+    }
+
+    const savedLocale = readLocalePreference(request.headers.get("cookie"));
+    if (savedLocale && savedLocale !== DEFAULT_LOCALE) {
+      return redirectToLocale(url, savedLocale, false);
+    }
+
+    return serveStatic("index.html", request.method, {
+      "content-language": DEFAULT_LOCALE,
+      vary: "Cookie",
+    });
+  }
+
+  const localeSlug = localeSlugFromPath(path);
+  if (localeSlug === DEFAULT_LOCALE) {
+    return redirectToLocale(url, DEFAULT_LOCALE, true);
+  }
+  if (localeSlug) {
+    return serveStatic(`${localeSlug}/index.html`, request.method, {
+      "content-language": localeSlug,
     });
   }
 
@@ -116,11 +146,6 @@ function resolveStaticPath(path) {
   if (STATIC_ROUTES[path]) return STATIC_ROUTES[path];
   if (path.includes("..")) return null;
 
-  const localeMatch = path.match(/^\/([a-z]{2}(?:-[a-z]{2})?)(?:\/|\/index\.html)?$/);
-  if (localeMatch && LOCALE_SLUGS.has(localeMatch[1])) {
-    return `${localeMatch[1]}/index.html`;
-  }
-
   if (ASSET_PREFIXES.some(prefix => path.startsWith(prefix))) {
     return path.slice(1);
   }
@@ -128,7 +153,39 @@ function resolveStaticPath(path) {
   return null;
 }
 
-async function serveStatic(staticPath, method) {
+function localeSlugFromPath(path) {
+  const match = path.match(/^\/([a-z]{2}(?:-[a-z]{2})?)(?:\/|\/index\.html)?$/);
+  if (!match || !LOCALE_SLUGS.has(match[1])) return null;
+  return match[1];
+}
+
+function readLocalePreference(cookieHeader) {
+  if (!cookieHeader) return null;
+  for (const part of cookieHeader.split(";")) {
+    const [name, ...valueParts] = part.trim().split("=");
+    if (name !== LOCALE_COOKIE) continue;
+    const locale = valueParts.join("=").toLowerCase();
+    return LOCALE_SLUGS.has(locale) ? locale : null;
+  }
+  return null;
+}
+
+function redirectToLocale(url, locale, remember) {
+  const location = locale === DEFAULT_LOCALE
+    ? `${url.origin}/`
+    : `${url.origin}/${locale}/`;
+  const headers = {
+    location,
+    "cache-control": "private, no-store",
+    vary: "Cookie",
+  };
+  if (remember) {
+    headers["set-cookie"] = `${LOCALE_COOKIE}=${locale}; Path=/; Max-Age=31536000; SameSite=Lax; Secure`;
+  }
+  return new Response(null, { status: 302, headers });
+}
+
+async function serveStatic(staticPath, method, extraHeaders = {}) {
   const cacheTtl = cacheTtlFor(staticPath);
   const cacheBypass = cacheTtl <= 60 ? `&t=${Date.now()}` : "";
   const upstreamUrl = `${STATIC_BASE}/${staticPath}?v=${STATIC_REV}${cacheBypass}`;
@@ -145,7 +202,10 @@ async function serveStatic(staticPath, method) {
 
   return new Response(method === "HEAD" ? null : upstreamResponse.body, {
     status: 200,
-    headers: responseHeaders(contentTypeFor(staticPath), cacheTtl),
+    headers: {
+      ...responseHeaders(contentTypeFor(staticPath), cacheTtl),
+      ...extraHeaders,
+    },
   });
 }
 

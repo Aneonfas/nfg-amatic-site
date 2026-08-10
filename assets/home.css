@@ -119,7 +119,7 @@ a {
 .section-link:focus-visible,
 .language-menu summary:focus-visible,
 .language-options a:focus-visible,
-.language-card:focus-visible,
+.locale-suggestion a:focus-visible,
 .project-link:focus-visible,
 .footer-link:focus-visible {
   outline: 3px solid var(--focus);
@@ -210,76 +210,27 @@ a {
   border-top: 1px solid var(--line);
 }
 
-.language-main {
-  display: grid;
-  align-items: center;
-}
-
-.language-landing {
-  padding: 54px 24px 60px;
-  border-block: 1px solid var(--line);
-}
-
-.language-kicker,
-.language-landing h1,
-.language-intro {
-  margin: 0;
-}
-
-.language-kicker {
-  margin-bottom: 14px;
-  color: var(--accent);
-  font-size: 14px;
-  font-weight: 750;
-  letter-spacing: 0.12em;
-}
-
-.language-landing h1 {
-  max-width: 760px;
-  font-size: clamp(38px, 5vw, 62px);
-  line-height: 1.05;
-  letter-spacing: -0.045em;
-}
-
-.language-intro {
-  margin-top: 18px;
-  color: var(--muted);
-  font-size: 19px;
-}
-
-.language-grid {
-  margin-top: 44px;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.language-card {
-  min-height: 76px;
-  padding: 18px;
+.locale-suggestion {
+  margin-bottom: 18px;
+  padding: 13px 18px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 14px;
+  flex-wrap: wrap;
+  gap: 8px;
   border: 1px solid var(--line);
-  color: var(--ink);
   background: var(--active-surface);
-  font-size: 16px;
-  font-weight: 650;
-  line-height: 1.25;
-  text-decoration: none;
-}
-
-.language-card small {
   color: var(--muted);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-size: 14px;
 }
 
-.language-card:hover {
-  color: var(--accent-hover);
-  border-color: var(--accent);
+.locale-suggestion[hidden] {
+  display: none;
+}
+
+.locale-suggestion a {
+  color: var(--accent);
+  font-weight: 700;
+  text-underline-offset: 3px;
 }
 
 .project-row {
@@ -413,9 +364,6 @@ a {
     column-gap: 18px;
   }
 
-  .language-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 760px) {
@@ -453,27 +401,6 @@ a {
 
   .page-main {
     padding-block: 50px 36px;
-  }
-
-  .language-main {
-    padding-block: 38px;
-  }
-
-  .language-landing {
-    padding: 38px 0 42px;
-  }
-
-  .language-landing h1 {
-    font-size: 40px;
-  }
-
-  .language-intro {
-    font-size: 17px;
-  }
-
-  .language-grid {
-    margin-top: 32px;
-    grid-template-columns: 1fr;
   }
 
   .project-row,
