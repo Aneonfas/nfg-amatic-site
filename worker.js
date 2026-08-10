@@ -7,7 +7,19 @@ const REPO_URL = "https://github.com/Aneonfas/nfg-amatic-player";
 const PACKAGE_REPO_URL = "https://github.com/Aneonfas/nfg-amatic-packages";
 const DISCORD_URL = "https://discord.gg/RNJaFUyeyx";
 const STATIC_BASE = "https://raw.githubusercontent.com/Aneonfas/nfg-amatic-site/main";
-const STATIC_REV = "2026-08-09-d0969a6";
+const STATIC_REV = "2026-08-10-i18n";
+const LOCALE_SLUGS = new Set([
+  "en",
+  "ru",
+  "es",
+  "de",
+  "fr",
+  "pt-br",
+  "zh-cn",
+  "ja",
+  "ko",
+  "tr",
+]);
 
 const STATIC_ROUTES = {
   "/": "index.html",
@@ -30,6 +42,7 @@ const STATIC_ROUTES = {
   "/assets/site.js": "assets/site.js",
   "/robots.txt": "robots.txt",
   "/sitemap.xml": "sitemap.xml",
+  "/llms.txt": "llms.txt",
   "/favicon.ico": "favicon.ico",
 };
 
@@ -103,6 +116,11 @@ function resolveStaticPath(path) {
   if (STATIC_ROUTES[path]) return STATIC_ROUTES[path];
   if (path.includes("..")) return null;
 
+  const localeMatch = path.match(/^\/([a-z]{2}(?:-[a-z]{2})?)(?:\/|\/index\.html)?$/);
+  if (localeMatch && LOCALE_SLUGS.has(localeMatch[1])) {
+    return `${localeMatch[1]}/index.html`;
+  }
+
   if (ASSET_PREFIXES.some(prefix => path.startsWith(prefix))) {
     return path.slice(1);
   }
@@ -147,7 +165,14 @@ function responseHeaders(contentType, cacheTtl) {
 }
 
 function cacheTtlFor(path) {
-  if (path.endsWith(".html") || path === "robots.txt" || path === "sitemap.xml") return 0;
+  if (
+    path.endsWith(".html") ||
+    path === "robots.txt" ||
+    path === "sitemap.xml" ||
+    path === "llms.txt"
+  ) {
+    return 0;
+  }
   if (path.endsWith(".css") || path.endsWith(".js")) return 0;
   return 86400;
 }

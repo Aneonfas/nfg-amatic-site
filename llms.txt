@@ -1,0 +1,30 @@
+# NFG
+
+> NFG publishes tools and ready-to-install packages for Anvil Empires players.
+
+## Localized project index
+
+- [English](https://nfg-system.online/en/)
+- [Русский](https://nfg-system.online/ru/)
+- [Español](https://nfg-system.online/es/)
+- [Deutsch](https://nfg-system.online/de/)
+- [Français](https://nfg-system.online/fr/)
+- [Português (Brasil)](https://nfg-system.online/pt-br/)
+- [简体中文](https://nfg-system.online/zh-cn/)
+- [日本語](https://nfg-system.online/ja/)
+- [한국어](https://nfg-system.online/ko/)
+- [Türkçe](https://nfg-system.online/tr/)
+
+## Products
+
+- [Anvil Planner](https://anvil-planner.nfg-system.online/)
+- [Anvil Empires Russian localization](https://github.com/nullith2/anvil-empires-russian/releases/download/v1.0.1/Anvil-Empires-Russian-v1.0.1-steam-build-24619810.zip)
+- [Anvil Empires Spanish localization](https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v0.1.0/Anvil-Empires-Spanish-v0.1.0-steam-build-24619810.zip)
+- [Anvil Forge Helper](https://github.com/nullith2/Anvil-forge-helper)
+- [NFG Hub](https://github.com/Aneonfas/nfg-hub/releases/download/v0.2.0/NFG-Hub-v0.2.0-win-x64.zip)
+
+## Notes
+
+- The Russian and Spanish localization links point to ready release archives.
+- NFG Hub is the Windows catalog and installer for supported NFG packages.
+- Canonical page metadata and sitemap.xml remain the authoritative discovery sources.
