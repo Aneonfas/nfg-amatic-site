@@ -70,7 +70,9 @@ if (checkOnly) {
       continue;
     }
 
-    if (actual !== expected) drift.push(`${relativePath} is out of date`);
+    if (normalizeLineEndings(actual) !== normalizeLineEndings(expected)) {
+      drift.push(`${relativePath} is out of date`);
+    }
   }
 
   if (drift.length > 0) {
@@ -441,6 +443,10 @@ function renderSitemap() {
 ${entries}
 </urlset>
 `;
+}
+
+function normalizeLineEndings(value) {
+  return value.replace(/\r\n/g, "\n");
 }
 
 function renderLlmsText() {
