@@ -51,9 +51,8 @@ const defaultLocale = locales.find((locale) => locale.slug === "en");
 validateSource();
 
 const outputs = new Map();
-outputs.set("index.html", renderLocalePage(defaultLocale, { root: true }));
+outputs.set("index.html", renderRootFallback());
 for (const locale of locales) {
-  if (locale.slug === defaultLocale.slug) continue;
   outputs.set(`${locale.slug}/index.html`, renderLocalePage(locale));
 }
 outputs.set("sitemap.xml", renderSitemap());
@@ -127,9 +126,7 @@ function validateOutputs() {
   const expectedAlternateCount = locales.length + 1;
 
   for (const locale of locales) {
-    const relativePath = locale.slug === defaultLocale.slug
-      ? "index.html"
-      : `${locale.slug}/index.html`;
+    const relativePath = `${locale.slug}/index.html`;
     const html = outputs.get(relativePath);
     const canonical = localeUrl(locale);
     if (!html.includes(`<link rel="canonical" href="${canonical}" />`)) {
@@ -162,11 +159,23 @@ function validateOutputs() {
       throw new Error(`The sitemap is missing ${url}.`);
     }
   }
+
+  const rootFallback = outputs.get("index.html");
+  const englishUrl = localeUrl(defaultLocale);
+  if (!rootFallback.includes('<meta name="robots" content="noindex,follow" />')) {
+    throw new Error("The root fallback must not be indexed.");
+  }
+  if (!rootFallback.includes(`<link rel="canonical" href="${englishUrl}" />`)) {
+    throw new Error("The root fallback must point to the canonical English page.");
+  }
+  if (!rootFallback.includes('content="0; url=/en/"')) {
+    throw new Error("The root fallback must continue to /en/ without a language chooser.");
+  }
 }
 
-function renderLocalePage(locale, { root = false } = {}) {
+function renderLocalePage(locale) {
   const canonical = localeUrl(locale);
-  const assetPrefix = root ? "./" : "../";
+  const assetPrefix = "../";
   const projectCards = locale.projects
     .map((project, index) => renderProjectCard(project, PROJECTS[index], index))
     .join("\n\n");
@@ -221,13 +230,32 @@ ${renderLanguageMenu(locale)}
 
     <main class="shell page-main">
       <h1 class="visually-hidden">${escapeHtml(locale.title)}</h1>
-${root ? renderLocaleSuggestion() : ""}
       <section class="project-list" id="projects" aria-label="${escapeAttr(locale.projectsAria)}">
 ${projectCards}
       </section>
     </main>
 
 ${renderFooter(locale.discordAria, "    ")}
+  </body>
+</html>
+`;
+}
+
+function renderRootFallback() {
+  const englishUrl = localeUrl(defaultLocale);
+  return `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NFG</title>
+    <meta name="robots" content="noindex,follow" />
+    <meta http-equiv="refresh" content="0; url=/en/" />
+    <link rel="canonical" href="${englishUrl}" />
+  </head>
+  <body>
+    ${GENERATED_NOTICE}
+    <p><a href="/en/">Continue to NFG</a></p>
   </body>
 </html>
 `;
@@ -259,7 +287,7 @@ function renderLanguageMenu(currentLocale) {
   const links = locales
     .map((locale) => {
       const current = locale.slug === currentLocale.slug ? ' aria-current="page"' : "";
-      const href = locale.slug === defaultLocale.slug ? "/?lang=en" : `/${locale.slug}/`;
+      const href = `/${locale.slug}/`;
       return `              <a href="${escapeAttr(href)}" data-locale-choice="${escapeAttr(locale.slug)}" lang="${escapeAttr(locale.lang)}" hreflang="${escapeAttr(locale.hreflang)}"${current}>${escapeHtml(locale.autonym)}</a>`;
     })
     .join("\n");
@@ -283,45 +311,6 @@ function renderLocaleChoiceScript() {
     </script>`;
 }
 
-function renderLocaleSuggestion() {
-  const languageMap = {};
-  const labels = {};
-  for (const locale of locales) {
-    const candidates = [locale.slug, locale.lang, locale.hreflang];
-    for (const candidate of candidates) {
-      const normalized = candidate.toLowerCase();
-      languageMap[normalized] = locale.slug;
-      languageMap[normalized.split("-")[0]] ??= locale.slug;
-    }
-    labels[locale.slug] = locale.autonym;
-  }
-
-  return `      <aside class="locale-suggestion" data-locale-suggestion hidden>
-        <span>Suggested language:</span>
-        <a data-locale-suggestion-link href="/">English</a>
-      </aside>
-      <script>
-        (() => {
-          if (document.cookie.split("; ").some((value) => value.startsWith("nfg_locale="))) return;
-          const languageMap = ${jsonForHtml(languageMap)};
-          const labels = ${jsonForHtml(labels)};
-          const languages = navigator.languages?.length ? navigator.languages : [navigator.language];
-          const locale = languages
-            .map((value) => String(value || "").toLowerCase().replaceAll("_", "-"))
-            .map((value) => languageMap[value] || languageMap[value.split("-")[0]])
-            .find(Boolean);
-          if (!locale || locale === "en") return;
-          const suggestion = document.querySelector("[data-locale-suggestion]");
-          const link = suggestion?.querySelector("[data-locale-suggestion-link]");
-          if (!suggestion || !link) return;
-          link.href = "/" + encodeURIComponent(locale) + "/";
-          link.dataset.localeChoice = locale;
-          link.textContent = labels[locale];
-          suggestion.hidden = false;
-        })();
-      </script>`;
-}
-
 function renderAlternateLinks(indent) {
   const links = locales
     .map(
@@ -329,7 +318,7 @@ function renderAlternateLinks(indent) {
         `${indent}<link rel="alternate" hreflang="${escapeAttr(locale.hreflang)}" href="${localeUrl(locale)}" />`,
     )
     .join("\n");
-  return `${links}\n${indent}<link rel="alternate" hreflang="x-default" href="${SITE_URL}/" />`;
+  return `${links}\n${indent}<link rel="alternate" hreflang="x-default" href="${localeUrl(defaultLocale)}" />`;
 }
 
 function renderFavicons(prefix) {
@@ -449,7 +438,6 @@ ${productLinks}
 }
 
 function localeUrl(locale) {
-  if (locale.slug === defaultLocale.slug) return `${SITE_URL}/`;
   return `${SITE_URL}/${locale.slug}/`;
 }
 

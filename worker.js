@@ -7,7 +7,7 @@ const REPO_URL = "https://github.com/Aneonfas/nfg-amatic-player";
 const PACKAGE_REPO_URL = "https://github.com/Aneonfas/nfg-amatic-packages";
 const DISCORD_URL = "https://discord.gg/RNJaFUyeyx";
 const STATIC_BASE = "https://raw.githubusercontent.com/Aneonfas/nfg-amatic-site/main";
-const STATIC_REV = "2026-08-10-root-language";
+const STATIC_REV = "2026-08-10-auto-locale";
 const DEFAULT_LOCALE = "en";
 const LOCALE_COOKIE = "nfg_locale";
 const LOCALE_SLUGS = new Set([
@@ -22,6 +22,49 @@ const LOCALE_SLUGS = new Set([
   "ko",
   "tr",
 ]);
+const CONTENT_LANGUAGES = {
+  en: "en",
+  ru: "ru",
+  es: "es",
+  de: "de",
+  fr: "fr",
+  "pt-br": "pt-BR",
+  "zh-cn": "zh-CN",
+  ja: "ja",
+  ko: "ko",
+  tr: "tr",
+};
+const COUNTRY_LOCALES = {
+  RU: "ru",
+  ES: "es",
+  MX: "es",
+  AR: "es",
+  CL: "es",
+  CO: "es",
+  PE: "es",
+  VE: "es",
+  UY: "es",
+  PY: "es",
+  BO: "es",
+  EC: "es",
+  CR: "es",
+  PA: "es",
+  DO: "es",
+  GT: "es",
+  HN: "es",
+  SV: "es",
+  NI: "es",
+  CU: "es",
+  DE: "de",
+  AT: "de",
+  FR: "fr",
+  BR: "pt-br",
+  CN: "zh-cn",
+  SG: "zh-cn",
+  JP: "ja",
+  KR: "ko",
+  TR: "tr",
+};
 
 const STATIC_ROUTES = {
   "/": "index.html",
@@ -73,23 +116,25 @@ async function handleRequest(request) {
     }
 
     const savedLocale = readLocalePreference(request.headers.get("cookie"));
-    if (savedLocale && savedLocale !== DEFAULT_LOCALE) {
+    if (savedLocale) {
       return redirectToLocale(url, savedLocale, false);
     }
 
-    return serveStatic("index.html", request.method, {
-      "content-language": DEFAULT_LOCALE,
-      vary: "Cookie",
-    });
+    const browserLocale = localeFromAcceptLanguage(
+      request.headers.get("accept-language"),
+    );
+    const countryLocale = localeFromCountry(request.cf?.country);
+    return redirectToLocale(
+      url,
+      browserLocale || countryLocale || DEFAULT_LOCALE,
+      false,
+    );
   }
 
   const localeSlug = localeSlugFromPath(path);
-  if (localeSlug === DEFAULT_LOCALE) {
-    return redirectToLocale(url, DEFAULT_LOCALE, true);
-  }
   if (localeSlug) {
     return serveStatic(`${localeSlug}/index.html`, request.method, {
-      "content-language": localeSlug,
+      "content-language": CONTENT_LANGUAGES[localeSlug],
     });
   }
 
@@ -170,14 +215,58 @@ function readLocalePreference(cookieHeader) {
   return null;
 }
 
+function localeFromAcceptLanguage(header) {
+  if (!header) return null;
+
+  const ranges = header
+    .split(",")
+    .map((entry, index) => {
+      const [rawRange, ...parameters] = entry.trim().split(";");
+      let quality = 1;
+      for (const parameter of parameters) {
+        const match = parameter.trim().match(/^q=([0-9.]+)$/i);
+        if (!match) continue;
+        quality = Number(match[1]);
+      }
+      return {
+        range: rawRange.toLowerCase().replaceAll("_", "-"),
+        quality,
+        index,
+      };
+    })
+    .filter(
+      ({ range, quality }) =>
+        range && range !== "*" && Number.isFinite(quality) && quality > 0 && quality <= 1,
+    )
+    .sort((left, right) => right.quality - left.quality || left.index - right.index);
+
+  for (const { range } of ranges) {
+    const locale = localeFromLanguageTag(range);
+    if (locale) return locale;
+  }
+  return null;
+}
+
+function localeFromLanguageTag(tag) {
+  const primary = tag.split("-")[0];
+  if (LOCALE_SLUGS.has(primary)) return primary;
+  if (primary === "pt") return "pt-br";
+  if (primary !== "zh") return null;
+  if (/^zh-(?:tw|hk|mo|hant)(?:-|$)/.test(tag)) return null;
+  return "zh-cn";
+}
+
+function localeFromCountry(country) {
+  if (!country) return null;
+  return COUNTRY_LOCALES[String(country).toUpperCase()] || null;
+}
+
 function redirectToLocale(url, locale, remember) {
-  const location = locale === DEFAULT_LOCALE
-    ? `${url.origin}/`
-    : `${url.origin}/${locale}/`;
+  const location = `${url.origin}/${locale}/`;
   const headers = {
     location,
     "cache-control": "private, no-store",
-    vary: "Cookie",
+    vary: "Cookie, Accept-Language",
   };
   if (remember) {
     headers["set-cookie"] = `${LOCALE_COOKIE}=${locale}; Path=/; Max-Age=31536000; SameSite=Lax; Secure`;
