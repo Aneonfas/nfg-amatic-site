@@ -2,11 +2,17 @@
 
 Local working version of the `nfg-system.online` project index.
 
-The root page is a language selector. The project index is published as complete,
-server-rendered HTML under ten locale URLs: `en`, `ru`, `es`, `de`, `fr`,
-`pt-br`, `zh-cn`, `ja`, `ko`, and `tr`. Each index contains five real projects:
-Anvil Planner, the Anvil Empires Russian and Spanish localization packages,
-Anvil Forge Helper, and NFG Hub. There are no placeholder rows.
+The root page is the canonical English project index. Nine additional,
+server-rendered locale URLs are published under `ru`, `es`, `de`, `fr`,
+`pt-br`, `zh-cn`, `ja`, `ko`, and `tr`; the legacy `/en/` URL redirects to the
+root. Each index contains five real projects: Anvil Planner, the Anvil Empires
+Russian and Spanish localization packages, Anvil Forge Helper, and NFG Hub.
+There are no placeholder rows.
+
+On the first English-root visit, a supported non-English browser language is
+offered as a one-click suggestion. The site does not force a language redirect.
+An explicit language choice is remembered and takes effect on future root
+visits.
 
 Localized copy lives in `content/home.locales.json`. Generated HTML, the sitemap,
 and `llms.txt` are committed so that crawlers and users do not depend on
@@ -41,4 +47,5 @@ semantic HTML and CSS; Node.js is used only to regenerate checked-in files.
 - Source branch: `main`
 
 The Cloudflare Worker configuration in `wrangler.toml` and `worker.js` serves
-the public site and maps locale URLs to their generated `index.html` files.
+the public site, maps locale URLs to their generated `index.html` files, and
+applies an explicitly selected language preference.

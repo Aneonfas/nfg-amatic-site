@@ -46,12 +46,14 @@ const locales = Object.entries(data.locales).map(([slug, locale]) => ({
   slug,
   ...locale,
 }));
+const defaultLocale = locales.find((locale) => locale.slug === "en");
 
 validateSource();
 
 const outputs = new Map();
-outputs.set("index.html", renderLanguageLanding());
+outputs.set("index.html", renderLocalePage(defaultLocale, { root: true }));
 for (const locale of locales) {
+  if (locale.slug === defaultLocale.slug) continue;
   outputs.set(`${locale.slug}/index.html`, renderLocalePage(locale));
 }
 outputs.set("sitemap.xml", renderSitemap());
@@ -101,6 +103,7 @@ function validateSource() {
   if (locales.length !== 10) {
     throw new Error(`Expected 10 locales, found ${locales.length}.`);
   }
+  if (!defaultLocale) throw new Error("The default English locale is missing.");
 
   const slugs = new Set();
   const hreflangs = new Set();
@@ -122,13 +125,11 @@ function validateSource() {
 
 function validateOutputs() {
   const expectedAlternateCount = locales.length + 1;
-  const rootHtml = outputs.get("index.html");
-  if (count(rootHtml, 'class="language-card"') !== locales.length) {
-    throw new Error("The language landing must link every locale exactly once.");
-  }
 
   for (const locale of locales) {
-    const relativePath = `${locale.slug}/index.html`;
+    const relativePath = locale.slug === defaultLocale.slug
+      ? "index.html"
+      : `${locale.slug}/index.html`;
     const html = outputs.get(relativePath);
     const canonical = localeUrl(locale);
     if (!html.includes(`<link rel="canonical" href="${canonical}" />`)) {
@@ -152,7 +153,7 @@ function validateOutputs() {
   }
 
   const sitemap = outputs.get("sitemap.xml");
-  const canonicalUrls = [`${SITE_URL}/`, ...locales.map(localeUrl)];
+  const canonicalUrls = locales.map(localeUrl);
   if (count(sitemap, "<url>") !== canonicalUrls.length) {
     throw new Error("The sitemap canonical URL count is incorrect.");
   }
@@ -163,89 +164,9 @@ function validateOutputs() {
   }
 }
 
-function renderLanguageLanding() {
-  const canonical = `${SITE_URL}/`;
-  const description = "Choose a language to explore NFG projects and downloads.";
-  const languageLinks = locales
-    .map(
-      (locale) => `          <a class="language-card" href="/${escapeAttr(locale.slug)}/" lang="${escapeAttr(locale.lang)}" hreflang="${escapeAttr(locale.hreflang)}">
-            <span>${escapeHtml(locale.autonym)}</span>
-            <small>${escapeHtml(locale.shortLabel)}</small>
-          </a>`,
-    )
-    .join("\n");
-
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": `${SITE_URL}/#organization`,
-        name: "NFG",
-        url: canonical,
-        logo: `${SITE_URL}/assets/brand/nfg-favicon-512.png`,
-      },
-      {
-        "@type": "WebSite",
-        "@id": `${SITE_URL}/#website`,
-        name: "NFG",
-        url: canonical,
-        description,
-        publisher: { "@id": `${SITE_URL}/#organization` },
-      },
-    ],
-  };
-
-  return `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>NFG — Language</title>
-    <meta name="description" content="${escapeAttr(description)}" />
-    <meta name="robots" content="index,follow,max-image-preview:large" />
-    <link rel="canonical" href="${canonical}" />
-${renderAlternateLinks("    ")}
-${renderFavicons("./")}
-    <meta name="theme-color" content="#ffffff" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="NFG" />
-    <meta property="og:url" content="${canonical}" />
-    <meta property="og:title" content="NFG — Language" />
-    <meta property="og:description" content="${escapeAttr(description)}" />
-    <meta property="og:image" content="${OG_IMAGE}" />
-    <meta property="og:image:alt" content="NFG" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <script type="application/ld+json">${jsonForHtml(structuredData)}</script>
-    <link rel="stylesheet" href="./assets/home.css?v=${escapeAttr(data.assetRevision)}" />
-  </head>
-  <body>
-    ${GENERATED_NOTICE}
-    <header class="site-header">
-      <div class="shell header-inner">
-        <a class="wordmark" href="/" aria-label="NFG home">NFG</a>
-      </div>
-    </header>
-
-    <main class="shell page-main language-main">
-      <section class="language-landing" aria-labelledby="language-title">
-        <p class="language-kicker">NFG SYSTEM</p>
-        <h1 id="language-title">Choose a language</h1>
-        <p class="language-intro">Open the NFG project index in your language.</p>
-        <div class="language-grid">
-${languageLinks}
-        </div>
-      </section>
-    </main>
-
-${renderFooter("Open the NFG Discord server in a new tab", "    ")}
-  </body>
-</html>
-`;
-}
-
-function renderLocalePage(locale) {
+function renderLocalePage(locale, { root = false } = {}) {
   const canonical = localeUrl(locale);
+  const assetPrefix = root ? "./" : "../";
   const projectCards = locale.projects
     .map((project, index) => renderProjectCard(project, PROJECTS[index], index))
     .join("\n\n");
@@ -268,7 +189,7 @@ function renderLocalePage(locale) {
     <meta name="robots" content="index,follow,max-image-preview:large" />
     <link rel="canonical" href="${canonical}" />
 ${renderAlternateLinks("    ")}
-${renderFavicons("../")}
+${renderFavicons(assetPrefix)}
     <meta name="theme-color" content="#ffffff" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="NFG" />
@@ -281,10 +202,11 @@ ${ogAlternates}
     <meta property="og:image:alt" content="NFG" />
     <meta name="twitter:card" content="summary_large_image" />
     <script type="application/ld+json">${jsonForHtml(structuredData)}</script>
-    <link rel="stylesheet" href="../assets/home.css?v=${escapeAttr(data.assetRevision)}" />
+    <link rel="stylesheet" href="${assetPrefix}assets/home.css?v=${escapeAttr(data.assetRevision)}" />
   </head>
   <body>
     ${GENERATED_NOTICE}
+${renderLocaleChoiceScript()}
     <a class="skip-link" href="#projects">${escapeHtml(locale.skipLink)}</a>
 
     <header class="site-header">
@@ -299,6 +221,7 @@ ${renderLanguageMenu(locale)}
 
     <main class="shell page-main">
       <h1 class="visually-hidden">${escapeHtml(locale.title)}</h1>
+${root ? renderLocaleSuggestion() : ""}
       <section class="project-list" id="projects" aria-label="${escapeAttr(locale.projectsAria)}">
 ${projectCards}
       </section>
@@ -336,7 +259,8 @@ function renderLanguageMenu(currentLocale) {
   const links = locales
     .map((locale) => {
       const current = locale.slug === currentLocale.slug ? ' aria-current="page"' : "";
-      return `              <a href="/${escapeAttr(locale.slug)}/" lang="${escapeAttr(locale.lang)}" hreflang="${escapeAttr(locale.hreflang)}"${current}>${escapeHtml(locale.autonym)}</a>`;
+      const href = locale.slug === defaultLocale.slug ? "/?lang=en" : `/${locale.slug}/`;
+      return `              <a href="${escapeAttr(href)}" data-locale-choice="${escapeAttr(locale.slug)}" lang="${escapeAttr(locale.lang)}" hreflang="${escapeAttr(locale.hreflang)}"${current}>${escapeHtml(locale.autonym)}</a>`;
     })
     .join("\n");
 
@@ -346,6 +270,56 @@ function renderLanguageMenu(currentLocale) {
 ${links}
             </nav>
           </details>`;
+}
+
+function renderLocaleChoiceScript() {
+  return `    <script>
+      document.addEventListener("click", (event) => {
+        const link = event.target.closest("[data-locale-choice]");
+        const locale = link?.dataset.localeChoice;
+        if (!locale) return;
+        document.cookie = "nfg_locale=" + encodeURIComponent(locale) + "; Path=/; Max-Age=31536000; SameSite=Lax; Secure";
+      });
+    </script>`;
+}
+
+function renderLocaleSuggestion() {
+  const languageMap = {};
+  const labels = {};
+  for (const locale of locales) {
+    const candidates = [locale.slug, locale.lang, locale.hreflang];
+    for (const candidate of candidates) {
+      const normalized = candidate.toLowerCase();
+      languageMap[normalized] = locale.slug;
+      languageMap[normalized.split("-")[0]] ??= locale.slug;
+    }
+    labels[locale.slug] = locale.autonym;
+  }
+
+  return `      <aside class="locale-suggestion" data-locale-suggestion hidden>
+        <span>Suggested language:</span>
+        <a data-locale-suggestion-link href="/">English</a>
+      </aside>
+      <script>
+        (() => {
+          if (document.cookie.split("; ").some((value) => value.startsWith("nfg_locale="))) return;
+          const languageMap = ${jsonForHtml(languageMap)};
+          const labels = ${jsonForHtml(labels)};
+          const languages = navigator.languages?.length ? navigator.languages : [navigator.language];
+          const locale = languages
+            .map((value) => String(value || "").toLowerCase().replaceAll("_", "-"))
+            .map((value) => languageMap[value] || languageMap[value.split("-")[0]])
+            .find(Boolean);
+          if (!locale || locale === "en") return;
+          const suggestion = document.querySelector("[data-locale-suggestion]");
+          const link = suggestion?.querySelector("[data-locale-suggestion-link]");
+          if (!suggestion || !link) return;
+          link.href = "/" + encodeURIComponent(locale) + "/";
+          link.dataset.localeChoice = locale;
+          link.textContent = labels[locale];
+          suggestion.hidden = false;
+        })();
+      </script>`;
 }
 
 function renderAlternateLinks(indent) {
@@ -425,10 +399,7 @@ function renderLocaleStructuredData(locale, canonical) {
 }
 
 function renderSitemap() {
-  const urls = [
-    `${SITE_URL}/`,
-    ...locales.map((locale) => localeUrl(locale)),
-  ];
+  const urls = locales.map((locale) => localeUrl(locale));
   const entries = urls
     .map(
       (url) => `  <url>
@@ -478,6 +449,7 @@ ${productLinks}
 }
 
 function localeUrl(locale) {
+  if (locale.slug === defaultLocale.slug) return `${SITE_URL}/`;
   return `${SITE_URL}/${locale.slug}/`;
 }
 
