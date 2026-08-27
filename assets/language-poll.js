@@ -1,6 +1,6 @@
 export const POLL_ID = "anvil-next-language-v1";
 export const POLL_OPTIONS = Object.freeze([
-  "de", "fr", "pt-br", "pl", "it", "uk", "tr", "zh-cn", "ja", "ko", "other",
+  "de", "fr", "pt-br", "it", "tr", "zh-cn", "ja", "ko", "other",
 ]);
 
 const ENDPOINT = "/api/polls/next-language";
@@ -122,10 +122,10 @@ export async function initLanguagePoll(root, fetcher = fetch) {
     form.setAttribute("aria-busy", String(Boolean(state.pending)));
   }
 
-  function renderSnapshot(snapshot, { submitted = false, focus = false } = {}) {
+  function renderSnapshot(snapshot, { submitted = false, focus = false, alreadyVoted = false } = {}) {
     state.snapshot = snapshot;
     state.available = true;
-    state.locked = Boolean(snapshot.selectedOption);
+    state.locked = alreadyVoted || Boolean(snapshot.selectedOption);
     if (snapshot.selectedOption) state.chosen = snapshot.selectedOption;
     for (const radio of radios) radio.checked = radio.value === state.chosen;
 
@@ -148,6 +148,11 @@ export async function initLanguagePoll(root, fetcher = fetch) {
       showStatus(formatPollText(submitted ? copy.success : copy.voted, {
         language: copy.options[snapshot.selectedOption],
       }), "success", focus);
+    } else if (alreadyVoted) {
+      // A withdrawn choice is not part of the active tally, but its original
+      // vote still exists. Show the real results without offering another vote.
+      results.open = true;
+      showStatus(copy.errors.already_voted, "info", focus);
     } else {
       showStatus("", "info");
       if (focus) results.querySelector("summary").focus({ preventScroll: true });
@@ -170,10 +175,7 @@ export async function initLanguagePoll(root, fetcher = fetch) {
     updateControls();
     try {
       const snapshot = await requestPoll("GET", undefined, fetcher);
-      if (duplicate && !snapshot.selectedOption) {
-        throw new PollRequestError("already_voted");
-      }
-      renderSnapshot(snapshot, { focus });
+      renderSnapshot(snapshot, { focus, alreadyVoted: duplicate });
     } catch (error) {
       state.available = false;
       results.hidden = true;
@@ -216,8 +218,8 @@ export async function initLanguagePoll(root, fetcher = fetch) {
         state.locked = true;
         let snapshot;
         try { snapshot = validatePollSnapshot(error.payload); } catch { /* Refetch below. */ }
-        if (snapshot?.selectedOption) {
-          renderSnapshot(snapshot, { focus: true });
+        if (snapshot) {
+          renderSnapshot(snapshot, { focus: true, alreadyVoted: true });
         } else {
           state.pending = null;
           await loadPoll({ focus: true, duplicate: true });

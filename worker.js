@@ -16,6 +16,7 @@ const LOCALE_SLUGS = new Set([
   "es",
   "de",
   "fr",
+  "it",
   "pt-br",
   "zh-cn",
   "ja",
@@ -28,6 +29,7 @@ const CONTENT_LANGUAGES = {
   es: "es",
   de: "de",
   fr: "fr",
+  it: "it",
   "pt-br": "pt-BR",
   "zh-cn": "zh-CN",
   ja: "ja",
@@ -58,6 +60,7 @@ const COUNTRY_LOCALES = {
   DE: "de",
   AT: "de",
   FR: "fr",
+  IT: "it",
   BR: "pt-br",
   CN: "zh-cn",
   SG: "zh-cn",
@@ -97,8 +100,11 @@ const ASSET_PREFIXES = ["/assets/brand/", "/assets/foxhole-helper/"];
 const LANGUAGE_POLL_PATH = "/api/polls/next-language";
 const LANGUAGE_POLL_ID = "anvil-next-language-v1";
 const LANGUAGE_POLL_OPTIONS = [
-  "de", "fr", "pt-br", "pl", "it", "uk", "tr", "zh-cn", "ja", "ko", "other",
+  "de", "fr", "pt-br", "it", "tr", "zh-cn", "ja", "ko", "other",
 ];
+// Preserve historical rows from the first poll version, but exclude these
+// choices from active results. Retiring an option must not reset identities.
+const LANGUAGE_POLL_RETIRED_OPTIONS = ["pl", "uk"];
 const LANGUAGE_POLL_COOKIE = "__Host-nfg_language_poll";
 const LANGUAGE_POLL_BODY_LIMIT = 256;
 const LANGUAGE_POLL_SNAPSHOT_SQL = `
@@ -263,6 +269,9 @@ async function handleLanguagePoll(request, url, env) {
 
     const snapshot = languagePollSnapshot(result);
     if (request.method === "POST" && snapshot.selectedOption === null) {
+      if (result.results.some(row => row.selected === 1 && LANGUAGE_POLL_RETIRED_OPTIONS.includes(row.option_id))) {
+        return pollJson({ error: "already_voted", ...snapshot }, 409);
+      }
       throw new Error("Poll write missing from snapshot");
     }
 
@@ -377,7 +386,8 @@ function languagePollSnapshot(result) {
   let selectedOption = null;
   for (const row of result.results) {
     if (
-      !LANGUAGE_POLL_OPTIONS.includes(row.option_id) || counts.has(row.option_id) ||
+      (!LANGUAGE_POLL_OPTIONS.includes(row.option_id) && !LANGUAGE_POLL_RETIRED_OPTIONS.includes(row.option_id)) ||
+      counts.has(row.option_id) ||
       !Number.isSafeInteger(row.votes) || row.votes < 1 ||
       (row.selected !== 0 && row.selected !== 1) ||
       (row.selected === 1 && selectedOption !== null)
@@ -390,7 +400,10 @@ function languagePollSnapshot(result) {
   const options = LANGUAGE_POLL_OPTIONS.map(id => ({ id, votes: counts.get(id) || 0 }));
   const totalVotes = options.reduce((sum, entry) => sum + entry.votes, 0);
   if (!Number.isSafeInteger(totalVotes)) throw new Error("Invalid poll total");
-  return { pollId: LANGUAGE_POLL_ID, options, totalVotes, selectedOption };
+  return {
+    pollId: LANGUAGE_POLL_ID, options, totalVotes,
+    selectedOption: LANGUAGE_POLL_OPTIONS.includes(selectedOption) ? selectedOption : null,
+  };
 }
 
 function pollUnavailable() {

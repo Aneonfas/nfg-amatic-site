@@ -89,7 +89,7 @@ function fixture(locale = "ru") {
   };
 }
 
-test("poll copies have the same complete schema and the same eleven language options", () => {
+test("poll copies have the same complete schema and the nine approved options", () => {
   const expectedKeys = Object.keys(content.locales.en.poll).sort();
   const errorKeys = Object.keys(content.locales.en.poll.errors).sort();
   for (const [locale, { poll }] of Object.entries(content.locales)) {
@@ -105,8 +105,8 @@ test("poll copies have the same complete schema and the same eleven language opt
     assert.match(poll.success, /\{language\}/);
     assert.match(poll.voted, /\{language\}/);
   }
-  assert.equal(POLL_OPTIONS.length, 11);
-  for (const existing of ["en", "ru", "es"]) assert.ok(!POLL_OPTIONS.includes(existing));
+  assert.deepEqual(POLL_OPTIONS, ["de", "fr", "pt-br", "it", "tr", "zh-cn", "ja", "ko", "other"]);
+  for (const excluded of ["en", "ru", "es", "pl", "uk"]) assert.ok(!POLL_OPTIONS.includes(excluded));
   assert.doesNotMatch(source, /localStorage|sessionStorage|innerHTML/);
 });
 
@@ -194,6 +194,7 @@ test("snapshot validation normalizes order and refuses inconsistent or incomplet
   const invalid = [
     null, {}, { ...good, pollId: "another-poll" }, { ...good, selectedOption: undefined },
     { ...good, selectedOption: "ru" }, { ...good, selectedOption: "pl" },
+    { ...good, selectedOption: "uk" },
     { ...good, totalVotes: 99 }, { ...good, totalVotes: -1 }, { ...good, totalVotes: 3.1 },
     { ...good, options: good.options.slice(1) },
     { ...good, options: good.options.map((item, i) => i === 0 ? { ...item, votes: -1 } : item) },
@@ -289,6 +290,18 @@ test("a saved server choice is restored without POST, including after a locale s
   assert.equal(f.nodes.submit.disabled, true);
 });
 
+test("the Italian page restores an Italian vote with localized results and messages", async () => {
+  const f = fixture("it");
+  f.queue.push(json(snapshot({ it: 3 }, "it")));
+  await initLanguagePoll(f.root, f.fetcher);
+  assert.equal(f.calls[0].method, "GET");
+  assert.equal(f.nodes.form.hidden, true);
+  assert.equal(f.nodes.total.textContent, "Voti totali: 3");
+  assert.equal(f.nodes.status.textContent, "Il tuo voto è registrato: Italiano.");
+  assert.equal(f.radios.find((radio) => radio.checked).value, "it");
+  assert.match(f.rows.find((row) => row.dataset.pollResult === "it").querySelector("[data-poll-count]").textContent, /Voti: 3/);
+});
+
 test("failed POST preserves the selection; a GET retry can recover a vote accepted before connection loss", async () => {
   const f = fixture();
   f.queue.push(json(snapshot()), new Error("response lost"), json(snapshot({ ja: 1 }, "ja")));
@@ -323,16 +336,16 @@ test("failed refresh retains the chosen radio, hides unavailable results, and en
 
 test("cookie_required explains recovery, preserves the choice, and allows voting after GET retry", async () => {
   const f = fixture();
-  f.queue.push(json(snapshot()), json({ error: "cookie_required" }, 428), json(snapshot()), json(snapshot({ pl: 1 }, "pl")));
+  f.queue.push(json(snapshot()), json({ error: "cookie_required" }, 428), json(snapshot()), json(snapshot({ it: 1 }, "it")));
   await initLanguagePoll(f.root, f.fetcher);
-  await f.select("pl");
+  await f.select("it");
   await f.submit();
   assert.equal(f.nodes.status.textContent, f.copy.errors.cookie_required);
-  assert.equal(f.radios.find((radio) => radio.checked).value, "pl");
+  assert.equal(f.radios.find((radio) => radio.checked).value, "it");
   await f.retry();
-  assert.equal(f.radios.find((radio) => radio.checked).value, "pl");
+  assert.equal(f.radios.find((radio) => radio.checked).value, "it");
   await f.submit();
-  assert.equal(f.nodes.status.textContent, "Спасибо! Ваш голос: Польский.");
+  assert.equal(f.nodes.status.textContent, "Спасибо! Ваш голос: Итальянский.");
 });
 
 test("in-flight submission disables controls and prevents duplicate requests", async () => {
@@ -374,6 +387,27 @@ for (const withSnapshot of [true, false]) {
     assert.equal(f.radios.find((radio) => radio.checked).value, "tr");
     assert.equal(f.nodes.form.hidden, true);
     assert.equal(f.nodes.status.textContent, "Ваш голос учтён: Турецкий.");
+  });
+}
+
+for (const withSnapshot of [true, false]) {
+  test(`a withdrawn prior choice ${withSnapshot ? "with snapshot" : "followed by GET"} shows active results and stays locked`, async () => {
+    const f = fixture("it");
+    const activeResults = snapshot({ de: 2 });
+    f.queue.push(json(activeResults), json({ error: "already_voted", ...(withSnapshot ? activeResults : {}) }, 409));
+    if (!withSnapshot) f.queue.push(json(activeResults));
+    await initLanguagePoll(f.root, f.fetcher);
+    await f.select("it");
+    await f.submit();
+    assert.equal(f.nodes.status.textContent, f.copy.errors.already_voted);
+    assert.equal(f.nodes.form.hidden, true);
+    assert.equal(f.nodes.submit.disabled, true);
+    assert.equal(f.nodes.results.hidden, false);
+    assert.equal(f.nodes.results.open, true);
+    assert.equal(f.nodes.total.textContent, "Voti totali: 2");
+    assert.equal(f.nodes.retry.hidden, true);
+    await f.submit();
+    assert.deepEqual(f.calls.map((call) => call.method), withSnapshot ? ["GET", "POST"] : ["GET", "POST", "GET"]);
   });
 }
 
