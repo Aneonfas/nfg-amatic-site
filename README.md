@@ -27,6 +27,12 @@ the choices are German, French, Brazilian Portuguese, Polish, Italian,
 Ukrainian, Turkish, Simplified Chinese, Japanese, Korean and Other. Visitors
 can suggest a specific other language through the existing Discord link.
 
+A localized shortcut is visible from the first screen: a fixed side tab on
+wide screens and a compact sticky strip below the header on narrow screens.
+It links to the same poll, moves keyboard focus to its region, respects reduced
+motion, and remains a working anchor without JavaScript. When the poll is in
+view, the shortcut hides without shifting the page or hiding keyboard focus.
+
 `GET /api/polls/next-language` returns shared results and this browser's choice.
 `POST` to the same endpoint accepts only JSON such as `{"option":"de"}`.
 The first GET establishes a random, secure, HttpOnly cookie. D1's primary key

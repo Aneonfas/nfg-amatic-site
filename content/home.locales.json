@@ -1,6 +1,6 @@
 {
   "lastModified": "2026-08-27",
-  "assetRevision": "2026-08-27-language-poll",
+  "assetRevision": "2026-08-27-poll-shortcut",
   "locales": {
     "en": {
       "lang": "en",
@@ -17,6 +17,7 @@
       "projectsAria": "NFG project list",
       "discordAria": "Open the NFG Discord server in a new tab",
       "poll": {
+        "shortcut": "Poll: next language",
         "eyebrow": "Anvil Empires · Community poll",
         "title": "Which language should we localize next?",
         "description": "Russian and Spanish localizations are already available. Help us choose the next language for Anvil Empires.",
@@ -103,6 +104,7 @@
       "projectsAria": "Список проектов NFG",
       "discordAria": "Открыть Discord-сервер NFG в новой вкладке",
       "poll": {
+        "shortcut": "Опрос: следующий язык",
         "eyebrow": "Anvil Empires · Голосование",
         "title": "Какой язык локализации добавить следующим?",
         "description": "Русская и испанская локализации уже доступны. Помогите выбрать следующий язык для Anvil Empires.",
@@ -189,6 +191,7 @@
       "projectsAria": "Lista de proyectos NFG",
       "discordAria": "Abrir el servidor de Discord de NFG en una pestaña nueva",
       "poll": {
+        "shortcut": "Encuesta: próximo idioma",
         "eyebrow": "Anvil Empires · Encuesta",
         "title": "¿Cuál debería ser el próximo idioma de la localización?",
         "description": "Las localizaciones al ruso y al español ya están disponibles. Ayúdanos a elegir el próximo idioma para Anvil Empires.",
@@ -275,6 +278,7 @@
       "projectsAria": "Liste der NFG-Projekte",
       "discordAria": "NFG-Discord-Server in einem neuen Tab öffnen",
       "poll": {
+        "shortcut": "Umfrage: nächste Sprache",
         "eyebrow": "Anvil Empires · Umfrage",
         "title": "Welche Sprache sollen wir als Nächstes hinzufügen?",
         "description": "Russische und spanische Lokalisierungen sind bereits verfügbar. Hilf uns, die nächste Sprache für Anvil Empires auszuwählen.",
@@ -361,6 +365,7 @@
       "projectsAria": "Liste des projets NFG",
       "discordAria": "Ouvrir le serveur Discord de NFG dans un nouvel onglet",
       "poll": {
+        "shortcut": "Sondage : prochaine langue",
         "eyebrow": "Anvil Empires · Sondage",
         "title": "Dans quelle langue traduire le jeu ensuite ?",
         "description": "Les localisations russe et espagnole sont déjà disponibles. Aidez-nous à choisir la prochaine langue pour Anvil Empires.",
@@ -447,6 +452,7 @@
       "projectsAria": "Lista de projetos da NFG",
       "discordAria": "Abrir o servidor da NFG no Discord em uma nova guia",
       "poll": {
+        "shortcut": "Enquete: próximo idioma",
         "eyebrow": "Anvil Empires · Enquete",
         "title": "Qual deve ser o próximo idioma da localização?",
         "description": "As localizações em russo e espanhol já estão disponíveis. Ajude a escolher o próximo idioma para Anvil Empires.",
@@ -533,6 +539,7 @@
       "projectsAria": "NFG 项目列表",
       "discordAria": "在新标签页中打开 NFG Discord 服务器",
       "poll": {
+        "shortcut": "投票：下一种语言",
         "eyebrow": "Anvil Empires · 社区投票",
         "title": "你希望接下来添加哪种语言的本地化？",
         "description": "俄语和西班牙语本地化已发布。帮助我们为 Anvil Empires 选择下一种语言。",
@@ -619,6 +626,7 @@
       "projectsAria": "NFGプロジェクト一覧",
       "discordAria": "NFGのDiscordサーバーを新しいタブで開く",
       "poll": {
+        "shortcut": "投票：次の翻訳言語",
         "eyebrow": "Anvil Empires · アンケート",
         "title": "次はどの言語にローカライズしてほしいですか？",
         "description": "ロシア語版とスペイン語版は公開済みです。Anvil Empiresの次の対応言語を選ぶため、ご意見をお聞かせください。",
@@ -705,6 +713,7 @@
       "projectsAria": "NFG 프로젝트 목록",
       "discordAria": "새 탭에서 NFG Discord 서버 열기",
       "poll": {
+        "shortcut": "투표: 다음 번역 언어",
         "eyebrow": "Anvil Empires · 커뮤니티 투표",
         "title": "다음에는 어떤 언어로 번역할까요?",
         "description": "러시아어와 스페인어 현지화는 이미 제공되고 있습니다. Anvil Empires에 다음으로 추가할 언어를 선택해 주세요.",
@@ -791,6 +800,7 @@
       "projectsAria": "NFG projeleri listesi",
       "discordAria": "NFG Discord sunucusunu yeni sekmede aç",
       "poll": {
+        "shortcut": "Anket: sıradaki dil",
         "eyebrow": "Anvil Empires · Topluluk anketi",
         "title": "Sıradaki yerelleştirme hangi dilde olsun?",
         "description": "Rusça ve İspanyolca yerelleştirmeler zaten mevcut. Anvil Empires için sıradaki dili seçmemize yardımcı olun.",

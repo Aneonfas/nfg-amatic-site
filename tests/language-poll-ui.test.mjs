@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const content = JSON.parse(await readFile(path.join(rootDir, "content/home.locales.json"), "utf8"));
 const source = await readFile(path.join(rootDir, "assets/language-poll.js"), "utf8");
-const { POLL_ID, POLL_OPTIONS, validatePollSnapshot, requestPoll, initLanguagePoll } =
+const { POLL_ID, POLL_OPTIONS, validatePollSnapshot, requestPoll, initLanguagePoll, initPollShortcut } =
   await import(`data:text/javascript;base64,${Buffer.from(source).toString("base64")}`);
 
 function snapshot(counts = {}, selectedOption = null) {
@@ -28,7 +28,21 @@ class Element {
   setAttribute(key, value) { this.attributes[key] = value; }
   addEventListener(event, callback) { this.listeners[event] = callback; }
   focus() { this.focused = true; }
-  async fire(event) { await this.listeners[event]?.({ preventDefault() {} }); }
+  async fire(event, details = { preventDefault() {} }) { await this.listeners[event]?.(details); }
+}
+
+function shortcutFixture() {
+  const ownerDocument = { activeElement: null };
+  const root = new Element({ ownerDocument });
+  const dock = new Element();
+  const link = new Element({ ownerDocument, attributes: { href: "#language-poll" } });
+  dock.children.set("[data-poll-shortcut]", link);
+  class Observer {
+    constructor(callback) { this.callback = callback; this.targets = []; }
+    observe(target) { this.targets.push(target); }
+    emit(...entries) { this.callback(entries); }
+  }
+  return { root, dock, link, ownerDocument, Observer };
 }
 
 function fixture(locale = "ru") {
@@ -103,6 +117,15 @@ for (const [locale, { poll }] of Object.entries(content.locales)) {
     assert.equal((html.match(/data-language-poll/g) ?? []).length, 1);
     assert.ok(html.indexOf('id="language-poll"') > html.lastIndexOf("</article>"));
     assert.match(html, /<section[^>]*id="language-poll"[^>]*aria-labelledby="language-poll-title"/);
+    const pollSection = html.match(/<section\b[^>]*\bid="language-poll"[^>]*>/)?.[0];
+    assert.match(pollSection, /\btabindex="-1"/);
+    const shortcuts = [...html.matchAll(/<a\b([^>]*\bdata-poll-shortcut\b[^>]*)>([\s\S]*?)<\/a>/g)];
+    assert.equal(shortcuts.length, 1, "One shortcut must point to the existing poll");
+    assert.ok(shortcuts[0].index < html.indexOf("<main"), "The shortcut must precede the main content");
+    assert.match(shortcuts[0][1], /\bhref="#language-poll"/);
+    assert.equal(typeof poll.shortcut, "string");
+    const shortcutText = poll.shortcut.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+    assert.ok(shortcuts[0][2].includes(shortcutText), `${locale} shortcut must use its localized label`);
     assert.match(html, /<script type="module" src="\.\.\/assets\/language-poll\.js\?v=/);
     assert.match(html, /<form data-poll-form[^>]*novalidate hidden>/);
     assert.match(html, /<fieldset class="poll-fieldset" data-poll-fieldset disabled>/);
@@ -115,6 +138,55 @@ for (const [locale, { poll }] of Object.entries(content.locales)) {
     assert.equal(config.locale, content.locales[locale].lang);
   });
 }
+
+test("poll shortcut follows only the poll's viewport transitions without requesting or casting votes", (t) => {
+  const fetch = t.mock.method(globalThis, "fetch", () => { throw new Error("A shortcut must not call the API"); });
+  const f = shortcutFixture();
+  const observer = initPollShortcut(f.root, f.dock, f.Observer);
+  assert.ok(observer instanceof f.Observer);
+  assert.deepEqual(observer.targets, [f.root]);
+  assert.equal(f.dock.dataset.pollInView, "false");
+  observer.emit({ target: f.root, isIntersecting: false });
+  assert.equal(f.dock.dataset.pollInView, "false");
+  observer.emit({ target: f.root, isIntersecting: true });
+  assert.equal(f.dock.dataset.pollInView, "true");
+  observer.emit({ target: new Element(), isIntersecting: false });
+  assert.equal(f.dock.dataset.pollInView, "true", "Unrelated entries cannot change poll visibility");
+  observer.emit({ target: new Element(), isIntersecting: true }, { target: f.root, isIntersecting: false });
+  assert.equal(f.dock.dataset.pollInView, "false");
+  assert.equal(fetch.mock.callCount(), 0);
+});
+
+test("poll shortcut stays visible while its link has focus and hides after blur only if the poll is in view", async () => {
+  const f = shortcutFixture();
+  const observer = initPollShortcut(f.root, f.dock, f.Observer);
+  f.ownerDocument.activeElement = f.link;
+  await f.link.fire("focus");
+  observer.emit({ target: f.root, isIntersecting: true });
+  assert.equal(f.dock.dataset.pollInView, "false", "Scrolling must not hide a focused link");
+  f.ownerDocument.activeElement = f.root;
+  await f.link.fire("blur");
+  assert.equal(f.dock.dataset.pollInView, "true");
+
+  observer.emit({ target: f.root, isIntersecting: false });
+  f.ownerDocument.activeElement = f.link;
+  await f.link.fire("focus");
+  f.ownerDocument.activeElement = null;
+  await f.link.fire("blur");
+  assert.equal(f.dock.dataset.pollInView, "false", "Blur alone cannot hide the shortcut to an offscreen poll");
+});
+
+test("without IntersectionObserver the poll shortcut remains a working native anchor", async () => {
+  for (const Observer of [null, undefined]) {
+    const f = shortcutFixture();
+    assert.equal(initPollShortcut(f.root, f.dock, Observer), null);
+    assert.notEqual(f.dock.dataset.pollInView, "true");
+    assert.equal(f.link.attributes.href, "#language-poll");
+    let prevented = false;
+    await f.link.fire("click", { preventDefault() { prevented = true; } });
+    assert.equal(prevented, false, "The shortcut must retain native anchor navigation");
+  }
+});
 
 test("snapshot validation normalizes order and refuses inconsistent or incomplete results", () => {
   const good = snapshot({ de: 2, fr: 1 }, "de");
