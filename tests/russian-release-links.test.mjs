@@ -17,6 +17,20 @@ const spanishVersion = "0.1.0";
 const spanishBuild = "24619810";
 const spanishDownload =
   "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v0.1.0/Anvil-Empires-Spanish-v0.1.0-steam-build-24619810.zip";
+const lastTestedWording = {
+  en: /last tested/i,
+  ru: /последняя проверка/i,
+  es: /última prueba/i,
+  de: /zuletzt.*getestet/i,
+  fr: /dernier test/i,
+  "pt-br": /último teste/i,
+  "zh-cn": /上次测试/,
+  ja: /最終動作確認/,
+  ko: /마지막 테스트/,
+  tr: /son test/i,
+};
+const exclusiveBuildWording =
+  /\bonly\b|только|\bsolo\b|\bnur\b|\buniquement\b|\bapenas\b|仅适用|専用|전용|yalnızca/i;
 
 test("Russian release checks cover every published locale", () => {
   assert.deepEqual(Object.keys(content.locales).sort(), [...locales].sort());
@@ -55,7 +69,7 @@ for (const locale of locales) {
     assert.doesNotMatch(html, oldRussianRepository);
   });
 
-  test(`${locale}: Spanish copy, HTML and JSON-LD name the published beta and required build`, async () => {
+  test(`${locale}: Spanish copy, HTML and JSON-LD name the published beta and last tested build`, async () => {
     const project = content.locales[locale].projects[2];
     assert.deepEqual(
       project.secondary.match(/\d+\.\d+\.\d+/g),
@@ -65,7 +79,17 @@ for (const locale of locales) {
     assert.deepEqual(
       project.secondary.match(/\b\d{8}\b/g),
       [spanishBuild],
-      `${locale} Spanish description must identify the required Steam build`,
+      `${locale} Spanish description must identify the last tested game build`,
+    );
+    assert.match(
+      project.secondary,
+      lastTestedWording[locale],
+      `${locale} must present the build as testing history`,
+    );
+    assert.doesNotMatch(
+      project.secondary,
+      exclusiveBuildWording,
+      `${locale} must not restrict installation to the tested build`,
     );
 
     const html = await readFile(path.join(rootDir, locale, "index.html"), "utf8");
@@ -99,7 +123,7 @@ test("llms.txt points to the same Russian release archive", async () => {
   assert.doesNotMatch(text, oldRussianRepository);
 });
 
-test("llms.txt carries the same Spanish compatibility warning as the English page", async () => {
+test("llms.txt carries the same Spanish release and testing note as the English page", async () => {
   const text = await readFile(path.join(rootDir, "llms.txt"), "utf8");
   const spanishLines = text.split(/\r?\n/).filter(
     (line) => line.startsWith("- [Anvil Empires Spanish localization]") ||

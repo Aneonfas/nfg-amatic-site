@@ -26,6 +26,6 @@
 ## Notes
 
 - The Russian and Spanish localization links point to ready release archives.
-- Spanish localization: Published beta 0.1.0 for Steam build 24619810 only. Check your game's build before installing.
+- Spanish localization: Beta 0.1.0 is available. Last tested on game build 24619810.
 - NFG Hub is the Windows catalog and installer for supported NFG packages.
 - Canonical page metadata and sitemap.xml remain the authoritative discovery sources.
