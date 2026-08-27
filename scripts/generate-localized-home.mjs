@@ -129,7 +129,7 @@ function validatePollCopy(locale) {
   const required = [
     "eyebrow", "title", "description", "choose", "choiceRequired", "submit", "submitting",
     "loading", "retry", "results", "totalVotes", "resultCount", "yourVote", "voted",
-    "success", "browserNote", "suggest", "noscript",
+    "success", "browserNote", "suggest", "noscript", "shortcut",
   ];
   const errors = [
     "unavailable", "vote_failed", "cookie_required", "forbidden", "rate_limited",
@@ -275,6 +275,8 @@ ${renderLanguageMenu(locale)}
       </div>
     </header>
 
+${renderPollShortcut(locale)}
+
     <main class="shell page-main">
       <h1 class="visually-hidden">${escapeHtml(locale.title)}</h1>
       <section class="project-list" id="projects" aria-label="${escapeAttr(locale.projectsAria)}">
@@ -331,6 +333,17 @@ function renderProjectCard(project, definition, index) {
         </article>`;
 }
 
+function renderPollShortcut(locale) {
+  return `    <div class="poll-shortcut-dock" data-poll-shortcut-dock>
+      <a class="poll-shortcut" href="#language-poll" data-poll-shortcut>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4 4v16h16M8 15v-4m5 4V7m5 8V4" />
+        </svg>
+        <span>${escapeHtml(locale.poll.shortcut)}</span>
+      </a>
+    </div>`;
+}
+
 function renderLanguagePoll(locale) {
   const poll = locale.poll;
   const options = POLL_OPTIONS.map((id) => `                <label class="poll-option">
@@ -346,7 +359,7 @@ function renderLanguagePoll(locale) {
               </li>`).join("\n");
 
   return `
-      <section class="language-poll" id="language-poll" aria-labelledby="language-poll-title" data-language-poll data-poll-id="${POLL_ID}">
+      <section class="language-poll" id="language-poll" aria-labelledby="language-poll-title" tabindex="-1" data-language-poll data-poll-id="${POLL_ID}">
         <div class="poll-intro">
           <p class="poll-eyebrow">${escapeHtml(poll.eyebrow)}</p>
           <h2 id="language-poll-title">${escapeHtml(poll.title)}</h2>

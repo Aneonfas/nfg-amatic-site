@@ -236,8 +236,36 @@ export async function initLanguagePoll(root, fetcher = fetch) {
   return { refresh: loadPoll };
 }
 
+// Keep native anchor navigation/focus working even without JS or a working API.
+export function initPollShortcut(root, dock, Observer = typeof IntersectionObserver === "undefined" ? null : IntersectionObserver) {
+  const shortcut = dock?.querySelector("[data-poll-shortcut]");
+  if (!root || !shortcut || !Observer) return null;
+
+  let inView = false;
+  function updateVisibility() {
+    // Do not remove the keyboard user's current focus as they scroll.
+    const focused = root.ownerDocument.activeElement === shortcut;
+    dock.dataset.pollInView = String(inView && !focused);
+  }
+
+  shortcut.addEventListener("blur", updateVisibility);
+  updateVisibility();
+  const observer = new Observer((entries) => {
+    for (const entry of entries) {
+      if (entry.target !== root) continue;
+      inView = entry.isIntersecting;
+      updateVisibility();
+    }
+  }, { rootMargin: "-80px 0px -64px 0px", threshold: 0 });
+  // Observe the whole section: long results must not bring the shortcut back
+  // merely because the heading has scrolled out of view.
+  observer.observe(root);
+  return observer;
+}
+
 if (typeof document !== "undefined") {
   for (const root of document.querySelectorAll("[data-language-poll]")) {
+    initPollShortcut(root, document.querySelector("[data-poll-shortcut-dock]"));
     void initLanguagePoll(root);
   }
 }
