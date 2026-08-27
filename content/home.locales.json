@@ -34,7 +34,7 @@
         {
           "title": "Anvil Empires Spanish Localization",
           "primary": "An unofficial Spanish translation for Anvil Empires Pre-Alpha on Windows/Steam.",
-          "secondary": "A ready-to-install beta language pack for the current game build.",
+          "secondary": "Published beta 0.1.0 for Steam build 24619810 only. Check your game's build before installing.",
           "action": "Download 0.1.0 beta",
           "aria": "Download Anvil Empires Spanish Localization 0.1.0 beta from GitHub in a new tab"
         },
@@ -86,7 +86,7 @@
         {
           "title": "Испанская локализация Anvil Empires",
           "primary": "Неофициальный испанский перевод Anvil Empires Pre-Alpha для Windows/Steam.",
-          "secondary": "Готовый тестовый языковой пакет для актуальной версии игры.",
+          "secondary": "Опубликованная beta 0.1.0 только для Steam build 24619810. Перед установкой сверьте сборку игры.",
           "action": "Скачать 0.1.0 beta",
           "aria": "Скачать испанскую локализацию Anvil Empires 0.1.0 beta с GitHub в новой вкладке"
         },
@@ -138,7 +138,7 @@
         {
           "title": "Localización española de Anvil Empires",
           "primary": "Traducción no oficial al español de Anvil Empires Pre-Alpha para Windows/Steam.",
-          "secondary": "Paquete de idioma beta listo para instalar para la versión actual del juego.",
+          "secondary": "Beta 0.1.0 publicada solo para Steam build 24619810. Comprueba el build de tu juego antes de instalar.",
           "action": "Descargar 0.1.0 beta",
           "aria": "Descargar la localización española de Anvil Empires 0.1.0 beta desde GitHub en una pestaña nueva"
         },
@@ -190,7 +190,7 @@
         {
           "title": "Spanische Lokalisierung für Anvil Empires",
           "primary": "Inoffizielle spanische Übersetzung von Anvil Empires Pre-Alpha für Windows/Steam.",
-          "secondary": "Fertiges Test-Sprachpaket für die aktuelle Spielversion.",
+          "secondary": "Veröffentlichte Beta 0.1.0 nur für Steam Build 24619810. Prüfe vor der Installation den Build deines Spiels.",
           "action": "0.1.0 beta herunterladen",
           "aria": "Spanische Lokalisierung für Anvil Empires 0.1.0 beta von GitHub in einem neuen Tab herunterladen"
         },
@@ -242,7 +242,7 @@
         {
           "title": "Localisation espagnole d’Anvil Empires",
           "primary": "Traduction espagnole non officielle de la version pré-alpha d’Anvil Empires pour Windows/Steam.",
-          "secondary": "Pack linguistique de test prêt à l’emploi pour la version actuelle du jeu.",
+          "secondary": "Bêta 0.1.0 publiée uniquement pour le build Steam 24619810. Vérifiez le build de votre jeu avant l’installation.",
           "action": "Télécharger 0.1.0 beta",
           "aria": "Télécharger la localisation espagnole 0.1.0 beta d’Anvil Empires depuis GitHub dans un nouvel onglet"
         },
@@ -294,7 +294,7 @@
         {
           "title": "Localização de Anvil Empires em espanhol",
           "primary": "Tradução não oficial para o espanhol da versão pré-alfa de Anvil Empires para Windows/Steam.",
-          "secondary": "Pacote de idioma de teste pronto para uso na versão atual do jogo.",
+          "secondary": "Beta 0.1.0 publicada apenas para a build 24619810 do Steam. Confira a build do jogo antes de instalar.",
           "action": "Baixar 0.1.0 beta",
           "aria": "Baixar a localização de Anvil Empires em espanhol, versão 0.1.0 beta, do GitHub em uma nova guia"
         },
@@ -346,7 +346,7 @@
         {
           "title": "Anvil Empires 西班牙语本地化",
           "primary": "面向 Windows/Steam 版 Anvil Empires Pre-Alpha 的非官方西班牙语翻译。",
-          "secondary": "适配当前游戏版本、可直接使用的测试语言包。",
+          "secondary": "已发布的 Beta 0.1.0 仅适用于 Steam 构建版本 24619810。安装前请核对游戏构建版本。",
           "action": "下载 0.1.0 beta",
           "aria": "在新标签页中从 GitHub 下载 Anvil Empires 西班牙语本地化 0.1.0 beta"
         },
@@ -398,7 +398,7 @@
         {
           "title": "Anvil Empires スペイン語ローカライズ",
           "primary": "Windows/Steam版Anvil Empires Pre-Alpha向けの非公式スペイン語翻訳。",
-          "secondary": "現行ゲームバージョンに対応し、すぐに使えるテスト版言語パック。",
+          "secondary": "公開済みのベータ版 0.1.0 は Steam ビルド 24619810 専用です。インストール前にゲームのビルドを確認してください。",
           "action": "0.1.0 betaをダウンロード",
           "aria": "GitHubからAnvil Empires スペイン語ローカライズ 0.1.0 betaをダウンロード（新しいタブで開きます）"
         },
@@ -450,7 +450,7 @@
         {
           "title": "Anvil Empires 스페인어 현지화",
           "primary": "Windows/Steam용 Anvil Empires Pre-Alpha의 비공식 스페인어 번역입니다.",
-          "secondary": "현재 게임 버전에 맞춘 바로 사용 가능한 테스트용 언어 팩입니다.",
+          "secondary": "공개된 베타 0.1.0은 Steam 빌드 24619810 전용입니다. 설치 전에 게임의 빌드를 확인하세요.",
           "action": "0.1.0 beta 다운로드",
           "aria": "새 탭에서 GitHub를 열어 Anvil Empires 스페인어 현지화 0.1.0 beta 다운로드하기"
         },
@@ -502,7 +502,7 @@
         {
           "title": "Anvil Empires için İspanyolca yerelleştirme",
           "primary": "Anvil Empires Pre-Alpha’nın Windows/Steam için resmî olmayan İspanyolca çevirisi.",
-          "secondary": "Oyunun güncel sürümü için kullanıma hazır test dil paketi.",
+          "secondary": "Yayımlanan beta 0.1.0 yalnızca Steam derlemesi 24619810 içindir. Kurulumdan önce oyunun derlemesini kontrol edin.",
           "action": "0.1.0 beta sürümünü indir",
           "aria": "Anvil Empires İspanyolca yerelleştirmesi 0.1.0 beta sürümünü GitHub’dan yeni sekmede indir"
         },
