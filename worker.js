@@ -85,6 +85,7 @@ const STATIC_ROUTES = {
   "/assets/site-20260529d.css": "assets/site.css",
   "/assets/home.css": "assets/home.css",
   "/assets/site.js": "assets/site.js",
+  "/assets/language-poll.js": "assets/language-poll.js",
   "/robots.txt": "robots.txt",
   "/sitemap.xml": "sitemap.xml",
   "/llms.txt": "llms.txt",
@@ -93,13 +94,34 @@ const STATIC_ROUTES = {
 
 const ASSET_PREFIXES = ["/assets/brand/", "/assets/foxhole-helper/"];
 
-addEventListener("fetch", event => {
-  event.respondWith(handleRequest(event.request));
-});
+const LANGUAGE_POLL_PATH = "/api/polls/next-language";
+const LANGUAGE_POLL_ID = "anvil-next-language-v1";
+const LANGUAGE_POLL_OPTIONS = [
+  "de", "fr", "pt-br", "pl", "it", "uk", "tr", "zh-cn", "ja", "ko", "other",
+];
+const LANGUAGE_POLL_COOKIE = "__Host-nfg_language_poll";
+const LANGUAGE_POLL_BODY_LIMIT = 256;
+const LANGUAGE_POLL_SNAPSHOT_SQL = `
+  SELECT option_id, COUNT(*) AS votes,
+         MAX(CASE WHEN voter_hash = ?2 THEN 1 ELSE 0 END) AS selected
+  FROM language_poll_votes
+  WHERE poll_id = ?1
+  GROUP BY option_id
+`;
 
-async function handleRequest(request) {
+export default {
+  fetch(request, env) {
+    return handleRequest(request, env);
+  },
+};
+
+async function handleRequest(request, env = {}) {
   const url = new URL(request.url);
   const path = normalizePath(url.pathname);
+
+  if (path === LANGUAGE_POLL_PATH || path === `${LANGUAGE_POLL_PATH}/`) {
+    return handleLanguagePoll(request, url, env);
+  }
 
   if (request.method !== "GET" && request.method !== "HEAD") {
     return new Response("Method Not Allowed", {
@@ -179,6 +201,217 @@ async function handleRequest(request) {
   return new Response("Not found", {
     status: 404,
     headers: responseHeaders("text/plain; charset=utf-8", 60),
+  });
+}
+
+async function handleLanguagePoll(request, url, env) {
+  if (request.method !== "GET" && request.method !== "POST") {
+    return pollJson({ error: "method_not_allowed" }, 405, { allow: "GET, POST" });
+  }
+
+  const origin = request.headers.get("origin");
+  const fetchSite = request.headers.get("sec-fetch-site");
+  if (
+    (origin !== null && origin !== url.origin) ||
+    (request.method === "POST" && origin !== url.origin) ||
+    (fetchSite !== null && fetchSite !== "same-origin" && fetchSite !== "none")
+  ) {
+    return pollJson({ error: "forbidden" }, 403);
+  }
+
+  try {
+    const existingToken = readPollVoterToken(request.headers.get("cookie"));
+    let option = null;
+    if (request.method === "POST") {
+      option = await readPollOption(request);
+      // Establish identity in GET first. Concurrent cookie-less POSTs must not
+      // each create a new identity and accidentally count the same retry twice.
+      if (!existingToken) return pollJson({ error: "cookie_required" }, 428);
+    }
+
+    // D1 requires module Workers; bindings arrive through the request's env.
+    // Missing/unavailable D1 only disables the poll; static routes still work.
+    const db = env.LANGUAGE_POLL_DB;
+    if (!db) return pollUnavailable();
+
+    const voterToken = existingToken || createPollVoterToken();
+    const voterHash = await hashPollVoterToken(voterToken);
+    const snapshotStatement = db
+      .prepare(LANGUAGE_POLL_SNAPSHOT_SQL)
+      .bind(LANGUAGE_POLL_ID, voterHash);
+    let result;
+
+    if (request.method === "POST") {
+      // The primary key is the authority for deduplication, including across
+      // Worker instances. D1 batch is transactional; read the result with the
+      // insert so concurrent retries cannot overcount or report a changed vote.
+      const batch = await db.batch([
+        db.prepare(`
+          INSERT INTO language_poll_votes (poll_id, voter_hash, option_id)
+          VALUES (?1, ?2, ?3)
+          ON CONFLICT (poll_id, voter_hash) DO NOTHING
+        `).bind(LANGUAGE_POLL_ID, voterHash, option),
+        snapshotStatement,
+      ]);
+      if (batch[0]?.success !== true) throw new Error("Poll write failed");
+      result = batch[1];
+    } else {
+      // No Sessions API: D1 serves these reads from the primary, including the
+      // first GET after a vote. A GET never creates a database row.
+      result = await snapshotStatement.all();
+    }
+
+    const snapshot = languagePollSnapshot(result);
+    if (request.method === "POST" && snapshot.selectedOption === null) {
+      throw new Error("Poll write missing from snapshot");
+    }
+
+    const headers = {};
+    if (!existingToken) {
+      headers["set-cookie"] = `${LANGUAGE_POLL_COOKIE}=${voterToken}; Path=/; Max-Age=31536000; HttpOnly; Secure; SameSite=Lax`;
+    }
+    return pollJson(snapshot, 200, headers);
+  } catch (error) {
+    if (error instanceof PollRequestError) {
+      return pollJson({ error: error.code }, error.status);
+    }
+    // Do not log request headers, cookie identifiers, IPs or database contents.
+    console.error(JSON.stringify({ event: "language_poll_unavailable" }));
+    return pollUnavailable();
+  }
+}
+
+class PollRequestError extends Error {
+  constructor(code, status) {
+    super(code);
+    this.code = code;
+    this.status = status;
+  }
+}
+
+async function readPollOption(request) {
+  const mediaType = request.headers.get("content-type")?.split(";")[0].trim().toLowerCase();
+  if (mediaType !== "application/json") {
+    throw new PollRequestError("unsupported_media_type", 415);
+  }
+
+  const contentLength = request.headers.get("content-length");
+  if (contentLength !== null && (!/^\d+$/.test(contentLength) || Number(contentLength) > LANGUAGE_POLL_BODY_LIMIT)) {
+    throw new PollRequestError("payload_too_large", 413);
+  }
+  if (!request.body) throw new PollRequestError("invalid_json", 400);
+
+  // Content-Length can be absent or untrusted. Bound bytes while streaming,
+  // rather than buffering an arbitrary request with request.json()/text().
+  const reader = request.body.getReader();
+  const chunks = [];
+  let size = 0;
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (value.byteLength === 0) continue;
+      size += value.byteLength;
+      if (size > LANGUAGE_POLL_BODY_LIMIT) {
+        await reader.cancel();
+        throw new PollRequestError("payload_too_large", 413);
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+
+  const bytes = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+
+  let value;
+  try {
+    value = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
+  } catch {
+    throw new PollRequestError("invalid_json", 400);
+  }
+  if (
+    !value || typeof value !== "object" || Array.isArray(value) ||
+    Object.keys(value).length !== 1 || !LANGUAGE_POLL_OPTIONS.includes(value.option)
+  ) {
+    throw new PollRequestError("invalid_option", 400);
+  }
+  return value.option;
+}
+
+function readPollVoterToken(cookieHeader) {
+  if (!cookieHeader) return null;
+  const matching = cookieHeader.split(";")
+    .map(part => part.trim())
+    .filter(part => part.startsWith(`${LANGUAGE_POLL_COOKIE}=`));
+  if (matching.length !== 1) return null;
+  const token = matching[0].slice(LANGUAGE_POLL_COOKIE.length + 1);
+  return /^[a-f0-9]{64}$/.test(token) ? token : null;
+}
+
+function createPollVoterToken() {
+  return bytesToHex(crypto.getRandomValues(new Uint8Array(32)));
+}
+
+async function hashPollVoterToken(token) {
+  // Persist a poll-specific hash, not the cookie itself. This is an anonymous
+  // browser identifier, not authentication or a claim of one vote per person.
+  const input = new TextEncoder().encode(`${LANGUAGE_POLL_ID}:${token}`);
+  return bytesToHex(new Uint8Array(await crypto.subtle.digest("SHA-256", input)));
+}
+
+function bytesToHex(bytes) {
+  return Array.from(bytes, byte => byte.toString(16).padStart(2, "0")).join("");
+}
+
+function languagePollSnapshot(result) {
+  if (result?.success !== true || !Array.isArray(result.results)) {
+    throw new Error("Poll read failed");
+  }
+  const counts = new Map();
+  let selectedOption = null;
+  for (const row of result.results) {
+    if (
+      !LANGUAGE_POLL_OPTIONS.includes(row.option_id) || counts.has(row.option_id) ||
+      !Number.isSafeInteger(row.votes) || row.votes < 1 ||
+      (row.selected !== 0 && row.selected !== 1) ||
+      (row.selected === 1 && selectedOption !== null)
+    ) {
+      throw new Error("Invalid poll snapshot");
+    }
+    counts.set(row.option_id, row.votes);
+    if (row.selected === 1) selectedOption = row.option_id;
+  }
+  const options = LANGUAGE_POLL_OPTIONS.map(id => ({ id, votes: counts.get(id) || 0 }));
+  const totalVotes = options.reduce((sum, entry) => sum + entry.votes, 0);
+  if (!Number.isSafeInteger(totalVotes)) throw new Error("Invalid poll total");
+  return { pollId: LANGUAGE_POLL_ID, options, totalVotes, selectedOption };
+}
+
+function pollUnavailable() {
+  return pollJson({ error: "unavailable" }, 503, { "retry-after": "60" });
+}
+
+function pollJson(value, status = 200, extraHeaders = {}) {
+  return new Response(JSON.stringify(value), {
+    status,
+    headers: {
+      "content-type": "application/json; charset=utf-8",
+      "cache-control": "private, no-store",
+      "cdn-cache-control": "no-store",
+      "cloudflare-cdn-cache-control": "no-store",
+      vary: "Cookie, Origin",
+      "cross-origin-resource-policy": "same-origin",
+      "referrer-policy": "no-referrer",
+      "x-content-type-options": "nosniff",
+      "x-robots-tag": "noindex",
+      ...extraHeaders,
+    },
   });
 }
 

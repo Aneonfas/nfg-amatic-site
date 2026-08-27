@@ -10,10 +10,10 @@ const workerSource = await readFile(path.join(rootDir, "worker.js"), "utf8");
 const context = vm.createContext({
   URL,
   Response,
-  addEventListener() {},
   fetch: async () => new Response("<!doctype html><title>NFG</title>"),
 });
-vm.runInContext(workerSource, context);
+// Only rewrite the module export for this isolated VM; execute the real handler.
+vm.runInContext(workerSource.replace(/^export default /m, "globalThis.worker = "), context);
 
 function rootRequest({ query = "", cookie, language, country } = {}) {
   const headers = new Headers();

@@ -1,6 +1,6 @@
 {
   "lastModified": "2026-08-27",
-  "assetRevision": "2026-08-10-auto-locale",
+  "assetRevision": "2026-08-27-language-poll",
   "locales": {
     "en": {
       "lang": "en",
@@ -16,6 +16,40 @@
       "languageLabel": "Choose language",
       "projectsAria": "NFG project list",
       "discordAria": "Open the NFG Discord server in a new tab",
+      "poll": {
+        "eyebrow": "Anvil Empires · Community poll",
+        "title": "Which language should we localize next?",
+        "description": "Russian and Spanish localizations are already available. Help us choose the next language for Anvil Empires.",
+        "choose": "Choose one language",
+        "choiceRequired": "Choose a language before voting.",
+        "submit": "Vote",
+        "submitting": "Saving your vote…",
+        "loading": "Loading the poll…",
+        "retry": "Reload poll",
+        "results": "Results",
+        "totalVotes": "Total votes: {count}",
+        "resultCount": "Votes: {votes} · {percent}",
+        "yourVote": "Your vote",
+        "voted": "Your vote is recorded: {language}.",
+        "success": "Thank you! Your vote: {language}.",
+        "browserNote": "No account needed. Cookies are required to remember this browser’s vote.",
+        "suggest": "Another language? Suggest it on Discord.",
+        "noscript": "Enable JavaScript to vote and see results. You can also suggest a language on Discord.",
+        "errors": {
+          "unavailable": "The poll is temporarily unavailable. Please try again.",
+          "vote_failed": "We could not confirm your vote. Reload the poll before trying again.",
+          "cookie_required": "Voting requires cookies for this site. Allow them, then reload the poll.",
+          "forbidden": "The vote request could not be verified. Reload this page and try again.",
+          "rate_limited": "Too many requests. Please wait a little before trying again.",
+          "invalid_option": "This option is unavailable. Choose a language from the list.",
+          "already_voted": "This browser has already voted. Reload the poll to see the saved choice."
+        },
+        "options": {
+          "de": "German", "fr": "French", "pt-br": "Portuguese (Brazil)", "pl": "Polish",
+          "it": "Italian", "uk": "Ukrainian", "tr": "Turkish", "zh-cn": "Chinese (Simplified)",
+          "ja": "Japanese", "ko": "Korean", "other": "Other language"
+        }
+      },
       "projects": [
         {
           "title": "Anvil Planner",
@@ -68,6 +102,40 @@
       "languageLabel": "Выбрать язык",
       "projectsAria": "Список проектов NFG",
       "discordAria": "Открыть Discord-сервер NFG в новой вкладке",
+      "poll": {
+        "eyebrow": "Anvil Empires · Голосование",
+        "title": "Какой язык локализации добавить следующим?",
+        "description": "Русская и испанская локализации уже доступны. Помогите выбрать следующий язык для Anvil Empires.",
+        "choose": "Выберите один язык",
+        "choiceRequired": "Выберите язык, прежде чем голосовать.",
+        "submit": "Голосовать",
+        "submitting": "Сохраняем голос…",
+        "loading": "Загружаем опрос…",
+        "retry": "Обновить опрос",
+        "results": "Результаты",
+        "totalVotes": "Всего голосов: {count}",
+        "resultCount": "Голосов: {votes} · {percent}",
+        "yourVote": "Ваш выбор",
+        "voted": "Ваш голос учтён: {language}.",
+        "success": "Спасибо! Ваш голос: {language}.",
+        "browserNote": "Без регистрации. Для запоминания голоса в этом браузере нужны cookie.",
+        "suggest": "Другой язык? Предложите его в Discord.",
+        "noscript": "Включите JavaScript, чтобы голосовать и видеть результаты. Предложить язык также можно в Discord.",
+        "errors": {
+          "unavailable": "Опрос временно недоступен. Попробуйте ещё раз.",
+          "vote_failed": "Не удалось подтвердить сохранение голоса. Обновите опрос перед повторной попыткой.",
+          "cookie_required": "Для голосования нужны cookie этого сайта. Разрешите их и обновите опрос.",
+          "forbidden": "Не удалось проверить запрос на голосование. Обновите страницу и попробуйте ещё раз.",
+          "rate_limited": "Слишком много запросов. Подождите немного и попробуйте ещё раз.",
+          "invalid_option": "Этот вариант недоступен. Выберите язык из списка.",
+          "already_voted": "В этом браузере уже голосовали. Обновите опрос, чтобы увидеть сохранённый выбор."
+        },
+        "options": {
+          "de": "Немецкий", "fr": "Французский", "pt-br": "Португальский (Бразилия)", "pl": "Польский",
+          "it": "Итальянский", "uk": "Украинский", "tr": "Турецкий", "zh-cn": "Китайский (упрощённый)",
+          "ja": "Японский", "ko": "Корейский", "other": "Другой язык"
+        }
+      },
       "projects": [
         {
           "title": "Anvil Planner",
@@ -120,6 +188,40 @@
       "languageLabel": "Elegir idioma",
       "projectsAria": "Lista de proyectos NFG",
       "discordAria": "Abrir el servidor de Discord de NFG en una pestaña nueva",
+      "poll": {
+        "eyebrow": "Anvil Empires · Encuesta",
+        "title": "¿Cuál debería ser el próximo idioma de la localización?",
+        "description": "Las localizaciones al ruso y al español ya están disponibles. Ayúdanos a elegir el próximo idioma para Anvil Empires.",
+        "choose": "Elige un idioma",
+        "choiceRequired": "Elige un idioma antes de votar.",
+        "submit": "Votar",
+        "submitting": "Guardando tu voto…",
+        "loading": "Cargando la encuesta…",
+        "retry": "Recargar encuesta",
+        "results": "Resultados",
+        "totalVotes": "Votos totales: {count}",
+        "resultCount": "Votos: {votes} · {percent}",
+        "yourVote": "Tu voto",
+        "voted": "Tu voto está registrado: {language}.",
+        "success": "¡Gracias! Tu voto: {language}.",
+        "browserNote": "No necesitas una cuenta. Se requieren cookies para recordar el voto de este navegador.",
+        "suggest": "¿Otro idioma? Sugiérelo en Discord.",
+        "noscript": "Activa JavaScript para votar y ver los resultados. También puedes sugerir un idioma en Discord.",
+        "errors": {
+          "unavailable": "La encuesta no está disponible temporalmente. Inténtalo de nuevo.",
+          "vote_failed": "No pudimos confirmar tu voto. Recarga la encuesta antes de intentarlo de nuevo.",
+          "cookie_required": "Para votar se necesitan las cookies de este sitio. Permítelas y recarga la encuesta.",
+          "forbidden": "No pudimos verificar la solicitud de voto. Recarga esta página e inténtalo de nuevo.",
+          "rate_limited": "Demasiadas solicitudes. Espera un poco antes de intentarlo de nuevo.",
+          "invalid_option": "Esta opción no está disponible. Elige un idioma de la lista.",
+          "already_voted": "Este navegador ya ha votado. Recarga la encuesta para ver la opción guardada."
+        },
+        "options": {
+          "de": "Alemán", "fr": "Francés", "pt-br": "Portugués (Brasil)", "pl": "Polaco",
+          "it": "Italiano", "uk": "Ucraniano", "tr": "Turco", "zh-cn": "Chino (simplificado)",
+          "ja": "Japonés", "ko": "Coreano", "other": "Otro idioma"
+        }
+      },
       "projects": [
         {
           "title": "Anvil Planner",
@@ -172,6 +274,40 @@
       "languageLabel": "Sprache auswählen",
       "projectsAria": "Liste der NFG-Projekte",
       "discordAria": "NFG-Discord-Server in einem neuen Tab öffnen",
+      "poll": {
+        "eyebrow": "Anvil Empires · Umfrage",
+        "title": "Welche Sprache sollen wir als Nächstes hinzufügen?",
+        "description": "Russische und spanische Lokalisierungen sind bereits verfügbar. Hilf uns, die nächste Sprache für Anvil Empires auszuwählen.",
+        "choose": "Wähle eine Sprache",
+        "choiceRequired": "Wähle vor der Abstimmung eine Sprache.",
+        "submit": "Abstimmen",
+        "submitting": "Deine Stimme wird gespeichert…",
+        "loading": "Umfrage wird geladen…",
+        "retry": "Umfrage neu laden",
+        "results": "Ergebnisse",
+        "totalVotes": "Stimmen insgesamt: {count}",
+        "resultCount": "Stimmen: {votes} · {percent}",
+        "yourVote": "Deine Stimme",
+        "voted": "Deine Stimme ist gespeichert: {language}.",
+        "success": "Danke! Deine Stimme: {language}.",
+        "browserNote": "Kein Konto nötig. Cookies werden benötigt, um die Stimme dieses Browsers wiederzuerkennen.",
+        "suggest": "Eine andere Sprache? Schlage sie auf Discord vor.",
+        "noscript": "Aktiviere JavaScript, um abzustimmen und Ergebnisse zu sehen. Du kannst auch auf Discord eine Sprache vorschlagen.",
+        "errors": {
+          "unavailable": "Die Umfrage ist vorübergehend nicht verfügbar. Bitte versuche es erneut.",
+          "vote_failed": "Deine Stimme konnte nicht bestätigt werden. Lade die Umfrage vor einem weiteren Versuch neu.",
+          "cookie_required": "Zum Abstimmen sind Cookies dieser Website nötig. Erlaube sie und lade die Umfrage neu.",
+          "forbidden": "Die Abstimmungsanfrage konnte nicht geprüft werden. Lade die Seite neu und versuche es erneut.",
+          "rate_limited": "Zu viele Anfragen. Warte etwas, bevor du es erneut versuchst.",
+          "invalid_option": "Diese Option ist nicht verfügbar. Wähle eine Sprache aus der Liste.",
+          "already_voted": "Dieser Browser hat bereits abgestimmt. Lade die Umfrage neu, um die gespeicherte Auswahl zu sehen."
+        },
+        "options": {
+          "de": "Deutsch", "fr": "Französisch", "pt-br": "Portugiesisch (Brasilien)", "pl": "Polnisch",
+          "it": "Italienisch", "uk": "Ukrainisch", "tr": "Türkisch", "zh-cn": "Chinesisch (vereinfacht)",
+          "ja": "Japanisch", "ko": "Koreanisch", "other": "Andere Sprache"
+        }
+      },
       "projects": [
         {
           "title": "Anvil Planner",
@@ -224,6 +360,40 @@
       "languageLabel": "Choisir la langue",
       "projectsAria": "Liste des projets NFG",
       "discordAria": "Ouvrir le serveur Discord de NFG dans un nouvel onglet",
+      "poll": {
+        "eyebrow": "Anvil Empires · Sondage",
+        "title": "Dans quelle langue traduire le jeu ensuite ?",
+        "description": "Les localisations russe et espagnole sont déjà disponibles. Aidez-nous à choisir la prochaine langue pour Anvil Empires.",
+        "choose": "Choisissez une langue",
+        "choiceRequired": "Choisissez une langue avant de voter.",
+        "submit": "Voter",
+        "submitting": "Enregistrement du vote…",
+        "loading": "Chargement du sondage…",
+        "retry": "Recharger le sondage",
+        "results": "Résultats",
+        "totalVotes": "Total des votes : {count}",
+        "resultCount": "Votes : {votes} · {percent}",
+        "yourVote": "Votre vote",
+        "voted": "Votre vote est enregistré : {language}.",
+        "success": "Merci ! Votre vote : {language}.",
+        "browserNote": "Aucun compte nécessaire. Les cookies permettent de retrouver le vote de ce navigateur.",
+        "suggest": "Une autre langue ? Proposez-la sur Discord.",
+        "noscript": "Activez JavaScript pour voter et voir les résultats. Vous pouvez aussi proposer une langue sur Discord.",
+        "errors": {
+          "unavailable": "Le sondage est temporairement indisponible. Veuillez réessayer.",
+          "vote_failed": "Votre vote n’a pas pu être confirmé. Rechargez le sondage avant de réessayer.",
+          "cookie_required": "Les cookies de ce site sont nécessaires pour voter. Autorisez-les, puis rechargez le sondage.",
+          "forbidden": "La demande de vote n’a pas pu être vérifiée. Rechargez cette page et réessayez.",
+          "rate_limited": "Trop de demandes. Patientez un peu avant de réessayer.",
+          "invalid_option": "Cette option est indisponible. Choisissez une langue dans la liste.",
+          "already_voted": "Ce navigateur a déjà voté. Rechargez le sondage pour voir le choix enregistré."
+        },
+        "options": {
+          "de": "Allemand", "fr": "Français", "pt-br": "Portugais (Brésil)", "pl": "Polonais",
+          "it": "Italien", "uk": "Ukrainien", "tr": "Turc", "zh-cn": "Chinois (simplifié)",
+          "ja": "Japonais", "ko": "Coréen", "other": "Autre langue"
+        }
+      },
       "projects": [
         {
           "title": "Anvil Planner",
@@ -276,6 +446,40 @@
       "languageLabel": "Escolher idioma",
       "projectsAria": "Lista de projetos da NFG",
       "discordAria": "Abrir o servidor da NFG no Discord em uma nova guia",
+      "poll": {
+        "eyebrow": "Anvil Empires · Enquete",
+        "title": "Qual deve ser o próximo idioma da localização?",
+        "description": "As localizações em russo e espanhol já estão disponíveis. Ajude a escolher o próximo idioma para Anvil Empires.",
+        "choose": "Escolha um idioma",
+        "choiceRequired": "Escolha um idioma antes de votar.",
+        "submit": "Votar",
+        "submitting": "Salvando seu voto…",
+        "loading": "Carregando a enquete…",
+        "retry": "Recarregar enquete",
+        "results": "Resultados",
+        "totalVotes": "Total de votos: {count}",
+        "resultCount": "Votos: {votes} · {percent}",
+        "yourVote": "Seu voto",
+        "voted": "Seu voto está registrado: {language}.",
+        "success": "Obrigado! Seu voto: {language}.",
+        "browserNote": "Não é preciso criar uma conta. Os cookies são necessários para lembrar o voto deste navegador.",
+        "suggest": "Outro idioma? Sugira no Discord.",
+        "noscript": "Ative o JavaScript para votar e ver os resultados. Você também pode sugerir um idioma no Discord.",
+        "errors": {
+          "unavailable": "A enquete está temporariamente indisponível. Tente novamente.",
+          "vote_failed": "Não foi possível confirmar seu voto. Recarregue a enquete antes de tentar novamente.",
+          "cookie_required": "Os cookies deste site são necessários para votar. Permita-os e recarregue a enquete.",
+          "forbidden": "Não foi possível verificar a solicitação de voto. Recarregue esta página e tente novamente.",
+          "rate_limited": "Muitas solicitações. Aguarde um pouco antes de tentar novamente.",
+          "invalid_option": "Esta opção está indisponível. Escolha um idioma da lista.",
+          "already_voted": "Este navegador já votou. Recarregue a enquete para ver a opção salva."
+        },
+        "options": {
+          "de": "Alemão", "fr": "Francês", "pt-br": "Português (Brasil)", "pl": "Polonês",
+          "it": "Italiano", "uk": "Ucraniano", "tr": "Turco", "zh-cn": "Chinês (simplificado)",
+          "ja": "Japonês", "ko": "Coreano", "other": "Outro idioma"
+        }
+      },
       "projects": [
         {
           "title": "Anvil Planner",
@@ -328,6 +532,40 @@
       "languageLabel": "选择语言",
       "projectsAria": "NFG 项目列表",
       "discordAria": "在新标签页中打开 NFG Discord 服务器",
+      "poll": {
+        "eyebrow": "Anvil Empires · 社区投票",
+        "title": "你希望接下来添加哪种语言的本地化？",
+        "description": "俄语和西班牙语本地化已发布。帮助我们为 Anvil Empires 选择下一种语言。",
+        "choose": "请选择一种语言",
+        "choiceRequired": "请先选择一种语言，再投票。",
+        "submit": "投票",
+        "submitting": "正在保存你的投票…",
+        "loading": "正在加载投票…",
+        "retry": "重新加载投票",
+        "results": "投票结果",
+        "totalVotes": "总票数：{count}",
+        "resultCount": "票数：{votes} · {percent}",
+        "yourVote": "你的选择",
+        "voted": "你的投票已记录：{language}。",
+        "success": "谢谢！你的选择：{language}。",
+        "browserNote": "无需注册。需要使用 Cookie 来记住此浏览器的投票。",
+        "suggest": "想要其他语言？欢迎在 Discord 提议。",
+        "noscript": "请启用 JavaScript 以投票和查看结果。你也可以在 Discord 提议一种语言。",
+        "errors": {
+          "unavailable": "投票暂时无法使用，请重试。",
+          "vote_failed": "无法确认你的投票是否已保存。请先重新加载投票，再重试。",
+          "cookie_required": "投票需要使用本站的 Cookie。请允许 Cookie 后重新加载投票。",
+          "forbidden": "无法验证投票请求。请刷新此页面后重试。",
+          "rate_limited": "请求过多，请稍后重试。",
+          "invalid_option": "此选项不可用，请从列表中选择一种语言。",
+          "already_voted": "此浏览器已经投过票。请重新加载投票以查看已保存的选择。"
+        },
+        "options": {
+          "de": "德语", "fr": "法语", "pt-br": "葡萄牙语（巴西）", "pl": "波兰语",
+          "it": "意大利语", "uk": "乌克兰语", "tr": "土耳其语", "zh-cn": "简体中文",
+          "ja": "日语", "ko": "韩语", "other": "其他语言"
+        }
+      },
       "projects": [
         {
           "title": "Anvil Planner",
@@ -380,6 +618,40 @@
       "languageLabel": "言語を選択",
       "projectsAria": "NFGプロジェクト一覧",
       "discordAria": "NFGのDiscordサーバーを新しいタブで開く",
+      "poll": {
+        "eyebrow": "Anvil Empires · アンケート",
+        "title": "次はどの言語にローカライズしてほしいですか？",
+        "description": "ロシア語版とスペイン語版は公開済みです。Anvil Empiresの次の対応言語を選ぶため、ご意見をお聞かせください。",
+        "choose": "言語を1つ選択",
+        "choiceRequired": "投票する前に言語を選択してください。",
+        "submit": "投票する",
+        "submitting": "投票を保存しています…",
+        "loading": "アンケートを読み込んでいます…",
+        "retry": "アンケートを再読み込み",
+        "results": "投票結果",
+        "totalVotes": "総投票数：{count}",
+        "resultCount": "票数：{votes} · {percent}",
+        "yourVote": "あなたの選択",
+        "voted": "投票は記録されています：{language}。",
+        "success": "ありがとうございます！あなたの選択：{language}。",
+        "browserNote": "登録は不要です。このブラウザーの投票を記憶するためにCookieが必要です。",
+        "suggest": "ほかの言語をご希望ですか？Discordでご提案ください。",
+        "noscript": "投票と結果の表示にはJavaScriptを有効にしてください。Discordでも言語を提案できます。",
+        "errors": {
+          "unavailable": "アンケートを一時的に利用できません。もう一度お試しください。",
+          "vote_failed": "投票の保存を確認できませんでした。再試行する前にアンケートを再読み込みしてください。",
+          "cookie_required": "投票にはこのサイトのCookieが必要です。Cookieを許可してアンケートを再読み込みしてください。",
+          "forbidden": "投票リクエストを確認できませんでした。このページを再読み込みして、もう一度お試しください。",
+          "rate_limited": "リクエストが多すぎます。しばらく待ってから、もう一度お試しください。",
+          "invalid_option": "この選択肢は利用できません。一覧から言語を選択してください。",
+          "already_voted": "このブラウザーでは投票済みです。アンケートを再読み込みすると、保存された選択を確認できます。"
+        },
+        "options": {
+          "de": "ドイツ語", "fr": "フランス語", "pt-br": "ポルトガル語（ブラジル）", "pl": "ポーランド語",
+          "it": "イタリア語", "uk": "ウクライナ語", "tr": "トルコ語", "zh-cn": "中国語（簡体字）",
+          "ja": "日本語", "ko": "韓国語", "other": "その他の言語"
+        }
+      },
       "projects": [
         {
           "title": "Anvil Planner",
@@ -432,6 +704,40 @@
       "languageLabel": "언어 선택",
       "projectsAria": "NFG 프로젝트 목록",
       "discordAria": "새 탭에서 NFG Discord 서버 열기",
+      "poll": {
+        "eyebrow": "Anvil Empires · 커뮤니티 투표",
+        "title": "다음에는 어떤 언어로 번역할까요?",
+        "description": "러시아어와 스페인어 현지화는 이미 제공되고 있습니다. Anvil Empires에 다음으로 추가할 언어를 선택해 주세요.",
+        "choose": "언어 하나 선택",
+        "choiceRequired": "투표하기 전에 언어를 선택해 주세요.",
+        "submit": "투표하기",
+        "submitting": "투표를 저장하는 중…",
+        "loading": "투표를 불러오는 중…",
+        "retry": "투표 새로고침",
+        "results": "투표 결과",
+        "totalVotes": "총 투표수: {count}",
+        "resultCount": "득표수: {votes} · {percent}",
+        "yourVote": "내 선택",
+        "voted": "투표가 기록되었습니다: {language}.",
+        "success": "감사합니다! 선택한 언어: {language}.",
+        "browserNote": "가입은 필요하지 않습니다. 이 브라우저의 투표를 기억하려면 쿠키가 필요합니다.",
+        "suggest": "다른 언어를 원하시나요? Discord에서 제안해 주세요.",
+        "noscript": "투표하고 결과를 보려면 JavaScript를 활성화해 주세요. Discord에서도 언어를 제안할 수 있습니다.",
+        "errors": {
+          "unavailable": "투표를 일시적으로 이용할 수 없습니다. 다시 시도해 주세요.",
+          "vote_failed": "투표 저장 여부를 확인하지 못했습니다. 다시 시도하기 전에 투표를 새로고침해 주세요.",
+          "cookie_required": "투표하려면 이 사이트의 쿠키가 필요합니다. 쿠키를 허용한 후 투표를 새로고침해 주세요.",
+          "forbidden": "투표 요청을 확인하지 못했습니다. 이 페이지를 새로고침하고 다시 시도해 주세요.",
+          "rate_limited": "요청이 너무 많습니다. 잠시 기다린 후 다시 시도해 주세요.",
+          "invalid_option": "이 항목은 선택할 수 없습니다. 목록에서 언어를 선택해 주세요.",
+          "already_voted": "이 브라우저에서는 이미 투표했습니다. 저장된 선택을 보려면 투표를 새로고침해 주세요."
+        },
+        "options": {
+          "de": "독일어", "fr": "프랑스어", "pt-br": "포르투갈어 (브라질)", "pl": "폴란드어",
+          "it": "이탈리아어", "uk": "우크라이나어", "tr": "튀르키예어", "zh-cn": "중국어 (간체)",
+          "ja": "일본어", "ko": "한국어", "other": "다른 언어"
+        }
+      },
       "projects": [
         {
           "title": "Anvil Planner",
@@ -484,6 +790,40 @@
       "languageLabel": "Dil seç",
       "projectsAria": "NFG projeleri listesi",
       "discordAria": "NFG Discord sunucusunu yeni sekmede aç",
+      "poll": {
+        "eyebrow": "Anvil Empires · Topluluk anketi",
+        "title": "Sıradaki yerelleştirme hangi dilde olsun?",
+        "description": "Rusça ve İspanyolca yerelleştirmeler zaten mevcut. Anvil Empires için sıradaki dili seçmemize yardımcı olun.",
+        "choose": "Bir dil seçin",
+        "choiceRequired": "Oy vermeden önce bir dil seçin.",
+        "submit": "Oy ver",
+        "submitting": "Oyunuz kaydediliyor…",
+        "loading": "Anket yükleniyor…",
+        "retry": "Anketi yenile",
+        "results": "Sonuçlar",
+        "totalVotes": "Toplam oy: {count}",
+        "resultCount": "Oy: {votes} · {percent}",
+        "yourVote": "Oyunuz",
+        "voted": "Oyunuz kaydedildi: {language}.",
+        "success": "Teşekkürler! Oyunuz: {language}.",
+        "browserNote": "Hesap gerekmez. Bu tarayıcının oyunu hatırlamak için çerezler gereklidir.",
+        "suggest": "Başka bir dil mi? Discord’da önerin.",
+        "noscript": "Oy vermek ve sonuçları görmek için JavaScript’i etkinleştirin. Discord’da da dil önerebilirsiniz.",
+        "errors": {
+          "unavailable": "Anket geçici olarak kullanılamıyor. Lütfen tekrar deneyin.",
+          "vote_failed": "Oyunuzun kaydedildiğini doğrulayamadık. Tekrar denemeden önce anketi yenileyin.",
+          "cookie_required": "Oy vermek için bu sitenin çerezleri gereklidir. Çerezlere izin verin ve anketi yenileyin.",
+          "forbidden": "Oy verme isteği doğrulanamadı. Bu sayfayı yenileyip tekrar deneyin.",
+          "rate_limited": "Çok fazla istek gönderildi. Tekrar denemeden önce biraz bekleyin.",
+          "invalid_option": "Bu seçenek kullanılamıyor. Listeden bir dil seçin.",
+          "already_voted": "Bu tarayıcıdan zaten oy verilmiş. Kaydedilen seçimi görmek için anketi yenileyin."
+        },
+        "options": {
+          "de": "Almanca", "fr": "Fransızca", "pt-br": "Portekizce (Brezilya)", "pl": "Lehçe",
+          "it": "İtalyanca", "uk": "Ukraynaca", "tr": "Türkçe", "zh-cn": "Çince (Basitleştirilmiş)",
+          "ja": "Japonca", "ko": "Korece", "other": "Diğer dil"
+        }
+      },
       "projects": [
         {
           "title": "Anvil Planner",
