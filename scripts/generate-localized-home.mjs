@@ -23,7 +23,7 @@ const PROJECTS = [
   {
     key: "russian",
     name: "Anvil Empires Russian localization",
-    href: "https://github.com/nullith2/anvil-empires-russian/releases/download/v1.0.1/Anvil-Empires-Russian-v1.0.1-steam-build-24619810.zip",
+    href: "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.0.2/Anvil-Empires-Russian-v1.0.2-steam-build-24805551.zip",
   },
   {
     key: "spanish",

@@ -1,0 +1,72 @@
+import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import test from "node:test";
+import { fileURLToPath } from "node:url";
+
+const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const content = JSON.parse(
+  await readFile(path.join(rootDir, "content", "home.locales.json"), "utf8"),
+);
+const locales = ["en", "ru", "es", "de", "fr", "pt-br", "zh-cn", "ja", "ko", "tr"];
+const russianVersion = "1.0.2";
+const russianDownload =
+  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.0.2/Anvil-Empires-Russian-v1.0.2-steam-build-24805551.zip";
+const oldRussianRepository = /https:\/\/github\.com\/(?:nullith2|Aneonfas)\/anvil-empires-russian(?:\/|\b)/i;
+
+test("Russian release checks cover every published locale", () => {
+  assert.deepEqual(Object.keys(content.locales).sort(), [...locales].sort());
+});
+
+for (const locale of locales) {
+  test(`${locale}: Russian CTA, accessible label and JSON-LD use the current release`, async () => {
+    const project = content.locales[locale].projects[1];
+    for (const field of ["action", "aria"]) {
+      assert.deepEqual(
+        project[field].match(/\d+\.\d+\.\d+/g),
+        [russianVersion],
+        `${locale} source ${field} must name Russian release ${russianVersion}`,
+      );
+    }
+
+    const html = await readFile(path.join(rootDir, locale, "index.html"), "utf8");
+    const articles = [...html.matchAll(
+      /<article class="project-row project-row-active">([\s\S]*?)<\/article>/g,
+    )];
+    assert.equal(articles.length, 5, `${locale} must retain all five products`);
+    const russianCard = articles[1][1];
+    const anchor = russianCard.match(/<a\s+([\s\S]*?)>([\s\S]*?)<\/a>/);
+    assert.ok(anchor, `${locale} Russian download link is missing`);
+    assert.equal(anchor[1].match(/href="([^"]+)"/)?.[1], russianDownload);
+    assert.equal(anchor[1].match(/aria-label="([^"]+)"/)?.[1], escapeAttr(project.aria));
+    assert.ok(anchor[2].includes(`<span>${escapeHtml(project.action)}</span>`));
+    assert.match(anchor[1], /target="_blank"/);
+    assert.match(anchor[1], /rel="noreferrer"/);
+
+    const jsonLd = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+    assert.ok(jsonLd, `${locale} JSON-LD is missing`);
+    const graph = JSON.parse(jsonLd[1])["@graph"];
+    const collection = graph.find((entry) => entry["@type"] === "CollectionPage");
+    assert.equal(collection.mainEntity.itemListElement[1].url, russianDownload);
+    assert.doesNotMatch(html, oldRussianRepository);
+  });
+}
+
+test("llms.txt points to the same Russian release archive", async () => {
+  const text = await readFile(path.join(rootDir, "llms.txt"), "utf8");
+  const russianLines = text.split(/\r?\n/).filter(
+    (line) => line.startsWith("- [Anvil Empires Russian localization]"),
+  );
+  assert.deepEqual(russianLines, [
+    `- [Anvil Empires Russian localization](${russianDownload})`,
+  ]);
+  assert.doesNotMatch(text, oldRussianRepository);
+});
+
+function escapeHtml(value) {
+  return value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+}
+
+function escapeAttr(value) {
+  return escapeHtml(value).replaceAll('"', "&quot;");
+}
