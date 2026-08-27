@@ -13,6 +13,10 @@ const russianVersion = "1.0.2";
 const russianDownload =
   "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.0.2/Anvil-Empires-Russian-v1.0.2-steam-build-24805551.zip";
 const oldRussianRepository = /https:\/\/github\.com\/(?:nullith2|Aneonfas)\/anvil-empires-russian(?:\/|\b)/i;
+const spanishVersion = "0.1.0";
+const spanishBuild = "24619810";
+const spanishDownload =
+  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v0.1.0/Anvil-Empires-Spanish-v0.1.0-steam-build-24619810.zip";
 
 test("Russian release checks cover every published locale", () => {
   assert.deepEqual(Object.keys(content.locales).sort(), [...locales].sort());
@@ -50,6 +54,38 @@ for (const locale of locales) {
     assert.equal(collection.mainEntity.itemListElement[1].url, russianDownload);
     assert.doesNotMatch(html, oldRussianRepository);
   });
+
+  test(`${locale}: Spanish copy, HTML and JSON-LD name the published beta and required build`, async () => {
+    const project = content.locales[locale].projects[2];
+    assert.deepEqual(
+      project.secondary.match(/\d+\.\d+\.\d+/g),
+      [spanishVersion],
+      `${locale} Spanish description must name its published release`,
+    );
+    assert.deepEqual(
+      project.secondary.match(/\b\d{8}\b/g),
+      [spanishBuild],
+      `${locale} Spanish description must identify the required Steam build`,
+    );
+
+    const html = await readFile(path.join(rootDir, locale, "index.html"), "utf8");
+    const articles = [...html.matchAll(
+      /<article class="project-row project-row-active">([\s\S]*?)<\/article>/g,
+    )];
+    const spanishCard = articles[2][1];
+    assert.ok(spanishCard.includes(
+      `<p class="project-copy-secondary">${escapeHtml(project.secondary)}</p>`,
+    ));
+    assert.equal(spanishCard.match(/href="([^"]+)"/)?.[1], spanishDownload);
+
+    const jsonLd = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+    const collection = JSON.parse(jsonLd[1])["@graph"].find(
+      (entry) => entry["@type"] === "CollectionPage",
+    );
+    const spanishItem = collection.mainEntity.itemListElement[2];
+    assert.equal(spanishItem.url, spanishDownload);
+    assert.equal(spanishItem.description, project.secondary);
+  });
 }
 
 test("llms.txt points to the same Russian release archive", async () => {
@@ -61,6 +97,18 @@ test("llms.txt points to the same Russian release archive", async () => {
     `- [Anvil Empires Russian localization](${russianDownload})`,
   ]);
   assert.doesNotMatch(text, oldRussianRepository);
+});
+
+test("llms.txt carries the same Spanish compatibility warning as the English page", async () => {
+  const text = await readFile(path.join(rootDir, "llms.txt"), "utf8");
+  const spanishLines = text.split(/\r?\n/).filter(
+    (line) => line.startsWith("- [Anvil Empires Spanish localization]") ||
+      line.startsWith("- Spanish localization:"),
+  );
+  assert.deepEqual(spanishLines, [
+    `- [Anvil Empires Spanish localization](${spanishDownload})`,
+    `- Spanish localization: ${content.locales.en.projects[2].secondary}`,
+  ]);
 });
 
 function escapeHtml(value) {

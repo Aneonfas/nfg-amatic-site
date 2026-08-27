@@ -380,6 +380,9 @@ function renderLocaleStructuredData(locale, canonical) {
             position: index + 1,
             name: project.title,
             url: PROJECTS[index].href,
+            ...(PROJECTS[index].key === "spanish"
+              ? { description: project.secondary }
+              : {}),
           })),
         },
       },
@@ -416,6 +419,8 @@ function renderLlmsText() {
   const productLinks = PROJECTS.map(
     (project) => `- [${project.name}](${project.href})`,
   ).join("\n");
+  const spanishIndex = PROJECTS.findIndex((project) => project.key === "spanish");
+  const spanishDescription = defaultLocale.projects[spanishIndex].secondary;
 
   return `# NFG
 
@@ -432,6 +437,7 @@ ${productLinks}
 ## Notes
 
 - The Russian and Spanish localization links point to ready release archives.
+- Spanish localization: ${spanishDescription}
 - NFG Hub is the Windows catalog and installer for supported NFG packages.
 - Canonical page metadata and sitemap.xml remain the authoritative discovery sources.
 `;
