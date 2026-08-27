@@ -2,9 +2,9 @@
 
 Local working version of the `nfg-system.online` project index.
 
-The root URL is a language router. Ten server-rendered canonical locale URLs
-are published under `en`, `ru`, `es`, `de`, `fr`, `pt-br`, `zh-cn`, `ja`, `ko`,
-and `tr`. Each index contains five real projects: Anvil Planner, the Anvil
+The root URL is a language router. Eleven server-rendered canonical locale URLs
+are published under `en`, `ru`, `es`, `de`, `fr`, `it`, `pt-br`, `zh-cn`, `ja`,
+`ko`, and `tr`. Each index contains five real projects: Anvil Planner, the Anvil
 Empires Russian and Spanish localization packages, Anvil Forge Helper, and NFG
 Hub. There are no placeholder rows and no standalone language-selection page.
 
@@ -23,9 +23,15 @@ The NFG Discord invite is kept separate from the project list in the page footer
 
 Every locale includes the same poll at `#language-poll`: which Anvil Empires
 localization should come next. Russian and Spanish are already available, so
-the choices are German, French, Brazilian Portuguese, Polish, Italian,
-Ukrainian, Turkish, Simplified Chinese, Japanese, Korean and Other. Visitors
+the choices are German, French, Brazilian Portuguese, Italian, Turkish,
+Simplified Chinese, Japanese, Korean and Other. Visitors
 can suggest a specific other language through the existing Discord link.
+
+The Italian website is available at `/it/`; an Italian game localization is
+still a poll option, not a released package. Polish and Ukrainian were withdrawn
+from the poll. Any earlier votes for those options stay in D1 but are excluded
+from the displayed results and total. Their cookies cannot cast a replacement
+vote; the API responds with `already_voted`. Other votes are unchanged.
 
 A localized shortcut is visible from the first screen: a fixed side tab on
 wide screens and a compact sticky strip below the header on narrow screens.
@@ -109,8 +115,12 @@ npx wrangler d1 migrations apply LANGUAGE_POLL_DB --remote
 npx wrangler deploy --keep-vars
 ```
 
-Deploy the API/asset route before merging the generated poll pages and client
-into GitHub `main`, since HTML is served directly from that branch. Verify all
-ten locale pages, the JavaScript asset and the read-only API after publication.
+Keep the API and the generated poll pages/client in sync when changing choices.
+Push the tested commit, temporarily deploy the Worker with `STATIC_BASE` pinned
+to that exact commit, and verify all eleven locale pages, the JavaScript asset
+and the read-only API. Then merge into `main`, verify its files match, and deploy
+the checked-in Worker again to restore the normal `main` source. Already-open
+pages may need a reload across the update; the source pin does not make a whole
+multi-request page load atomic.
 Keep production counts free of QA votes. Rollback must preserve the database;
 do not drop the table or delete the D1 resource to roll back site code.

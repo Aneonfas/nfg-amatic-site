@@ -8,7 +8,7 @@ const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const content = JSON.parse(
   await readFile(path.join(rootDir, "content", "home.locales.json"), "utf8"),
 );
-const locales = ["en", "ru", "es", "de", "fr", "pt-br", "zh-cn", "ja", "ko", "tr"];
+const locales = ["en", "ru", "es", "de", "fr", "it", "pt-br", "zh-cn", "ja", "ko", "tr"];
 const russianVersion = "1.0.2";
 const russianDownload =
   "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.0.2/Anvil-Empires-Russian-v1.0.2-steam-build-24805551.zip";
@@ -23,6 +23,7 @@ const lastTestedWording = {
   es: /última prueba/i,
   de: /zuletzt.*getestet/i,
   fr: /dernier test/i,
+  it: /ultimo test/i,
   "pt-br": /último teste/i,
   "zh-cn": /上次测试/,
   ja: /最終動作確認/,
@@ -37,6 +38,7 @@ const nextTestDateWording = {
   es: /fecha de la próxima prueba sigue en inglés/,
   de: /Datum des nächsten Tests bleibt auf Englisch/,
   fr: /date du prochain test reste en anglais/,
+  it: /data del prossimo test resta in inglese/i,
   "pt-br": /data do próximo teste continua em inglês/,
   "zh-cn": /下次测试的日期仍以英语显示/,
   ja: /次回テストの日時は英語表示のまま/,
@@ -47,6 +49,26 @@ const betaWording = /\bbeta\b|\bbêta\b|бета|ベータ|베타/i;
 
 test("Russian release checks cover every published locale", () => {
   assert.deepEqual(Object.keys(content.locales).sort(), [...locales].sort());
+});
+
+test("Italian is discoverable from every homepage, the sitemap and language metadata", async () => {
+  const italianUrl = "https://nfg-system.online/it/";
+  for (const locale of locales) {
+    const html = await readFile(path.join(rootDir, locale, "index.html"), "utf8");
+    assert.ok(html.includes(`<link rel="alternate" hreflang="it" href="${italianUrl}" />`));
+    assert.match(html, /<a href="\/it\/" data-locale-choice="it" lang="it" hreflang="it"(?: aria-current="page")?>Italiano<\/a>/);
+    if (locale === "it") {
+      assert.match(html, /<html lang="it">/);
+      assert.ok(html.includes(`<link rel="canonical" href="${italianUrl}" />`));
+      assert.match(html, /<meta property="og:locale" content="it_IT"/);
+      const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
+      assert.equal(graph.find((entry) => entry["@type"] === "CollectionPage").inLanguage, "it");
+    }
+  }
+  const sitemap = await readFile(path.join(rootDir, "sitemap.xml"), "utf8");
+  assert.equal((sitemap.match(/<url>/g) ?? []).length, locales.length);
+  assert.ok(sitemap.includes(`<loc>${italianUrl}</loc>`));
+  assert.ok((await readFile(path.join(rootDir, "llms.txt"), "utf8")).includes(italianUrl));
 });
 
 for (const locale of locales) {
