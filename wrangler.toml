@@ -2,6 +2,12 @@ name = "polished-poetry-b345"
 main = "worker.js"
 compatibility_date = "2026-05-26"
 
+[[d1_databases]]
+binding = "LANGUAGE_POLL_DB"
+database_name = "nfg-site-language-poll"
+database_id = "bf80fef9-38ff-4716-a9cb-5516ef63b7af"
+migrations_dir = "migrations"
+
 [[routes]]
 pattern = "nfg-system.online"
 custom_domain = true
