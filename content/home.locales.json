@@ -323,7 +323,7 @@
       "projectsAria": "Liste der NFG-Projekte",
       "discordAria": "NFG-Discord-Server in einem neuen Tab öffnen",
       "documentationAction": "Anleitung & Details",
-      "documentationAria": "Anleitung & Details zu {project} auf GitHub (öffnet in einem neuen Tab)",
+      "documentationAria": "Anleitung & Details: {project} auf GitHub (öffnet in einem neuen Tab)",
       "poll": {
         "shortcut": "Umfrage: nächste Sprache",
         "eyebrow": "Anvil Empires · Umfrage",
