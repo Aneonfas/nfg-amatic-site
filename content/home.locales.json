@@ -1,5 +1,5 @@
 {
-  "lastModified": "2026-08-10",
+  "lastModified": "2026-08-27",
   "assetRevision": "2026-08-10-auto-locale",
   "locales": {
     "en": {
@@ -28,8 +28,8 @@
           "title": "Anvil Empires Russian Localization",
           "primary": "An unofficial Russian translation for Anvil Empires Pre-Alpha on Windows/Steam.",
           "secondary": "Covers the interface, items, structures, production, quests, and system messages.",
-          "action": "Download 1.0.1",
-          "aria": "Download Anvil Empires Russian Localization 1.0.1 from GitHub in a new tab"
+          "action": "Download 1.0.2",
+          "aria": "Download Anvil Empires Russian Localization 1.0.2 from GitHub in a new tab"
         },
         {
           "title": "Anvil Empires Spanish Localization",
@@ -80,8 +80,8 @@
           "title": "Русская локализация Anvil Empires",
           "primary": "Неофициальный русский перевод Anvil Empires Pre-Alpha для Windows/Steam.",
           "secondary": "Перевод интерфейса, предметов, сооружений, производства, заданий и системных сообщений.",
-          "action": "Скачать 1.0.1",
-          "aria": "Скачать русскую локализацию Anvil Empires 1.0.1 с GitHub в новой вкладке"
+          "action": "Скачать 1.0.2",
+          "aria": "Скачать русскую локализацию Anvil Empires 1.0.2 с GitHub в новой вкладке"
         },
         {
           "title": "Испанская локализация Anvil Empires",
@@ -132,8 +132,8 @@
           "title": "Localización rusa de Anvil Empires",
           "primary": "Traducción no oficial al ruso de Anvil Empires Pre-Alpha para Windows/Steam.",
           "secondary": "Traduce la interfaz, los objetos, las estructuras, la producción, las misiones y los mensajes del sistema.",
-          "action": "Descargar 1.0.1",
-          "aria": "Descargar la localización rusa de Anvil Empires 1.0.1 desde GitHub en una pestaña nueva"
+          "action": "Descargar 1.0.2",
+          "aria": "Descargar la localización rusa de Anvil Empires 1.0.2 desde GitHub en una pestaña nueva"
         },
         {
           "title": "Localización española de Anvil Empires",
@@ -184,8 +184,8 @@
           "title": "Russische Lokalisierung für Anvil Empires",
           "primary": "Inoffizielle russische Übersetzung von Anvil Empires Pre-Alpha für Windows/Steam.",
           "secondary": "Übersetzt Benutzeroberfläche, Gegenstände, Gebäude, Produktion, Quests und Systemmeldungen.",
-          "action": "1.0.1 herunterladen",
-          "aria": "Russische Lokalisierung für Anvil Empires 1.0.1 von GitHub in einem neuen Tab herunterladen"
+          "action": "1.0.2 herunterladen",
+          "aria": "Russische Lokalisierung für Anvil Empires 1.0.2 von GitHub in einem neuen Tab herunterladen"
         },
         {
           "title": "Spanische Lokalisierung für Anvil Empires",
@@ -236,8 +236,8 @@
           "title": "Localisation russe d’Anvil Empires",
           "primary": "Traduction russe non officielle de la version pré-alpha d’Anvil Empires pour Windows/Steam.",
           "secondary": "Traduit l’interface, les objets, les bâtiments, la production, les quêtes et les messages système.",
-          "action": "Télécharger 1.0.1",
-          "aria": "Télécharger la localisation russe 1.0.1 d’Anvil Empires depuis GitHub dans un nouvel onglet"
+          "action": "Télécharger 1.0.2",
+          "aria": "Télécharger la localisation russe 1.0.2 d’Anvil Empires depuis GitHub dans un nouvel onglet"
         },
         {
           "title": "Localisation espagnole d’Anvil Empires",
@@ -288,8 +288,8 @@
           "title": "Localização de Anvil Empires em russo",
           "primary": "Tradução não oficial para o russo da versão pré-alfa de Anvil Empires para Windows/Steam.",
           "secondary": "Traduz a interface, os itens, as construções, a produção, as missões e as mensagens do sistema.",
-          "action": "Baixar 1.0.1",
-          "aria": "Baixar a localização de Anvil Empires em russo, versão 1.0.1, do GitHub em uma nova guia"
+          "action": "Baixar 1.0.2",
+          "aria": "Baixar a localização de Anvil Empires em russo, versão 1.0.2, do GitHub em uma nova guia"
         },
         {
           "title": "Localização de Anvil Empires em espanhol",
@@ -340,8 +340,8 @@
           "title": "Anvil Empires 俄语本地化",
           "primary": "面向 Windows/Steam 版 Anvil Empires Pre-Alpha 的非官方俄语翻译。",
           "secondary": "涵盖界面、物品、建筑、生产、任务和系统消息。",
-          "action": "下载 1.0.1",
-          "aria": "在新标签页中从 GitHub 下载 Anvil Empires 俄语本地化 1.0.1"
+          "action": "下载 1.0.2",
+          "aria": "在新标签页中从 GitHub 下载 Anvil Empires 俄语本地化 1.0.2"
         },
         {
           "title": "Anvil Empires 西班牙语本地化",
@@ -392,8 +392,8 @@
           "title": "Anvil Empires ロシア語ローカライズ",
           "primary": "Windows/Steam版Anvil Empires Pre-Alpha向けの非公式ロシア語翻訳。",
           "secondary": "UI、アイテム、建造物、生産、クエスト、システムメッセージを翻訳。",
-          "action": "1.0.1をダウンロード",
-          "aria": "GitHubからAnvil Empires ロシア語ローカライズ 1.0.1をダウンロード（新しいタブで開きます）"
+          "action": "1.0.2をダウンロード",
+          "aria": "GitHubからAnvil Empires ロシア語ローカライズ 1.0.2をダウンロード（新しいタブで開きます）"
         },
         {
           "title": "Anvil Empires スペイン語ローカライズ",
@@ -444,8 +444,8 @@
           "title": "Anvil Empires 러시아어 현지화",
           "primary": "Windows/Steam용 Anvil Empires Pre-Alpha의 비공식 러시아어 번역입니다.",
           "secondary": "인터페이스, 아이템, 건축물, 생산, 퀘스트, 시스템 메시지를 번역합니다.",
-          "action": "1.0.1 다운로드",
-          "aria": "새 탭에서 GitHub를 열어 Anvil Empires 러시아어 현지화 1.0.1 다운로드하기"
+          "action": "1.0.2 다운로드",
+          "aria": "새 탭에서 GitHub를 열어 Anvil Empires 러시아어 현지화 1.0.2 다운로드하기"
         },
         {
           "title": "Anvil Empires 스페인어 현지화",
@@ -496,8 +496,8 @@
           "title": "Anvil Empires için Rusça yerelleştirme",
           "primary": "Anvil Empires Pre-Alpha’nın Windows/Steam için resmî olmayan Rusça çevirisi.",
           "secondary": "Arayüzü, eşyaları, yapıları, üretimi, görevleri ve sistem mesajlarını kapsar.",
-          "action": "1.0.1 sürümünü indir",
-          "aria": "Anvil Empires Rusça yerelleştirmesi 1.0.1 sürümünü GitHub’dan yeni sekmede indir"
+          "action": "1.0.2 sürümünü indir",
+          "aria": "Anvil Empires Rusça yerelleştirmesi 1.0.2 sürümünü GitHub’dan yeni sekmede indir"
         },
         {
           "title": "Anvil Empires için İspanyolca yerelleştirme",

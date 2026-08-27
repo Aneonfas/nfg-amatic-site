@@ -27,6 +27,7 @@ Generate or verify the localized pages:
 node scripts/generate-localized-home.mjs
 node scripts/generate-localized-home.mjs --check
 node --test tests/worker-locale-routing.test.mjs
+node --test tests/russian-release-links.test.mjs
 ```
 
 For an HTTP preview, from the repository root run:
