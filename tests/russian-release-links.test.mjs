@@ -14,7 +14,8 @@ const russianDownload =
   "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.0.2/Anvil-Empires-Russian-v1.0.2-steam-build-24805551.zip";
 const oldRussianRepository = /https:\/\/github\.com\/(?:nullith2|Aneonfas)\/anvil-empires-russian(?:\/|\b)/i;
 const spanishVersion = "1.0.0";
-const spanishBuild = "24805551";
+const spanishGameBuild = "90510";
+const spanishSteamBuildId = "24805551";
 const spanishDownload =
   "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.0.0/Anvil-Empires-Spanish-v1.0.0-steam-build-24805551.zip";
 const lastTestedWording = {
@@ -120,9 +121,13 @@ for (const locale of locales) {
       `${locale} Spanish description must name its published release`,
     );
     assert.deepEqual(
-      project.secondary.match(/\b\d{8}\b/g),
-      [spanishBuild],
-      `${locale} Spanish description must identify the last tested game build`,
+      project.secondary.match(/\b\d{5,}\b/g),
+      [spanishGameBuild],
+      `${locale} Spanish description must identify the last tested in-game build`,
+    );
+    assert.ok(
+      !project.secondary.includes(spanishSteamBuildId),
+      `${locale} player-facing copy must not substitute the technical Steam BuildID`,
     );
     assert.match(
       project.secondary,

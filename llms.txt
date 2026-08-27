@@ -32,6 +32,6 @@
 ## Notes
 
 - The Russian and Spanish localization links point to ready release archives.
-- Spanish localization: Version 1.0.0 is available. Last tested on game build 24805551. The next test date remains in English.
+- Spanish localization: Version 1.0.0 is available. Last tested on in-game build 90510. The next test date remains in English.
 - NFG Hub is the Windows catalog and installer for supported NFG packages.
 - Canonical page metadata and sitemap.xml remain the authoritative discovery sources.
