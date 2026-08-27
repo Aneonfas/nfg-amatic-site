@@ -24,6 +24,11 @@
 - [Anvil Forge Helper](https://github.com/nullith2/Anvil-forge-helper)
 - [NFG Hub](https://github.com/Aneonfas/nfg-hub/releases/download/v0.3.0/NFG-Hub-v0.3.0-win-x64.zip)
 
+## Installation guides
+
+- [Anvil Empires Russian localization: guide and details](https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.ru.md)
+- [Anvil Empires Spanish localization: guide and details](https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.es.md)
+
 ## Notes
 
 - The Russian and Spanish localization links point to ready release archives.

@@ -26,11 +26,15 @@ const PROJECTS = [
     key: "russian",
     name: "Anvil Empires Russian localization",
     href: "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.0.2/Anvil-Empires-Russian-v1.0.2-steam-build-24805551.zip",
+    documentationHref: "https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.ru.md",
+    documentationLanguage: "ru",
   },
   {
     key: "spanish",
     name: "Anvil Empires Spanish localization",
     href: "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.0.0/Anvil-Empires-Spanish-v1.0.0-steam-build-24805551.zip",
+    documentationHref: "https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.es.md",
+    documentationLanguage: "es",
   },
   {
     key: "forge",
@@ -118,6 +122,14 @@ function validateSource() {
     }
     if (!Array.isArray(locale.projects) || locale.projects.length !== PROJECTS.length) {
       throw new Error(`${locale.slug} must contain ${PROJECTS.length} projects.`);
+    }
+    for (const field of ["documentationAction", "documentationAria"]) {
+      if (typeof locale[field] !== "string" || !locale[field].trim()) {
+        throw new Error(`${locale.slug} is missing ${field}.`);
+      }
+    }
+    if (!locale.documentationAria.includes("{project}")) {
+      throw new Error(`${locale.slug}.documentationAria must include {project}.`);
     }
     validatePollCopy(locale);
     slugs.add(locale.slug);
@@ -231,7 +243,7 @@ function renderLocalePage(locale) {
   const canonical = localeUrl(locale);
   const assetPrefix = "../";
   const projectCards = locale.projects
-    .map((project, index) => renderProjectCard(project, PROJECTS[index], index))
+    .map((project, index) => renderProjectCard(project, PROJECTS[index], index, locale))
     .join("\n\n");
   const structuredData = renderLocaleStructuredData(locale, canonical);
   const ogAlternates = locales
@@ -319,16 +331,9 @@ function renderRootFallback() {
 `;
 }
 
-function renderProjectCard(project, definition, index) {
+function renderProjectCard(project, definition, index, locale) {
   const position = String(index + 1).padStart(2, "0");
-  return `        <article class="project-row project-row-active">
-          <div class="project-index" aria-hidden="true">${position}</div>
-          <h2 class="project-title">${escapeHtml(project.title)}</h2>
-          <div class="project-copy">
-            <p>${escapeHtml(project.primary)}</p>
-            <p class="project-copy-secondary">${escapeHtml(project.secondary)}</p>
-          </div>
-          <a
+  const primaryLink = `          <a
             class="project-link"
             href="${escapeAttr(definition.href)}"
             target="_blank"
@@ -337,7 +342,31 @@ function renderProjectCard(project, definition, index) {
           >
             <span>${escapeHtml(project.action)}</span>
             ${externalLinkIcon()}
-          </a>
+          </a>`;
+  const actions = definition.documentationHref
+    ? `          <div class="project-actions">
+${primaryLink.split("\n").map((line) => `  ${line}`).join("\n")}
+            <a
+              class="project-link project-link-secondary"
+              href="${escapeAttr(definition.documentationHref)}"
+              target="_blank"
+              rel="noreferrer"
+              hreflang="${escapeAttr(definition.documentationLanguage)}"
+              aria-label="${escapeAttr(locale.documentationAria.replaceAll("{project}", project.title))}"
+            >
+              <span>${escapeHtml(locale.documentationAction)}</span>
+              ${externalLinkIcon().replaceAll("\n", "\n  ")}
+            </a>
+          </div>`
+    : primaryLink;
+  return `        <article class="project-row project-row-active">
+          <div class="project-index" aria-hidden="true">${position}</div>
+          <h2 class="project-title">${escapeHtml(project.title)}</h2>
+          <div class="project-copy">
+            <p>${escapeHtml(project.primary)}</p>
+            <p class="project-copy-secondary">${escapeHtml(project.secondary)}</p>
+          </div>
+${actions}
         </article>`;
 }
 
@@ -541,6 +570,9 @@ function renderLlmsText() {
   const productLinks = PROJECTS.map(
     (project) => `- [${project.name}](${project.href})`,
   ).join("\n");
+  const documentationLinks = PROJECTS.filter((project) => project.documentationHref)
+    .map((project) => `- [${project.name}: guide and details](${project.documentationHref})`)
+    .join("\n");
   const spanishIndex = PROJECTS.findIndex((project) => project.key === "spanish");
   const spanishDescription = defaultLocale.projects[spanishIndex].secondary;
 
@@ -555,6 +587,10 @@ ${localeLinks}
 ## Products
 
 ${productLinks}
+
+## Installation guides
+
+${documentationLinks}
 
 ## Notes
 

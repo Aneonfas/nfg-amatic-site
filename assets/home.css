@@ -255,6 +255,18 @@ a {
   color: var(--muted);
 }
 
+.project-actions {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.project-actions .project-link {
+  max-width: 100%;
+}
+
 .project-link {
   width: max-content;
   justify-self: end;
@@ -283,6 +295,17 @@ a {
 
 .project-link:hover {
   color: var(--accent-hover);
+}
+
+.project-link-secondary {
+  color: var(--muted);
+  font-size: 14px;
+  text-align: right;
+}
+
+.project-link-secondary svg {
+  width: 16px;
+  height: 16px;
 }
 
 .poll-shortcut-dock {
@@ -761,6 +784,22 @@ a {
   .project-link {
     margin-top: 29px;
     font-size: 19px;
+  }
+
+  .project-actions {
+    margin-top: 29px;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .project-actions .project-link {
+    min-height: 44px;
+    margin-top: 0;
+  }
+
+  .project-link-secondary {
+    font-size: 16px;
+    text-align: left;
   }
 
   .language-poll {

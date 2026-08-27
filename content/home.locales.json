@@ -1,6 +1,6 @@
 {
   "lastModified": "2026-08-27",
-  "assetRevision": "20260827-poll-turnstile-v1",
+  "assetRevision": "20260827-localization-guides-v1",
   "locales": {
     "en": {
       "lang": "en",
@@ -16,6 +16,8 @@
       "languageLabel": "Choose language",
       "projectsAria": "NFG project list",
       "discordAria": "Open the NFG Discord server in a new tab",
+      "documentationAction": "Guide & details",
+      "documentationAria": "Guide & details for {project} on GitHub (opens in a new tab)",
       "poll": {
         "shortcut": "Poll: next language",
         "eyebrow": "Anvil Empires · Community poll",
@@ -116,6 +118,8 @@
       "languageLabel": "Выбрать язык",
       "projectsAria": "Список проектов NFG",
       "discordAria": "Открыть Discord-сервер NFG в новой вкладке",
+      "documentationAction": "Описание и установка",
+      "documentationAria": "Описание и установка — {project} на GitHub (в новой вкладке)",
       "poll": {
         "shortcut": "Опрос: следующий язык",
         "eyebrow": "Anvil Empires · Голосование",
@@ -216,6 +220,8 @@
       "languageLabel": "Elegir idioma",
       "projectsAria": "Lista de proyectos NFG",
       "discordAria": "Abrir el servidor de Discord de NFG en una pestaña nueva",
+      "documentationAction": "Guía y detalles",
+      "documentationAria": "Guía y detalles de {project} en GitHub (se abre en una pestaña nueva)",
       "poll": {
         "shortcut": "Encuesta: próximo idioma",
         "eyebrow": "Anvil Empires · Encuesta",
@@ -316,6 +322,8 @@
       "languageLabel": "Sprache auswählen",
       "projectsAria": "Liste der NFG-Projekte",
       "discordAria": "NFG-Discord-Server in einem neuen Tab öffnen",
+      "documentationAction": "Anleitung & Details",
+      "documentationAria": "Anleitung & Details zu {project} auf GitHub (öffnet in einem neuen Tab)",
       "poll": {
         "shortcut": "Umfrage: nächste Sprache",
         "eyebrow": "Anvil Empires · Umfrage",
@@ -416,6 +424,8 @@
       "languageLabel": "Choisir la langue",
       "projectsAria": "Liste des projets NFG",
       "discordAria": "Ouvrir le serveur Discord de NFG dans un nouvel onglet",
+      "documentationAction": "Guide et détails",
+      "documentationAria": "Guide et détails de {project} sur GitHub (s’ouvre dans un nouvel onglet)",
       "poll": {
         "shortcut": "Sondage : prochaine langue",
         "eyebrow": "Anvil Empires · Sondage",
@@ -516,6 +526,8 @@
       "languageLabel": "Scegli la lingua",
       "projectsAria": "Elenco dei progetti NFG",
       "discordAria": "Apri il server Discord di NFG in una nuova scheda",
+      "documentationAction": "Istruzioni e dettagli",
+      "documentationAria": "Istruzioni e dettagli per {project} su GitHub (si apre in una nuova scheda)",
       "poll": {
         "shortcut": "Sondaggio: prossima lingua",
         "eyebrow": "Anvil Empires · Sondaggio",
@@ -616,6 +628,8 @@
       "languageLabel": "Escolher idioma",
       "projectsAria": "Lista de projetos da NFG",
       "discordAria": "Abrir o servidor da NFG no Discord em uma nova guia",
+      "documentationAction": "Instruções e detalhes",
+      "documentationAria": "Instruções e detalhes de {project} no GitHub (abre em uma nova guia)",
       "poll": {
         "shortcut": "Enquete: próximo idioma",
         "eyebrow": "Anvil Empires · Enquete",
@@ -716,6 +730,8 @@
       "languageLabel": "选择语言",
       "projectsAria": "NFG 项目列表",
       "discordAria": "在新标签页中打开 NFG Discord 服务器",
+      "documentationAction": "安装指南与详情",
+      "documentationAria": "安装指南与详情：{project}（GitHub，在新标签页中打开）",
       "poll": {
         "shortcut": "投票：下一种语言",
         "eyebrow": "Anvil Empires · 社区投票",
@@ -816,6 +832,8 @@
       "languageLabel": "言語を選択",
       "projectsAria": "NFGプロジェクト一覧",
       "discordAria": "NFGのDiscordサーバーを新しいタブで開く",
+      "documentationAction": "導入手順と詳細",
+      "documentationAria": "{project}の導入手順と詳細（GitHub、新しいタブで開きます）",
       "poll": {
         "shortcut": "投票：次の翻訳言語",
         "eyebrow": "Anvil Empires · アンケート",
@@ -916,6 +934,8 @@
       "languageLabel": "언어 선택",
       "projectsAria": "NFG 프로젝트 목록",
       "discordAria": "새 탭에서 NFG Discord 서버 열기",
+      "documentationAction": "설치 안내 및 상세 정보",
+      "documentationAria": "{project} 설치 안내 및 상세 정보 (GitHub, 새 탭에서 열림)",
       "poll": {
         "shortcut": "투표: 다음 번역 언어",
         "eyebrow": "Anvil Empires · 커뮤니티 투표",
@@ -1016,6 +1036,8 @@
       "languageLabel": "Dil seç",
       "projectsAria": "NFG projeleri listesi",
       "discordAria": "NFG Discord sunucusunu yeni sekmede aç",
+      "documentationAction": "Kurulum ve ayrıntılar",
+      "documentationAria": "{project} için kurulum ve ayrıntılar (GitHub'da yeni sekmede açılır)",
       "poll": {
         "shortcut": "Anket: sıradaki dil",
         "eyebrow": "Anvil Empires · Topluluk anketi",
