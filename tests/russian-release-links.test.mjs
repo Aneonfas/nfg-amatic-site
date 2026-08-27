@@ -13,10 +13,10 @@ const russianVersion = "1.0.2";
 const russianDownload =
   "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.0.2/Anvil-Empires-Russian-v1.0.2-steam-build-24805551.zip";
 const oldRussianRepository = /https:\/\/github\.com\/(?:nullith2|Aneonfas)\/anvil-empires-russian(?:\/|\b)/i;
-const spanishVersion = "0.1.0";
-const spanishBuild = "24619810";
+const spanishVersion = "1.0.0";
+const spanishBuild = "24805551";
 const spanishDownload =
-  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v0.1.0/Anvil-Empires-Spanish-v0.1.0-steam-build-24619810.zip";
+  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.0.0/Anvil-Empires-Spanish-v1.0.0-steam-build-24805551.zip";
 const lastTestedWording = {
   en: /last tested/i,
   ru: /последняя проверка/i,
@@ -31,6 +31,19 @@ const lastTestedWording = {
 };
 const exclusiveBuildWording =
   /\bonly\b|только|\bsolo\b|\bnur\b|\buniquement\b|\bapenas\b|仅适用|専用|전용|yalnızca/i;
+const nextTestDateWording = {
+  en: /next test date remains in English/,
+  ru: /Дата следующего теста остаётся на английском/,
+  es: /fecha de la próxima prueba sigue en inglés/,
+  de: /Datum des nächsten Tests bleibt auf Englisch/,
+  fr: /date du prochain test reste en anglais/,
+  "pt-br": /data do próximo teste continua em inglês/,
+  "zh-cn": /下次测试的日期仍以英语显示/,
+  ja: /次回テストの日時は英語表示のまま/,
+  ko: /다음 테스트 날짜는 영어로 표시됩니다/,
+  tr: /Sonraki testin tarihi İngilizce kalır/,
+};
+const betaWording = /\bbeta\b|\bbêta\b|бета|ベータ|베타/i;
 
 test("Russian release checks cover every published locale", () => {
   assert.deepEqual(Object.keys(content.locales).sort(), [...locales].sort());
@@ -69,8 +82,16 @@ for (const locale of locales) {
     assert.doesNotMatch(html, oldRussianRepository);
   });
 
-  test(`${locale}: Spanish copy, HTML and JSON-LD name the published beta and last tested build`, async () => {
+  test(`${locale}: Spanish CTA, copy and JSON-LD name the stable release and last tested build`, async () => {
     const project = content.locales[locale].projects[2];
+    for (const field of ["action", "aria"]) {
+      assert.deepEqual(
+        project[field].match(/\d+\.\d+\.\d+/g),
+        [spanishVersion],
+        `${locale} source ${field} must name Spanish release ${spanishVersion}`,
+      );
+      assert.doesNotMatch(project[field], betaWording);
+    }
     assert.deepEqual(
       project.secondary.match(/\d+\.\d+\.\d+/g),
       [spanishVersion],
@@ -91,6 +112,8 @@ for (const locale of locales) {
       exclusiveBuildWording,
       `${locale} must not restrict installation to the tested build`,
     );
+    assert.doesNotMatch(project.secondary, betaWording);
+    assert.match(project.secondary, nextTestDateWording[locale]);
 
     const html = await readFile(path.join(rootDir, locale, "index.html"), "utf8");
     const articles = [...html.matchAll(
@@ -100,7 +123,13 @@ for (const locale of locales) {
     assert.ok(spanishCard.includes(
       `<p class="project-copy-secondary">${escapeHtml(project.secondary)}</p>`,
     ));
-    assert.equal(spanishCard.match(/href="([^"]+)"/)?.[1], spanishDownload);
+    const anchor = spanishCard.match(/<a\s+([\s\S]*?)>([\s\S]*?)<\/a>/);
+    assert.ok(anchor, `${locale} Spanish download link is missing`);
+    assert.equal(anchor[1].match(/href="([^"]+)"/)?.[1], spanishDownload);
+    assert.equal(anchor[1].match(/aria-label="([^"]+)"/)?.[1], escapeAttr(project.aria));
+    assert.ok(anchor[2].includes(`<span>${escapeHtml(project.action)}</span>`));
+    assert.match(anchor[1], /target="_blank"/);
+    assert.match(anchor[1], /rel="noreferrer"/);
 
     const jsonLd = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
     const collection = JSON.parse(jsonLd[1])["@graph"].find(

@@ -19,13 +19,13 @@
 
 - [Anvil Planner](https://anvil-planner.nfg-system.online/)
 - [Anvil Empires Russian localization](https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.0.2/Anvil-Empires-Russian-v1.0.2-steam-build-24805551.zip)
-- [Anvil Empires Spanish localization](https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v0.1.0/Anvil-Empires-Spanish-v0.1.0-steam-build-24619810.zip)
+- [Anvil Empires Spanish localization](https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.0.0/Anvil-Empires-Spanish-v1.0.0-steam-build-24805551.zip)
 - [Anvil Forge Helper](https://github.com/nullith2/Anvil-forge-helper)
 - [NFG Hub](https://github.com/Aneonfas/nfg-hub/releases/download/v0.3.0/NFG-Hub-v0.3.0-win-x64.zip)
 
 ## Notes
 
 - The Russian and Spanish localization links point to ready release archives.
-- Spanish localization: Beta 0.1.0 is available. Last tested on game build 24619810.
+- Spanish localization: Version 1.0.0 is available. Last tested on game build 24805551. The next test date remains in English.
 - NFG Hub is the Windows catalog and installer for supported NFG packages.
 - Canonical page metadata and sitemap.xml remain the authoritative discovery sources.
