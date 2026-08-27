@@ -1,6 +1,6 @@
 {
   "lastModified": "2026-08-27",
-  "assetRevision": "20260827-poll-it",
+  "assetRevision": "20260827-poll-turnstile-v1",
   "locales": {
     "en": {
       "lang": "en",
@@ -33,7 +33,17 @@
         "yourVote": "Your vote",
         "voted": "Your vote is recorded: {language}.",
         "success": "Thank you! Your vote: {language}.",
-        "browserNote": "No account needed. Cookies are required to remember this browser’s vote.",
+        "verification": {
+          "label": "Verification before voting",
+          "loading": "Loading verification…",
+          "ready": "Verification complete.",
+          "retry": "Retry verification",
+          "expired": "Verification expired. Please complete it again.",
+          "failed": "Verification failed. Please try again.",
+          "unavailable": "Verification is temporarily unavailable. You can still view the results below.",
+          "wait": "Try again in {seconds} seconds.",
+          "checkingVote": "Checking whether your vote was saved…"
+        },
         "suggest": "Another language? Suggest it on Discord.",
         "noscript": "Enable JavaScript to vote and see results. You can also suggest a language on Discord.",
         "errors": {
@@ -43,7 +53,10 @@
           "forbidden": "The vote request could not be verified. Reload this page and try again.",
           "rate_limited": "Too many requests. Please wait a little before trying again.",
           "invalid_option": "This option is unavailable. Choose a language from the list.",
-          "already_voted": "This browser has already voted. You cannot vote again."
+          "already_voted": "This browser has already voted. You cannot vote again.",
+          "verification_required": "Complete the verification before voting.",
+          "verification_failed": "Verification was not accepted. Complete it again before retrying.",
+          "verification_unavailable": "Verification is temporarily unavailable. Please try later."
         },
         "options": {
           "de": "German", "fr": "French", "pt-br": "Portuguese (Brazil)",
@@ -120,7 +133,17 @@
         "yourVote": "Ваш выбор",
         "voted": "Ваш голос учтён: {language}.",
         "success": "Спасибо! Ваш голос: {language}.",
-        "browserNote": "Без регистрации. Для запоминания голоса в этом браузере нужны cookie.",
+        "verification": {
+          "label": "Проверка перед голосованием",
+          "loading": "Загружаем проверку…",
+          "ready": "Проверка пройдена.",
+          "retry": "Повторить проверку",
+          "expired": "Срок проверки истёк. Пройдите её ещё раз.",
+          "failed": "Не удалось пройти проверку. Повторите попытку.",
+          "unavailable": "Проверка временно недоступна. Результаты можно посмотреть ниже.",
+          "wait": "Повторите попытку через {seconds} с.",
+          "checkingVote": "Проверяем, сохранился ли голос…"
+        },
         "suggest": "Другой язык? Предложите его в Discord.",
         "noscript": "Включите JavaScript, чтобы голосовать и видеть результаты. Предложить язык также можно в Discord.",
         "errors": {
@@ -130,7 +153,10 @@
           "forbidden": "Не удалось проверить запрос на голосование. Обновите страницу и попробуйте ещё раз.",
           "rate_limited": "Слишком много запросов. Подождите немного и попробуйте ещё раз.",
           "invalid_option": "Этот вариант недоступен. Выберите язык из списка.",
-          "already_voted": "В этом браузере уже голосовали. Повторно голосовать нельзя."
+          "already_voted": "В этом браузере уже голосовали. Повторно голосовать нельзя.",
+          "verification_required": "Пройдите проверку перед голосованием.",
+          "verification_failed": "Проверка не принята. Пройдите её ещё раз перед повторной попыткой.",
+          "verification_unavailable": "Проверка временно недоступна. Попробуйте позже."
         },
         "options": {
           "de": "Немецкий", "fr": "Французский", "pt-br": "Португальский (Бразилия)",
@@ -207,7 +233,17 @@
         "yourVote": "Tu voto",
         "voted": "Tu voto está registrado: {language}.",
         "success": "¡Gracias! Tu voto: {language}.",
-        "browserNote": "No necesitas una cuenta. Se requieren cookies para recordar el voto de este navegador.",
+        "verification": {
+          "label": "Verificación antes de votar",
+          "loading": "Cargando la verificación…",
+          "ready": "Verificación completada.",
+          "retry": "Repetir verificación",
+          "expired": "La verificación ha caducado. Complétala de nuevo.",
+          "failed": "La verificación ha fallado. Inténtalo de nuevo.",
+          "unavailable": "La verificación no está disponible temporalmente. Puedes ver los resultados a continuación.",
+          "wait": "Inténtalo de nuevo en {seconds} segundos.",
+          "checkingVote": "Comprobando si se guardó tu voto…"
+        },
         "suggest": "¿Otro idioma? Sugiérelo en Discord.",
         "noscript": "Activa JavaScript para votar y ver los resultados. También puedes sugerir un idioma en Discord.",
         "errors": {
@@ -217,7 +253,10 @@
           "forbidden": "No pudimos verificar la solicitud de voto. Recarga esta página e inténtalo de nuevo.",
           "rate_limited": "Demasiadas solicitudes. Espera un poco antes de intentarlo de nuevo.",
           "invalid_option": "Esta opción no está disponible. Elige un idioma de la lista.",
-          "already_voted": "Este navegador ya ha votado. No se puede volver a votar."
+          "already_voted": "Este navegador ya ha votado. No se puede volver a votar.",
+          "verification_required": "Completa la verificación antes de votar.",
+          "verification_failed": "La verificación no se ha aceptado. Complétala de nuevo antes de reintentar.",
+          "verification_unavailable": "La verificación no está disponible temporalmente. Inténtalo más tarde."
         },
         "options": {
           "de": "Alemán", "fr": "Francés", "pt-br": "Portugués (Brasil)",
@@ -294,7 +333,17 @@
         "yourVote": "Deine Stimme",
         "voted": "Deine Stimme ist gespeichert: {language}.",
         "success": "Danke! Deine Stimme: {language}.",
-        "browserNote": "Kein Konto nötig. Cookies werden benötigt, um die Stimme dieses Browsers wiederzuerkennen.",
+        "verification": {
+          "label": "Prüfung vor der Abstimmung",
+          "loading": "Prüfung wird geladen…",
+          "ready": "Prüfung abgeschlossen.",
+          "retry": "Prüfung wiederholen",
+          "expired": "Die Prüfung ist abgelaufen. Bitte führe sie erneut durch.",
+          "failed": "Die Prüfung ist fehlgeschlagen. Bitte versuche es erneut.",
+          "unavailable": "Die Prüfung ist vorübergehend nicht verfügbar. Die Ergebnisse kannst du unten weiterhin ansehen.",
+          "wait": "Versuche es in {seconds} Sekunden erneut.",
+          "checkingVote": "Es wird geprüft, ob deine Stimme gespeichert wurde…"
+        },
         "suggest": "Eine andere Sprache? Schlage sie auf Discord vor.",
         "noscript": "Aktiviere JavaScript, um abzustimmen und Ergebnisse zu sehen. Du kannst auch auf Discord eine Sprache vorschlagen.",
         "errors": {
@@ -304,7 +353,10 @@
           "forbidden": "Die Abstimmungsanfrage konnte nicht geprüft werden. Lade die Seite neu und versuche es erneut.",
           "rate_limited": "Zu viele Anfragen. Warte etwas, bevor du es erneut versuchst.",
           "invalid_option": "Diese Option ist nicht verfügbar. Wähle eine Sprache aus der Liste.",
-          "already_voted": "Dieser Browser hat bereits abgestimmt. Erneutes Abstimmen ist nicht möglich."
+          "already_voted": "Dieser Browser hat bereits abgestimmt. Erneutes Abstimmen ist nicht möglich.",
+          "verification_required": "Schließe vor der Abstimmung die Prüfung ab.",
+          "verification_failed": "Die Prüfung wurde nicht akzeptiert. Führe sie vor einem weiteren Versuch erneut durch.",
+          "verification_unavailable": "Die Prüfung ist vorübergehend nicht verfügbar. Bitte versuche es später."
         },
         "options": {
           "de": "Deutsch", "fr": "Französisch", "pt-br": "Portugiesisch (Brasilien)",
@@ -381,7 +433,17 @@
         "yourVote": "Votre vote",
         "voted": "Votre vote est enregistré : {language}.",
         "success": "Merci ! Votre vote : {language}.",
-        "browserNote": "Aucun compte nécessaire. Les cookies permettent de retrouver le vote de ce navigateur.",
+        "verification": {
+          "label": "Vérification avant le vote",
+          "loading": "Chargement de la vérification…",
+          "ready": "Vérification terminée.",
+          "retry": "Relancer la vérification",
+          "expired": "La vérification a expiré. Veuillez la refaire.",
+          "failed": "La vérification a échoué. Veuillez réessayer.",
+          "unavailable": "La vérification est temporairement indisponible. Les résultats restent consultables ci-dessous.",
+          "wait": "Réessayez dans {seconds} secondes.",
+          "checkingVote": "Vérification de l’enregistrement de votre vote…"
+        },
         "suggest": "Une autre langue ? Proposez-la sur Discord.",
         "noscript": "Activez JavaScript pour voter et voir les résultats. Vous pouvez aussi proposer une langue sur Discord.",
         "errors": {
@@ -391,7 +453,10 @@
           "forbidden": "La demande de vote n’a pas pu être vérifiée. Rechargez cette page et réessayez.",
           "rate_limited": "Trop de demandes. Patientez un peu avant de réessayer.",
           "invalid_option": "Cette option est indisponible. Choisissez une langue dans la liste.",
-          "already_voted": "Ce navigateur a déjà voté. Il n’est pas possible de voter à nouveau."
+          "already_voted": "Ce navigateur a déjà voté. Il n’est pas possible de voter à nouveau.",
+          "verification_required": "Effectuez la vérification avant de voter.",
+          "verification_failed": "La vérification n’a pas été acceptée. Refaites-la avant de réessayer.",
+          "verification_unavailable": "La vérification est temporairement indisponible. Réessayez plus tard."
         },
         "options": {
           "de": "Allemand", "fr": "Français", "pt-br": "Portugais (Brésil)",
@@ -468,7 +533,17 @@
         "yourVote": "Il tuo voto",
         "voted": "Il tuo voto è registrato: {language}.",
         "success": "Grazie! Il tuo voto: {language}.",
-        "browserNote": "Non serve un account. I cookie sono necessari per ricordare il voto di questo browser.",
+        "verification": {
+          "label": "Verifica prima del voto",
+          "loading": "Caricamento della verifica…",
+          "ready": "Verifica completata.",
+          "retry": "Ripeti la verifica",
+          "expired": "La verifica è scaduta. Completala di nuovo.",
+          "failed": "Verifica non riuscita. Riprova.",
+          "unavailable": "La verifica è temporaneamente non disponibile. Puoi comunque vedere i risultati qui sotto.",
+          "wait": "Riprova tra {seconds} secondi.",
+          "checkingVote": "Controllo del salvataggio del voto…"
+        },
         "suggest": "Un’altra lingua? Proponila su Discord.",
         "noscript": "Attiva JavaScript per votare e vedere i risultati. Puoi anche proporre una lingua su Discord.",
         "errors": {
@@ -478,7 +553,10 @@
           "forbidden": "Non è stato possibile verificare la richiesta di voto. Ricarica questa pagina e riprova.",
           "rate_limited": "Troppe richieste. Attendi un po’ prima di riprovare.",
           "invalid_option": "Questa opzione non è disponibile. Scegli una lingua dall’elenco.",
-          "already_voted": "Questo browser ha già votato. Non è possibile votare di nuovo."
+          "already_voted": "Questo browser ha già votato. Non è possibile votare di nuovo.",
+          "verification_required": "Completa la verifica prima di votare.",
+          "verification_failed": "La verifica non è stata accettata. Completala di nuovo prima di riprovare.",
+          "verification_unavailable": "La verifica è temporaneamente non disponibile. Riprova più tardi."
         },
         "options": {
           "de": "Tedesco", "fr": "Francese", "pt-br": "Portoghese (Brasile)",
@@ -555,7 +633,17 @@
         "yourVote": "Seu voto",
         "voted": "Seu voto está registrado: {language}.",
         "success": "Obrigado! Seu voto: {language}.",
-        "browserNote": "Não é preciso criar uma conta. Os cookies são necessários para lembrar o voto deste navegador.",
+        "verification": {
+          "label": "Verificação antes do voto",
+          "loading": "Carregando a verificação…",
+          "ready": "Verificação concluída.",
+          "retry": "Repetir verificação",
+          "expired": "A verificação expirou. Conclua-a novamente.",
+          "failed": "A verificação falhou. Tente novamente.",
+          "unavailable": "A verificação está temporariamente indisponível. Você ainda pode ver os resultados abaixo.",
+          "wait": "Tente novamente em {seconds} segundos.",
+          "checkingVote": "Verificando se seu voto foi salvo…"
+        },
         "suggest": "Outro idioma? Sugira no Discord.",
         "noscript": "Ative o JavaScript para votar e ver os resultados. Você também pode sugerir um idioma no Discord.",
         "errors": {
@@ -565,7 +653,10 @@
           "forbidden": "Não foi possível verificar a solicitação de voto. Recarregue esta página e tente novamente.",
           "rate_limited": "Muitas solicitações. Aguarde um pouco antes de tentar novamente.",
           "invalid_option": "Esta opção está indisponível. Escolha um idioma da lista.",
-          "already_voted": "Este navegador já votou. Não é possível votar novamente."
+          "already_voted": "Este navegador já votou. Não é possível votar novamente.",
+          "verification_required": "Conclua a verificação antes de votar.",
+          "verification_failed": "A verificação não foi aceita. Conclua-a novamente antes de tentar outra vez.",
+          "verification_unavailable": "A verificação está temporariamente indisponível. Tente mais tarde."
         },
         "options": {
           "de": "Alemão", "fr": "Francês", "pt-br": "Português (Brasil)",
@@ -642,7 +733,17 @@
         "yourVote": "你的选择",
         "voted": "你的投票已记录：{language}。",
         "success": "谢谢！你的选择：{language}。",
-        "browserNote": "无需注册。需要使用 Cookie 来记住此浏览器的投票。",
+        "verification": {
+          "label": "投票前验证",
+          "loading": "正在加载验证…",
+          "ready": "验证已通过。",
+          "retry": "重新验证",
+          "expired": "验证已过期，请重新完成验证。",
+          "failed": "验证失败，请重试。",
+          "unavailable": "验证暂时不可用，你仍可在下方查看结果。",
+          "wait": "请在 {seconds} 秒后重试。",
+          "checkingVote": "正在检查你的投票是否已保存…"
+        },
         "suggest": "想要其他语言？欢迎在 Discord 提议。",
         "noscript": "请启用 JavaScript 以投票和查看结果。你也可以在 Discord 提议一种语言。",
         "errors": {
@@ -652,7 +753,10 @@
           "forbidden": "无法验证投票请求。请刷新此页面后重试。",
           "rate_limited": "请求过多，请稍后重试。",
           "invalid_option": "此选项不可用，请从列表中选择一种语言。",
-          "already_voted": "此浏览器已经投过票，无法再次投票。"
+          "already_voted": "此浏览器已经投过票，无法再次投票。",
+          "verification_required": "请在投票前完成验证。",
+          "verification_failed": "验证未被接受，请重新验证后再试。",
+          "verification_unavailable": "验证暂时不可用，请稍后重试。"
         },
         "options": {
           "de": "德语", "fr": "法语", "pt-br": "葡萄牙语（巴西）",
@@ -729,7 +833,17 @@
         "yourVote": "あなたの選択",
         "voted": "投票は記録されています：{language}。",
         "success": "ありがとうございます！あなたの選択：{language}。",
-        "browserNote": "登録は不要です。このブラウザーの投票を記憶するためにCookieが必要です。",
+        "verification": {
+          "label": "投票前の認証",
+          "loading": "認証を読み込んでいます…",
+          "ready": "認証が完了しました。",
+          "retry": "認証をやり直す",
+          "expired": "認証の有効期限が切れました。もう一度認証してください。",
+          "failed": "認証に失敗しました。もう一度お試しください。",
+          "unavailable": "認証を一時的に利用できません。結果は引き続き下で確認できます。",
+          "wait": "{seconds}秒後にもう一度お試しください。",
+          "checkingVote": "投票が保存されたか確認しています…"
+        },
         "suggest": "ほかの言語をご希望ですか？Discordでご提案ください。",
         "noscript": "投票と結果の表示にはJavaScriptを有効にしてください。Discordでも言語を提案できます。",
         "errors": {
@@ -739,7 +853,10 @@
           "forbidden": "投票リクエストを確認できませんでした。このページを再読み込みして、もう一度お試しください。",
           "rate_limited": "リクエストが多すぎます。しばらく待ってから、もう一度お試しください。",
           "invalid_option": "この選択肢は利用できません。一覧から言語を選択してください。",
-          "already_voted": "このブラウザーでは投票済みです。再度投票することはできません。"
+          "already_voted": "このブラウザーでは投票済みです。再度投票することはできません。",
+          "verification_required": "投票する前に認証を完了してください。",
+          "verification_failed": "認証が受け付けられませんでした。もう一度認証してから再試行してください。",
+          "verification_unavailable": "認証を一時的に利用できません。しばらくしてからお試しください。"
         },
         "options": {
           "de": "ドイツ語", "fr": "フランス語", "pt-br": "ポルトガル語（ブラジル）",
@@ -816,7 +933,17 @@
         "yourVote": "내 선택",
         "voted": "투표가 기록되었습니다: {language}.",
         "success": "감사합니다! 선택한 언어: {language}.",
-        "browserNote": "가입은 필요하지 않습니다. 이 브라우저의 투표를 기억하려면 쿠키가 필요합니다.",
+        "verification": {
+          "label": "투표 전 확인",
+          "loading": "확인을 불러오는 중…",
+          "ready": "확인이 완료되었습니다.",
+          "retry": "확인 다시 하기",
+          "expired": "확인 유효 시간이 만료되었습니다. 다시 완료해 주세요.",
+          "failed": "확인에 실패했습니다. 다시 시도해 주세요.",
+          "unavailable": "확인을 일시적으로 이용할 수 없습니다. 아래에서 결과는 계속 볼 수 있습니다.",
+          "wait": "{seconds}초 후에 다시 시도해 주세요.",
+          "checkingVote": "투표가 저장되었는지 확인하는 중…"
+        },
         "suggest": "다른 언어를 원하시나요? Discord에서 제안해 주세요.",
         "noscript": "투표하고 결과를 보려면 JavaScript를 활성화해 주세요. Discord에서도 언어를 제안할 수 있습니다.",
         "errors": {
@@ -826,7 +953,10 @@
           "forbidden": "투표 요청을 확인하지 못했습니다. 이 페이지를 새로고침하고 다시 시도해 주세요.",
           "rate_limited": "요청이 너무 많습니다. 잠시 기다린 후 다시 시도해 주세요.",
           "invalid_option": "이 항목은 선택할 수 없습니다. 목록에서 언어를 선택해 주세요.",
-          "already_voted": "이 브라우저에서는 이미 투표했습니다. 다시 투표할 수 없습니다."
+          "already_voted": "이 브라우저에서는 이미 투표했습니다. 다시 투표할 수 없습니다.",
+          "verification_required": "투표하기 전에 확인을 완료해 주세요.",
+          "verification_failed": "확인이 승인되지 않았습니다. 확인을 다시 완료한 후 시도해 주세요.",
+          "verification_unavailable": "확인을 일시적으로 이용할 수 없습니다. 나중에 다시 시도해 주세요."
         },
         "options": {
           "de": "독일어", "fr": "프랑스어", "pt-br": "포르투갈어 (브라질)",
@@ -903,7 +1033,17 @@
         "yourVote": "Oyunuz",
         "voted": "Oyunuz kaydedildi: {language}.",
         "success": "Teşekkürler! Oyunuz: {language}.",
-        "browserNote": "Hesap gerekmez. Bu tarayıcının oyunu hatırlamak için çerezler gereklidir.",
+        "verification": {
+          "label": "Oy vermeden önce doğrulama",
+          "loading": "Doğrulama yükleniyor…",
+          "ready": "Doğrulama tamamlandı.",
+          "retry": "Doğrulamayı tekrarla",
+          "expired": "Doğrulamanın süresi doldu. Lütfen yeniden tamamlayın.",
+          "failed": "Doğrulama başarısız oldu. Lütfen tekrar deneyin.",
+          "unavailable": "Doğrulama geçici olarak kullanılamıyor. Sonuçları aşağıda görebilirsiniz.",
+          "wait": "{seconds} saniye sonra tekrar deneyin.",
+          "checkingVote": "Oyunuzun kaydedilip kaydedilmediği kontrol ediliyor…"
+        },
         "suggest": "Başka bir dil mi? Discord’da önerin.",
         "noscript": "Oy vermek ve sonuçları görmek için JavaScript’i etkinleştirin. Discord’da da dil önerebilirsiniz.",
         "errors": {
@@ -913,7 +1053,10 @@
           "forbidden": "Oy verme isteği doğrulanamadı. Bu sayfayı yenileyip tekrar deneyin.",
           "rate_limited": "Çok fazla istek gönderildi. Tekrar denemeden önce biraz bekleyin.",
           "invalid_option": "Bu seçenek kullanılamıyor. Listeden bir dil seçin.",
-          "already_voted": "Bu tarayıcıdan zaten oy verildi. Tekrar oy verilemez."
+          "already_voted": "Bu tarayıcıdan zaten oy verildi. Tekrar oy verilemez.",
+          "verification_required": "Oy vermeden önce doğrulamayı tamamlayın.",
+          "verification_failed": "Doğrulama kabul edilmedi. Tekrar denemeden önce doğrulamayı yeniden tamamlayın.",
+          "verification_unavailable": "Doğrulama geçici olarak kullanılamıyor. Daha sonra tekrar deneyin."
         },
         "options": {
           "de": "Almanca", "fr": "Fransızca", "pt-br": "Portekizce (Brezilya)",

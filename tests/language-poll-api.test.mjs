@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { createHash, webcrypto } from "node:crypto";
+import { createHash, randomBytes, webcrypto } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
@@ -16,6 +16,9 @@ const endpoint = `${origin}/api/polls/next-language`;
 const cookieName = "__Host-nfg_language_poll";
 const pollId = "anvil-next-language-v1";
 const optionIds = ["de", "fr", "pt-br", "it", "tr", "zh-cn", "ja", "ko", "other"];
+const turnstile = { siteKey: "test-public-site-key", action: "language-poll" };
+const siteverifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+const testSecret = "test-server-secret-never-production";
 
 // A small D1 adapter executes the production migration and SQL on real SQLite.
 // Deduplication is never faked in JS: independent Worker VM contexts share the
@@ -38,6 +41,11 @@ class SqliteD1 {
         async all() {
           await setImmediate();
           return db.execute({ sql, values });
+        },
+        async first(column) {
+          await setImmediate();
+          const result = db.execute({ sql, values }).results[0] ?? null;
+          return column ? result?.[column] ?? null : result;
         },
       };
     }
@@ -76,14 +84,41 @@ class SqliteD1 {
   }
 }
 
-function worker(db) {
+function worker(db, { bindings = {}, verify, limiter, timers = {} } = {}) {
   const fetched = [];
   const errors = [];
+  const verifications = [];
+  const limits = [];
+  const env = {
+    ...(db === undefined ? {} : { LANGUAGE_POLL_DB: db }),
+    TURNSTILE_SITE_KEY: turnstile.siteKey,
+    TURNSTILE_SECRET_KEY: testSecret,
+    TURNSTILE_EXPECTED_HOSTNAME: "nfg-system.online",
+    POLL_IP_HMAC_KEY: "test-only-random-looking-hmac-key-32-bytes",
+    POLL_RATE_LIMITER: {
+      async limit(input) {
+        limits.push(input.key);
+        return limiter ? limiter(input, limits.length) : { success: true };
+      },
+    },
+    ...bindings,
+  };
   const globals = {
-    URL, Response, TextEncoder, TextDecoder, crypto: webcrypto,
+    URL, URLSearchParams, Request, Response, Headers, AbortController, AbortSignal,
+    TextEncoder, TextDecoder, crypto: webcrypto, setTimeout, clearTimeout, ...timers,
     console: { error: value => errors.push(value) },
-    async fetch(url) {
+    async fetch(url, options = {}) {
       fetched.push(url);
+      if (String(url) === siteverifyUrl) {
+        assert.equal(options.redirect, "manual", "Workers must not follow redirects with the verification secret");
+        const request = new Request(url, options);
+        const text = await request.text();
+        const body = request.headers.get("content-type")?.includes("application/json")
+          ? JSON.parse(text) : Object.fromEntries(new URLSearchParams(text));
+        verifications.push(body);
+        if (verify) return verify(body, options);
+        return Response.json({ success: true, hostname: "nfg-system.online", action: "language-poll" });
+      }
       return new Response("<!doctype html><title>NFG</title>");
     },
   };
@@ -92,20 +127,21 @@ function worker(db) {
   // rewritten for node:vm. Runtime D1 integration is separately smoke-tested.
   vm.runInContext(source.replace(/^export default /m, "globalThis.worker = "), context);
   return {
-    fetched, errors,
+    fetched, errors, verifications, limits, env,
     handle(request) {
-      return context.worker.fetch(request, db === undefined ? {} : { LANGUAGE_POLL_DB: db });
+      return context.worker.fetch(request, env);
     },
   };
 }
 
-function request({ method = "GET", cookie, option = "de", headers = {}, body, url = endpoint } = {}) {
+function request({ method = "GET", cookie, option = "de", token = `test:${randomBytes(20).toString("hex")}`, headers = {}, body, url = endpoint } = {}) {
   const resultHeaders = new Headers(headers);
   if (cookie) resultHeaders.set("cookie", cookie);
   if (method === "POST") {
     if (!resultHeaders.has("origin")) resultHeaders.set("origin", origin);
     if (!resultHeaders.has("content-type")) resultHeaders.set("content-type", "application/json");
-    if (body === undefined) body = JSON.stringify({ option });
+    if (!resultHeaders.has("cf-connecting-ip")) resultHeaders.set("cf-connecting-ip", "192.0.2.1");
+    if (body === undefined) body = JSON.stringify({ option, ...(token === null ? {} : { turnstileToken: token }) });
   }
   return new Request(url, { method, headers: resultHeaders, body, duplex: "half" });
 }
@@ -151,6 +187,7 @@ test("GET returns the complete ordered poll, issues a secure anonymous cookie, a
   const { response, cookie, snapshot } = await identity(instance);
   assert.deepEqual(snapshot, {
     pollId, options: optionIds.map(id => ({ id, votes: 0 })), totalVotes: 0, selectedOption: null,
+    alreadyVoted: false, turnstile,
   });
   assert.match(cookie, /^__Host-nfg_language_poll=[a-f0-9]{64}$/);
   const setCookie = response.headers.get("set-cookie");
@@ -223,6 +260,7 @@ test("retired votes remain stored but are excluded from results without hiding a
   const retiredOnly = await identity(instance);
   assert.deepEqual(retiredOnly.snapshot, {
     pollId, options: optionIds.map(id => ({ id, votes: 0 })), totalVotes: 0, selectedOption: null,
+    alreadyVoted: false, turnstile,
   });
   assert.equal(db.count(), 2);
 
@@ -271,6 +309,7 @@ test("retired voters receive already_voted on concurrent retries without changin
       error: "already_voted", pollId,
       options: optionIds.map(id => ({ id, votes: id === "it" ? 1 : 0 })),
       totalVotes: 1, selectedOption: null,
+      alreadyVoted: true, turnstile,
     });
   }
   for (const cookie of [...retiredCookies, activeCookie, undefined]) {
@@ -431,20 +470,20 @@ test("body limit bounds streamed bytes with missing or false Content-Length", as
   const instance = worker(db);
   const { cookie } = await identity(instance);
   for (const headers of [{}, { "content-length": "1" }, { "content-length": "999999999999" }]) {
-    const response = await instance.handle(request({ method: "POST", cookie, headers, body: " ".repeat(257) }));
+    const response = await instance.handle(request({ method: "POST", cookie, headers, body: " ".repeat(4097) }));
     assert.equal(response.status, 413);
     assert.deepEqual(await response.json(), { error: "payload_too_large" });
   }
   let cancelled = false;
   let pulls = 0;
   const body = new ReadableStream({
-    pull(controller) { pulls += 1; controller.enqueue(new Uint8Array(80)); },
+    pull(controller) { pulls += 1; controller.enqueue(new Uint8Array(1024)); },
     cancel() { cancelled = true; },
   });
   const response = await instance.handle(request({ method: "POST", cookie, body }));
   assert.equal(response.status, 413);
   assert.equal(cancelled, true);
-  assert.ok(pulls <= 5, `unexpected unbounded reads: ${pulls}`);
+  assert.ok(pulls <= 6, `unexpected unbounded reads: ${pulls}`);
   assert.equal(db.count(), 0);
 });
 
@@ -589,4 +628,256 @@ test("database constraints independently reject duplicate voters and invalid ide
   assert.throws(() => insert.run("other-poll", "b".repeat(64), "de"), /CHECK constraint/);
   assert.throws(() => insert.run(pollId, "not-a-hash", "de"), /CHECK constraint/);
   assert.equal(db.count(), 1);
+});
+
+test("GET needs no anti-bot services and exposes only public Turnstile configuration", async t => {
+  const db = new SqliteD1(t);
+  const instance = worker(db, { bindings: {
+    TURNSTILE_SECRET_KEY: undefined, POLL_IP_HMAC_KEY: undefined, POLL_RATE_LIMITER: undefined,
+  } });
+  const { snapshot } = await identity(instance);
+  assert.deepEqual(snapshot.turnstile, turnstile);
+  assert.equal(snapshot.alreadyVoted, false);
+  assert.equal(instance.verifications.length, 0);
+  assert.equal(instance.limits.length, 0);
+  assert.doesNotMatch(JSON.stringify(snapshot), /test-server-secret|test-only-random/);
+  instance.env.TURNSTILE_SITE_KEY = undefined;
+  assert.equal((await identity(instance)).snapshot.turnstile, null);
+  assert.equal(db.count(), 0);
+});
+
+test("new votes require a bounded nonempty Turnstile token", async t => {
+  const db = new SqliteD1(t);
+  const instance = worker(db);
+  const { cookie } = await identity(instance);
+  for (const token of [null, "", " ", 42, {}, "x".repeat(2049)]) {
+    const response = await instance.handle(request({ method: "POST", cookie, token }));
+    assert.equal(response.status, 400);
+    assert.equal((await response.json()).error,
+      token === null || typeof token === "string" && !token.trim() ? "verification_required" : "verification_failed");
+    assertPrivate(response);
+  }
+  assert.equal(instance.verifications.length, 0);
+  assert.equal(db.count(), 0);
+});
+
+test("Siteverify receives the secret server-side and rejects forged context or unsuccessful validation", async t => {
+  const responses = [
+    { success: false, "error-codes": ["invalid-input-response"] },
+    { success: false, "error-codes": ["timeout-or-duplicate"] },
+    { success: true, hostname: "nfg-system.online.attacker.example", action: "language-poll" },
+    { success: true, hostname: "nfg-system.online", action: "login" },
+  ];
+  for (const payload of responses) {
+    const db = new SqliteD1(t);
+    const instance = worker(db, { verify: () => Response.json(payload) });
+    const { cookie } = await identity(instance);
+    const response = await instance.handle(request({ method: "POST", cookie, token: "private-test-token" }));
+    assert.equal(response.status, 403);
+    assert.deepEqual(await response.json(), { error: "verification_failed" });
+    assert.equal(db.count(), 0);
+    assert.equal(instance.verifications.length, 1);
+    assert.equal(instance.verifications[0].secret, testSecret);
+    assert.equal(instance.verifications[0].response, "private-test-token");
+    assert.doesNotMatch(JSON.stringify(instance.errors), /private-test-token|test-server-secret/);
+  }
+});
+
+test("unavailable, malformed or misconfigured Siteverify fails closed without leaking details", async t => {
+  for (const verify of [
+    () => new Response("private upstream message", { status: 503 }),
+    () => new Response(null, { status: 302, headers: { location: "https://untrusted.example/verify" } }),
+    () => new Response("<html>private upstream error</html>"),
+    () => Response.json({ success: "true", hostname: "nfg-system.online", action: "language-poll" }),
+    () => Response.json({ success: true, hostname: "nfg-system.online" }),
+    () => { throw new Error("private network details"); },
+    () => Response.json({ success: false, "error-codes": ["invalid-input-secret"] }),
+  ]) {
+    const db = new SqliteD1(t);
+    const instance = worker(db, { verify });
+    const { cookie } = await identity(instance);
+    const response = await instance.handle(request({ method: "POST", cookie }));
+    assert.equal(response.status, 503);
+    const body = await response.json();
+    assert.equal(body.error, "verification_unavailable");
+    assert.equal(db.count(), 0);
+    assert.equal((await identity(instance, cookie)).snapshot.totalVotes, 0);
+    assert.doesNotMatch(JSON.stringify([body, instance.errors]), /private upstream|private network|test-server-secret/);
+  }
+});
+
+test("Siteverify timeout aborts the outbound request and never saves a vote", async t => {
+  const db = new SqliteD1(t);
+  let aborted = false;
+  const instance = worker(db, {
+    timers: { setTimeout: (callback, delay) => setTimeout(callback, Math.min(delay, 5)) },
+    verify: (_body, { signal }) => new Promise((_resolve, reject) => {
+      assert.ok(signal);
+      const abort = () => { aborted = true; reject(new Error("private timeout")); };
+      if (signal.aborted) abort();
+      else signal.addEventListener("abort", abort, { once: true });
+    }),
+  });
+  const { cookie } = await identity(instance);
+  const response = await instance.handle(request({ method: "POST", cookie }));
+  assert.equal(response.status, 503);
+  assert.equal((await response.json()).error, "verification_unavailable");
+  assert.equal(aborted, true);
+  assert.equal(db.count(), 0);
+});
+
+test("an oversized Siteverify stream is cancelled before parsing and cannot save a vote", async t => {
+  const db = new SqliteD1(t);
+  let cancelled = false;
+  let pulls = 0;
+  const instance = worker(db, { verify: () => new Response(new ReadableStream({
+    pull(controller) { pulls += 1; controller.enqueue(new Uint8Array(4096)); },
+    cancel() { cancelled = true; },
+  }), { headers: { "content-type": "application/json", "content-length": "1" } }) });
+  const { cookie } = await identity(instance);
+  const response = await instance.handle(request({ method: "POST", cookie }));
+  assert.equal(response.status, 503);
+  assert.equal((await response.json()).error, "verification_unavailable");
+  assert.equal(cancelled, true);
+  assert.ok(pulls <= 6, `unbounded Siteverify reads: ${pulls}`);
+  assert.equal(db.count(), 0);
+});
+
+test("each missing or invalid protection binding fails closed for a new vote", async t => {
+  const variants = [
+    { TURNSTILE_SITE_KEY: undefined }, { TURNSTILE_SECRET_KEY: undefined },
+    { TURNSTILE_SECRET_KEY: "" }, { TURNSTILE_EXPECTED_HOSTNAME: undefined },
+    { TURNSTILE_EXPECTED_HOSTNAME: "https://nfg-system.online" },
+    { POLL_IP_HMAC_KEY: undefined }, { POLL_IP_HMAC_KEY: "short" },
+    { POLL_RATE_LIMITER: undefined }, { POLL_RATE_LIMITER: {} },
+    { POLL_RATE_LIMITER: { limit: async () => ({ success: "true" }) } },
+    { POLL_RATE_LIMITER: { limit: async () => ({}) } },
+    { POLL_RATE_LIMITER: { limit: async () => { throw new Error("private limiter failure"); } } },
+  ];
+  for (const bindings of variants) {
+    const db = new SqliteD1(t);
+    const instance = worker(db, { bindings });
+    const { cookie } = await identity(instance);
+    const response = await instance.handle(request({ method: "POST", cookie }));
+    assert.equal(response.status, 503);
+    assert.equal((await response.json()).error, "verification_unavailable");
+    assert.equal(db.count(), 0);
+    assert.equal((await identity(instance, cookie)).snapshot.totalVotes, 0);
+    assert.doesNotMatch(JSON.stringify(instance.errors), /private limiter/);
+  }
+});
+
+test("a soft IP limit rejects bursts before Siteverify but allows another IP and all reads", async t => {
+  const db = new SqliteD1(t);
+  const counters = new Map();
+  const instance = worker(db, { limiter: ({ key }) => {
+    const count = (counters.get(key) ?? 0) + 1;
+    counters.set(key, count);
+    return { success: count <= 2 };
+  } });
+  const cookies = [];
+  for (let index = 0; index < 3; index++) {
+    const { cookie } = await identity(instance);
+    cookies.push(cookie);
+    const response = await instance.handle(request({ method: "POST", cookie }));
+    assert.equal(response.status, index < 2 ? 200 : 429);
+    if (index === 2) {
+      assert.equal(response.headers.get("retry-after"), "60");
+      assert.deepEqual(await response.json(), { error: "rate_limited" });
+      assertPrivate(response);
+    }
+  }
+  assert.equal(instance.verifications.length, 2);
+  assert.equal(db.count(), 2);
+  assert.equal((await identity(instance, cookies[2])).snapshot.totalVotes, 2);
+  assert.equal((await instance.handle(request({ method: "POST", cookie: cookies[2], headers: { "cf-connecting-ip": "192.0.2.2" } }))).status, 200);
+  assert.equal(db.count(), 3);
+});
+
+test("existing votes recover even when verification services or IP are unavailable", async t => {
+  const db = new SqliteD1(t);
+  const instance = worker(db);
+  const { cookie } = await identity(instance);
+  db.failAfterCommitOnce = true;
+  assert.equal((await instance.handle(request({ method: "POST", cookie, option: "ja", token: "spent-token" }))).status, 503);
+  assert.equal(db.count(), 1);
+  const calls = instance.verifications.length;
+  const rateCalls = instance.limits.length;
+  instance.env.TURNSTILE_SECRET_KEY = undefined;
+  instance.env.POLL_RATE_LIMITER = undefined;
+  for (const option of ["ja", "fr"]) {
+    const retry = request({ method: "POST", cookie, option, token: null });
+    retry.headers.delete("cf-connecting-ip");
+    const response = await instance.handle(retry);
+    assert.equal(response.status, 200);
+    const snapshot = await response.json();
+    assert.equal(snapshot.selectedOption, "ja");
+    assert.equal(snapshot.alreadyVoted, true);
+  }
+  assert.equal(instance.verifications.length, calls);
+  assert.equal(instance.limits.length, rateCalls);
+  assert.equal(db.count(), 1);
+});
+
+test("a consumed verification token cannot be reused by a different cookie", async t => {
+  const db = new SqliteD1(t);
+  const seen = new Set();
+  const instance = worker(db, { verify: ({ response }) => {
+    if (seen.has(response)) return Response.json({ success: false, "error-codes": ["timeout-or-duplicate"] });
+    seen.add(response);
+    return Response.json({ success: true, hostname: "nfg-system.online", action: "language-poll" });
+  } });
+  const first = await identity(instance);
+  const second = await identity(instance);
+  assert.equal((await instance.handle(request({ method: "POST", cookie: first.cookie, token: "one-use" }))).status, 200);
+  assert.equal((await instance.handle(request({ method: "POST", cookie: second.cookie, token: "one-use" }))).status, 403);
+  assert.equal(db.count(), 1);
+});
+
+test("IP limiter canonicalizes IPv4-mapped addresses and groups native IPv6 by /64", async t => {
+  const db = new SqliteD1(t);
+  const instance = worker(db);
+  const addresses = [
+    "192.0.2.1", "::ffff:192.0.2.1", "0:0:0:0:0:ffff:c000:201",
+    "2001:db8:abcd:0001:0000:0000:0000:0001", "2001:db8:abcd:1::2",
+    "2001:db8:abcd:2::1", "192.0.2.2",
+  ];
+  for (const ip of addresses) {
+    const { cookie } = await identity(instance);
+    assert.equal((await instance.handle(request({ method: "POST", cookie, headers: { "cf-connecting-ip": ip } }))).status, 200, ip);
+  }
+  const keys = instance.limits;
+  assert.equal(keys[0], keys[1]);
+  assert.equal(keys[1], keys[2]);
+  assert.equal(keys[3], keys[4]);
+  assert.notEqual(keys[4], keys[5]);
+  assert.notEqual(keys[0], keys[6]);
+  assert.equal(new Set(keys).size, 4);
+  for (const key of keys) assert.doesNotMatch(key, /192\.0\.2|2001:db8|test-only-random/);
+  assert.doesNotMatch(JSON.stringify(storedVotes(db)), /192\.0\.2|2001:db8|test-only-random|test-server-secret/);
+});
+
+test("client-supplied alternate IP headers cannot change the trusted rate-limit key", async t => {
+  const db = new SqliteD1(t);
+  const instance = worker(db);
+  for (const headers of [
+    {},
+    { "x-forwarded-for": "198.51.100.1", "x-real-ip": "198.51.100.2", "cf-connecting-ipv6": "2001:db8:3::1" },
+    { "x-forwarded-for": "198.51.100.3", "x-real-ip": "198.51.100.4", "cf-connecting-ipv6": "2001:db8:4::1" },
+  ]) {
+    const { cookie } = await identity(instance);
+    assert.equal((await instance.handle(request({ method: "POST", cookie, headers }))).status, 200);
+  }
+  assert.equal(new Set(instance.limits).size, 1);
+  const before = db.count();
+  for (const ip of [null, "unknown", "192.0.2.1, 198.51.100.1", "256.1.2.3", "2001:db8::1%eth0"]) {
+    const { cookie } = await identity(instance);
+    const attempt = request({ method: "POST", cookie });
+    if (ip === null) attempt.headers.delete("cf-connecting-ip");
+    else attempt.headers.set("cf-connecting-ip", ip);
+    attempt.headers.set("x-forwarded-for", "192.0.2.5");
+    attempt.headers.set("cf-connecting-ipv6", "2001:db8:5::1");
+    assert.equal((await instance.handle(attempt)).status, 503);
+  }
+  assert.equal(db.count(), before);
 });
