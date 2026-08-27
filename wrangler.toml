@@ -2,6 +2,17 @@ name = "polished-poetry-b345"
 main = "worker.js"
 compatibility_date = "2026-05-26"
 
+[vars]
+TURNSTILE_SITE_KEY = "0x4AAAAAAEeKUd6HUipiMNLA"
+TURNSTILE_EXPECTED_HOSTNAME = "nfg-system.online"
+
+# Initial anti-flood policy for new vote attempts, not one vote per IP.
+# Counters are local to each Cloudflare location and eventually consistent.
+[[ratelimits]]
+name = "POLL_RATE_LIMITER"
+namespace_id = "2026082701"
+simple = { limit = 20, period = 60 }
+
 [[d1_databases]]
 binding = "LANGUAGE_POLL_DB"
 database_name = "nfg-site-language-poll"

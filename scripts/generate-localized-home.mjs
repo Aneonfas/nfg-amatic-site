@@ -129,11 +129,11 @@ function validatePollCopy(locale) {
   const required = [
     "eyebrow", "title", "description", "choose", "choiceRequired", "submit", "submitting",
     "loading", "retry", "results", "totalVotes", "resultCount", "yourVote", "voted",
-    "success", "browserNote", "suggest", "noscript", "shortcut",
+    "success", "suggest", "noscript", "shortcut",
   ];
   const errors = [
     "unavailable", "vote_failed", "cookie_required", "forbidden", "rate_limited",
-    "invalid_option", "already_voted",
+    "invalid_option", "already_voted", "verification_required", "verification_failed", "verification_unavailable",
   ];
   for (const key of required) {
     if (typeof locale.poll?.[key] !== "string" || !locale.poll[key].trim()) {
@@ -144,6 +144,14 @@ function validatePollCopy(locale) {
     if (typeof locale.poll.errors?.[key] !== "string" || !locale.poll.errors[key].trim()) {
       throw new Error(`${locale.slug} is missing poll.errors.${key}.`);
     }
+  }
+  for (const key of ["label", "loading", "ready", "retry", "expired", "failed", "unavailable", "wait", "checkingVote"]) {
+    if (typeof locale.poll.verification?.[key] !== "string" || !locale.poll.verification[key].trim()) {
+      throw new Error(`${locale.slug} is missing poll.verification.${key}.`);
+    }
+  }
+  if (!locale.poll.verification.wait.includes("{seconds}")) {
+    throw new Error(`${locale.slug} poll.verification.wait is missing {seconds}.`);
   }
   if (JSON.stringify(Object.keys(locale.poll.options ?? {})) !== JSON.stringify(POLL_OPTIONS)) {
     throw new Error(`${locale.slug} must contain the ordered poll options.`);
@@ -367,13 +375,18 @@ function renderLanguagePoll(locale) {
           <p class="poll-suggest"><a href="${DISCORD_URL}" target="_blank" rel="noreferrer" aria-label="${escapeAttr(`${poll.suggest} ${locale.discordAria}`)}">${escapeHtml(poll.suggest)}</a></p>
         </div>
         <div class="poll-content">
-          <form data-poll-form aria-describedby="language-poll-note language-poll-status" novalidate hidden>
+          <form data-poll-form aria-describedby="language-poll-status" novalidate hidden>
             <fieldset class="poll-fieldset" data-poll-fieldset disabled>
               <legend class="visually-hidden">${escapeHtml(poll.choose)}</legend>
               <div class="poll-options">
 ${options}
               </div>
             </fieldset>
+            <div class="poll-verification" role="group" aria-label="${escapeAttr(poll.verification.label)}" data-poll-verification hidden>
+              <p class="poll-verification-status" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" data-poll-verification-status></p>
+              <div class="poll-challenge" data-poll-challenge></div>
+              <button class="poll-retry" type="button" data-poll-verification-retry hidden>${escapeHtml(poll.verification.retry)}</button>
+            </div>
             <div class="poll-actions">
               <button class="poll-submit" type="submit" data-poll-submit disabled>${escapeHtml(poll.submit)}</button>
             </div>
@@ -386,7 +399,6 @@ ${options}
 ${results}
             </ol>
           </details>
-          <p class="poll-note" id="language-poll-note">${escapeHtml(poll.browserNote)}</p>
           <noscript><p class="poll-noscript">${escapeHtml(poll.noscript)}</p></noscript>
         </div>
         <script type="application/json" data-poll-copy>${jsonForHtml({ ...poll, locale: locale.lang })}</script>

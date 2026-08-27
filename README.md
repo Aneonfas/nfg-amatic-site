@@ -40,7 +40,8 @@ motion, and remains a working anchor without JavaScript. When the poll is in
 view, the shortcut hides without shifting the page or hiding keyboard focus.
 
 `GET /api/polls/next-language` returns shared results and this browser's choice.
-`POST` to the same endpoint accepts only JSON such as `{"option":"de"}`.
+`POST` to the same endpoint accepts only JSON such as
+`{"option":"de","turnstileToken":"<fresh widget response>"}`.
 The first GET establishes a random, secure, HttpOnly cookie. D1's primary key
 allows one recorded choice per retained cookie; duplicate or retried submissions
 preserve the original choice. A failed response is not treated as proof that no
@@ -51,8 +52,34 @@ and the chosen option. It does not store IP addresses, user agents, names,
 email addresses, free text or individual vote timestamps. Cookies are shared
 across locale paths. This is a lightweight community poll, not authenticated
 voting: clearing cookies, another browser/profile or overlapping first-time
-cookie-less page loads can create another anonymous identity. There is no
-CAPTCHA or per-person/bot guarantee.
+cookie-less page loads can create another anonymous identity.
+
+New votes also require a Cloudflare Turnstile token and pass a soft IP-based
+rate limit. The server verifies the token with Siteverify, including the exact
+hostname and poll action. Missing, expired, replayed or invalid tokens never
+create a vote. The widget is loaded only when needed and does not require an
+account. Results and recovery of an existing vote do not require a challenge.
+
+The initial anti-flood setting is **20 new vote attempts per 60 seconds** per
+IP key and Cloudflare location. This is a configurable starting policy, not a
+threshold inferred from visitor traffic or a one-vote-per-IP rule. Families,
+offices and mobile users can share an address. Cloudflare's limiter is local
+and eventually consistent, not a precise global accounting system.
+The rate-limit key is a keyed HMAC of the normalized Cloudflare client address
+(IPv4) or the native IPv6 `/64` prefix. IPv4-mapped IPv6 is treated as IPv4.
+The `/64` grouping reduces simple privacy-address rotation within one subnet;
+it is a temporary anti-flood heuristic and can group different people.
+The key stays separate from the cookie hash and is used only by the limiter. Raw IPs and
+rate-limit keys are not added to the vote table or application logs. HMAC is
+pseudonymization, not proof of anonymity; Cloudflare still processes requests.
+IP changes and human-assisted abuse can bypass these protections. The poll
+does not promise one vote per person.
+
+If Turnstile or the limiter is unavailable or misconfigured, new votes fail
+closed while the project pages and existing results stay available. A lost
+submission response is recovered with GET before another attempt, because
+Turnstile tokens are single-use. Error `429 rate_limited` includes
+`Retry-After: 60`; the browser preserves the selected language during the wait.
 
 Poll labels and errors live alongside the page copy in
 `content/home.locales.json`; the progressive client is
@@ -92,8 +119,18 @@ The Worker preview uses local D1 but preserves the existing static proxy to
 GitHub `main`; pending HTML/CSS/client edits still need the static preview or
 a local asset server. Do not add test votes to the remote database.
 
-The published pages are semantic HTML/CSS plus one dependency-free JavaScript
-module for the poll. The Worker uses an ES-module handler and a D1 binding;
+Without the Turnstile and limiter bindings, preview results remain readable but
+new submissions are disabled. Automated API tests use an isolated SQLite
+database and controlled Siteverify responses, with no production credentials.
+For a real local workerd/D1 smoke test, configure local rate-limit bindings and
+an outbound Siteverify fixture in the test harness, not a bypass in `worker.js`.
+Cloudflare's public dummy keys are suitable for the widget and transport tests;
+their response can omit `action` and use a dummy hostname, so they must not be
+accepted by weakening the production hostname/action checks.
+
+The published pages use semantic HTML/CSS and a small JavaScript poll module.
+New votes additionally load Cloudflare's official Turnstile widget; reading
+results does not require it. The Worker uses an ES-module handler and a D1 binding;
 Node.js is used for generation and tests, not in production.
 
 ## Deployment
@@ -108,12 +145,44 @@ fallback, and English in that order.
 
 The poll uses the dedicated D1 database `nfg-site-language-poll`, bound as
 `LANGUAGE_POLL_DB`. Apply `migrations/` before deploying a Worker that needs
-the new schema:
+the new schema. The Turnstile/IP update does not change the schema and needs
+no new production migration.
+
+The dedicated managed Turnstile widget permits only `nfg-system.online` and
+does not grant pre-clearance. Its public site key and expected hostname are in
+`wrangler.toml`. Keep the two server secrets only in Cloudflare secret bindings
+(or an ignored local `.dev.vars` for development):
+
+```powershell
+npx wrangler secret put TURNSTILE_SECRET_KEY
+npx wrangler secret put POLL_IP_HMAC_KEY
+```
+
+Use the widget's secret for `TURNSTILE_SECRET_KEY` and a cryptographically random
+key of at least 32 bytes for `POLL_IP_HMAC_KEY`. Do not put either in source,
+generated HTML, a PR body or shell command arguments. The HMAC key does not
+replace the existing cookie identity. Do not rotate it as part of every deploy.
+The Worker uses `CF-Connecting-IP`, not user-supplied `X-Forwarded-For` or
+`X-Real-IP`. It does not trust a secondary `CF-Connecting-IPv6` header. Review
+this integration if the zone enables Pseudo IPv4 overwrite; do not enable
+secondary-header handling without verifying the matching Cloudflare setting.
+
+For initial database setup only:
 
 ```powershell
 npx wrangler d1 migrations apply LANGUAGE_POLL_DB --remote
+```
+
+Before publishing a change, run the tests and a dry run. Preserve existing
+secrets and bind the limiter when deploying:
+
+```powershell
+npx wrangler deploy --dry-run
 npx wrangler deploy --keep-vars
 ```
+
+Integration references: [Turnstile server validation](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/)
+and [Workers rate limiting](https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/).
 
 Keep the API and the generated poll pages/client in sync when changing choices.
 Push the tested commit, temporarily deploy the Worker with `STATIC_BASE` pinned

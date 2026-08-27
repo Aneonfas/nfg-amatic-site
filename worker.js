@@ -106,7 +106,12 @@ const LANGUAGE_POLL_OPTIONS = [
 // choices from active results. Retiring an option must not reset identities.
 const LANGUAGE_POLL_RETIRED_OPTIONS = ["pl", "uk"];
 const LANGUAGE_POLL_COOKIE = "__Host-nfg_language_poll";
-const LANGUAGE_POLL_BODY_LIMIT = 256;
+const LANGUAGE_POLL_BODY_LIMIT = 4096;
+const LANGUAGE_POLL_TURNSTILE_TOKEN_LIMIT = 2048;
+const LANGUAGE_POLL_TURNSTILE_ACTION = "language-poll";
+const LANGUAGE_POLL_SITEVERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+const LANGUAGE_POLL_SITEVERIFY_TIMEOUT = 5000;
+const LANGUAGE_POLL_SITEVERIFY_BODY_LIMIT = 16384;
 const LANGUAGE_POLL_SNAPSHOT_SQL = `
   SELECT option_id, COUNT(*) AS votes,
          MAX(CASE WHEN voter_hash = ?2 THEN 1 ELSE 0 END) AS selected
@@ -227,9 +232,9 @@ async function handleLanguagePoll(request, url, env) {
 
   try {
     const existingToken = readPollVoterToken(request.headers.get("cookie"));
-    let option = null;
+    let submission = null;
     if (request.method === "POST") {
-      option = await readPollOption(request);
+      submission = await readPollSubmission(request);
       // Establish identity in GET first. Concurrent cookie-less POSTs must not
       // each create a new identity and accidentally count the same retry twice.
       if (!existingToken) return pollJson({ error: "cookie_required" }, 428);
@@ -245,9 +250,14 @@ async function handleLanguagePoll(request, url, env) {
     const snapshotStatement = db
       .prepare(LANGUAGE_POLL_SNAPSHOT_SQL)
       .bind(LANGUAGE_POLL_ID, voterHash);
-    let result;
+    // Read before requiring a new challenge: a retry after a lost success
+    // response must recover the recorded choice even if the token is spent or
+    // the verification service is temporarily unavailable.
+    let result = await snapshotStatement.all();
+    let snapshot = languagePollSnapshot(result, env);
 
-    if (request.method === "POST") {
+    if (request.method === "POST" && !snapshot.alreadyVoted) {
+      await protectNewPollVote(request, env, submission.turnstileToken);
       // The primary key is the authority for deduplication, including across
       // Worker instances. D1 batch is transactional; read the result with the
       // insert so concurrent retries cannot overcount or report a changed vote.
@@ -256,20 +266,16 @@ async function handleLanguagePoll(request, url, env) {
           INSERT INTO language_poll_votes (poll_id, voter_hash, option_id)
           VALUES (?1, ?2, ?3)
           ON CONFLICT (poll_id, voter_hash) DO NOTHING
-        `).bind(LANGUAGE_POLL_ID, voterHash, option),
+        `).bind(LANGUAGE_POLL_ID, voterHash, submission.option),
         snapshotStatement,
       ]);
       if (batch[0]?.success !== true) throw new Error("Poll write failed");
       result = batch[1];
-    } else {
-      // No Sessions API: D1 serves these reads from the primary, including the
-      // first GET after a vote. A GET never creates a database row.
-      result = await snapshotStatement.all();
+      snapshot = languagePollSnapshot(result, env);
     }
 
-    const snapshot = languagePollSnapshot(result);
     if (request.method === "POST" && snapshot.selectedOption === null) {
-      if (result.results.some(row => row.selected === 1 && LANGUAGE_POLL_RETIRED_OPTIONS.includes(row.option_id))) {
+      if (snapshot.alreadyVoted) {
         return pollJson({ error: "already_voted", ...snapshot }, 409);
       }
       throw new Error("Poll write missing from snapshot");
@@ -282,7 +288,11 @@ async function handleLanguagePoll(request, url, env) {
     return pollJson(snapshot, 200, headers);
   } catch (error) {
     if (error instanceof PollRequestError) {
-      return pollJson({ error: error.code }, error.status);
+      if (error.code === "verification_unavailable") {
+        console.error(JSON.stringify({ event: "language_poll_verification_unavailable" }));
+      }
+      return pollJson({ error: error.code }, error.status,
+        error.status === 429 || error.status === 503 ? { "retry-after": "60" } : {});
     }
     // Do not log request headers, cookie identifiers, IPs or database contents.
     console.error(JSON.stringify({ event: "language_poll_unavailable" }));
@@ -298,7 +308,7 @@ class PollRequestError extends Error {
   }
 }
 
-async function readPollOption(request) {
+async function readPollSubmission(request) {
   const mediaType = request.headers.get("content-type")?.split(";")[0].trim().toLowerCase();
   if (mediaType !== "application/json") {
     throw new PollRequestError("unsupported_media_type", 415);
@@ -310,9 +320,29 @@ async function readPollOption(request) {
   }
   if (!request.body) throw new PollRequestError("invalid_json", 400);
 
-  // Content-Length can be absent or untrusted. Bound bytes while streaming,
-  // rather than buffering an arbitrary request with request.json()/text().
-  const reader = request.body.getReader();
+  const bytes = await readPollBody(request.body, LANGUAGE_POLL_BODY_LIMIT,
+    new PollRequestError("payload_too_large", 413));
+  let value;
+  try {
+    value = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
+  } catch {
+    throw new PollRequestError("invalid_json", 400);
+  }
+  if (
+    !value || typeof value !== "object" || Array.isArray(value) ||
+    Object.keys(value).some(key => key !== "option" && key !== "turnstileToken") ||
+    !LANGUAGE_POLL_OPTIONS.includes(value.option)
+  ) {
+    throw new PollRequestError("invalid_option", 400);
+  }
+  // Token presence is checked only for a new vote, after cookie recovery.
+  return value;
+}
+
+async function readPollBody(body, limit, tooLargeError) {
+  // Content-Length can be absent or untrusted. Bound both incoming JSON and
+  // Siteverify responses while streaming, before parsing either document.
+  const reader = body.getReader();
   const chunks = [];
   let size = 0;
   try {
@@ -321,9 +351,9 @@ async function readPollOption(request) {
       if (done) break;
       if (value.byteLength === 0) continue;
       size += value.byteLength;
-      if (size > LANGUAGE_POLL_BODY_LIMIT) {
+      if (size > limit) {
         await reader.cancel();
-        throw new PollRequestError("payload_too_large", 413);
+        throw tooLargeError;
       }
       chunks.push(value);
     }
@@ -338,19 +368,152 @@ async function readPollOption(request) {
     offset += chunk.byteLength;
   }
 
-  let value;
-  try {
-    value = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
-  } catch {
-    throw new PollRequestError("invalid_json", 400);
+  return bytes;
+}
+
+function pollTurnstileConfiguration(env) {
+  const siteKey = env.TURNSTILE_SITE_KEY;
+  return typeof siteKey === "string" && /^[a-zA-Z0-9_-]{1,256}$/.test(siteKey)
+    ? { siteKey, action: LANGUAGE_POLL_TURNSTILE_ACTION }
+    : null;
+}
+
+function validPollSecret(value, minimumLength = 1) {
+  return typeof value === "string" && value.length >= minimumLength &&
+    value.length <= 2048 && !/\s/.test(value);
+}
+
+function validPollHostname(value) {
+  return typeof value === "string" && value.length <= 253 &&
+    /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)*$/.test(value);
+}
+
+async function protectNewPollVote(request, env, token) {
+  if (token === undefined || token === null || token === "" ||
+      (typeof token === "string" && token.trim() === "")) {
+    throw new PollRequestError("verification_required", 400);
   }
+  if (typeof token !== "string" || token.length > LANGUAGE_POLL_TURNSTILE_TOKEN_LIMIT) {
+    throw new PollRequestError("verification_failed", 400);
+  }
+
   if (
-    !value || typeof value !== "object" || Array.isArray(value) ||
-    Object.keys(value).length !== 1 || !LANGUAGE_POLL_OPTIONS.includes(value.option)
+    !pollTurnstileConfiguration(env) ||
+    !validPollSecret(env.TURNSTILE_SECRET_KEY) ||
+    !validPollSecret(env.POLL_IP_HMAC_KEY, 32) ||
+    !validPollHostname(env.TURNSTILE_EXPECTED_HOSTNAME) ||
+    typeof env.POLL_RATE_LIMITER?.limit !== "function"
   ) {
-    throw new PollRequestError("invalid_option", 400);
+    throw new PollRequestError("verification_unavailable", 503);
   }
-  return value.option;
+
+  // Only Cloudflare's connecting address is trusted. Do not accept alternate
+  // forwarded headers or CF-Connecting-IPv6 without a verified zone policy.
+  const bucket = pollIpBucket(request.headers.get("cf-connecting-ip"));
+  if (bucket === null) throw new PollRequestError("verification_unavailable", 503);
+
+  let outcome;
+  try {
+    const key = await pollIpRateKey(bucket, env.POLL_IP_HMAC_KEY);
+    outcome = await env.POLL_RATE_LIMITER.limit({ key });
+  } catch {
+    throw new PollRequestError("verification_unavailable", 503);
+  }
+  if (!outcome || typeof outcome.success !== "boolean") {
+    throw new PollRequestError("verification_unavailable", 503);
+  }
+  if (outcome.success !== true) throw new PollRequestError("rate_limited", 429);
+  await verifyPollTurnstile(token, env);
+}
+
+function pollIpv4(address) {
+  if (!/^(?:0|[1-9]\d{0,2})(?:\.(?:0|[1-9]\d{0,2})){3}$/.test(address)) return null;
+  const octets = address.split(".").map(Number);
+  return octets.every(octet => octet <= 255) ? octets : null;
+}
+
+function pollIpBucket(address) {
+  if (typeof address !== "string" || address.length > 45 || !/^[0-9a-fA-F:.]+$/.test(address)) {
+    return null;
+  }
+  if (!address.includes(":")) {
+    const octets = pollIpv4(address);
+    return octets ? `ipv4:${octets.join(".")}` : null;
+  }
+
+  // Expand an embedded IPv4 tail before parsing IPv6 words. This makes dotted
+  // and hexadecimal IPv4-mapped spellings share the ordinary IPv4 bucket.
+  if (address.includes(".")) {
+    const tail = address.lastIndexOf(":") + 1;
+    const octets = pollIpv4(address.slice(tail));
+    if (!octets) return null;
+    address = `${address.slice(0, tail)}${((octets[0] << 8) | octets[1]).toString(16)}:${((octets[2] << 8) | octets[3]).toString(16)}`;
+  }
+  const halves = address.split("::");
+  if (halves.length > 2) return null;
+  const left = halves[0] === "" ? [] : halves[0].split(":");
+  const right = halves.length === 1 || halves[1] === "" ? [] : halves[1].split(":");
+  if ([...left, ...right].some(word => !/^[0-9a-fA-F]{1,4}$/.test(word))) return null;
+  const missing = 8 - left.length - right.length;
+  if ((halves.length === 1 && missing !== 0) || (halves.length === 2 && missing < 1)) return null;
+  const words = [...left, ...Array(missing).fill("0"), ...right].map(word => parseInt(word, 16));
+  if (words.slice(0, 5).every(word => word === 0) && words[5] === 0xffff) {
+    return `ipv4:${[words[6] >> 8, words[6] & 255, words[7] >> 8, words[7] & 255].join(".")}`;
+  }
+  // Native IPv6 privacy addresses rotate within a /64. Only the canonical
+  // network prefix contributes to the soft limiter, never the voter identity.
+  return `ipv6:${words.slice(0, 4).map(word => word.toString(16).padStart(4, "0")).join(":")}::/64`;
+}
+
+async function pollIpRateKey(bucket, secret) {
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey("raw", encoder.encode(secret),
+    { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const input = encoder.encode(`language-poll-ip-v1:${LANGUAGE_POLL_ID}:${bucket}`);
+  return bytesToHex(new Uint8Array(await crypto.subtle.sign("HMAC", key, input)));
+}
+
+async function verifyPollTurnstile(token, env) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), LANGUAGE_POLL_SITEVERIFY_TIMEOUT);
+  try {
+    const response = await fetch(LANGUAGE_POLL_SITEVERIFY_URL, {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ secret: env.TURNSTILE_SECRET_KEY, response: token }),
+      signal: controller.signal,
+      // Workers supports only follow/manual; reject 3xx through the status
+      // check below instead of forwarding the secret to a redirect target.
+      redirect: "manual",
+    });
+    if (!response.ok || !response.body) throw new Error("Siteverify unavailable");
+    const bytes = await readPollBody(response.body, LANGUAGE_POLL_SITEVERIFY_BODY_LIMIT,
+      new PollRequestError("verification_unavailable", 503));
+    const result = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
+    if (!result || typeof result !== "object" || Array.isArray(result) ||
+        typeof result.success !== "boolean") {
+      throw new Error("Invalid Siteverify response");
+    }
+    if (result.success !== true) {
+      const codes = result["error-codes"];
+      if (!Array.isArray(codes) || codes.length === 0 ||
+          codes.some(code => !["missing-input-response", "invalid-input-response", "timeout-or-duplicate"].includes(code))) {
+        throw new Error("Siteverify unavailable");
+      }
+      throw new PollRequestError("verification_failed", 403);
+    }
+    if (typeof result.hostname !== "string" || typeof result.action !== "string") {
+      throw new Error("Invalid Siteverify response");
+    }
+    if (result.hostname !== env.TURNSTILE_EXPECTED_HOSTNAME || result.action !== LANGUAGE_POLL_TURNSTILE_ACTION) {
+      throw new PollRequestError("verification_failed", 403);
+    }
+  } catch (error) {
+    if (error instanceof PollRequestError) throw error;
+    throw new PollRequestError("verification_unavailable", 503);
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 function readPollVoterToken(cookieHeader) {
@@ -378,7 +541,7 @@ function bytesToHex(bytes) {
   return Array.from(bytes, byte => byte.toString(16).padStart(2, "0")).join("");
 }
 
-function languagePollSnapshot(result) {
+function languagePollSnapshot(result, env) {
   if (result?.success !== true || !Array.isArray(result.results)) {
     throw new Error("Poll read failed");
   }
@@ -403,6 +566,8 @@ function languagePollSnapshot(result) {
   return {
     pollId: LANGUAGE_POLL_ID, options, totalVotes,
     selectedOption: LANGUAGE_POLL_OPTIONS.includes(selectedOption) ? selectedOption : null,
+    alreadyVoted: selectedOption !== null,
+    turnstile: pollTurnstileConfiguration(env),
   };
 }
 
