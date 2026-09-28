@@ -5,7 +5,7 @@ Local working version of the `nfg-system.online` project index.
 The root URL is a language router. Eleven server-rendered canonical locale URLs
 are published under `en`, `ru`, `es`, `de`, `fr`, `it`, `pt-br`, `zh-cn`, `ja`,
 `ko`, and `tr`. Each index contains five real projects: Anvil Planner, the Anvil
-Empires Russian and Spanish localization packages, Anvil Forge Helper, and NFG
+Empires Russian, Spanish and Turkish localization packages, and NFG
 Hub. There are no placeholder rows and no standalone language-selection page.
 
 Root visits are redirected with a temporary `302`. An explicit remembered
@@ -22,14 +22,14 @@ The NFG Discord invite is kept separate from the project list in the page footer
 ## Next localization poll
 
 Every locale includes the same poll at `#language-poll`: which Anvil Empires
-localization should come next. Russian and Spanish are already available, so
-the choices are German, French, Brazilian Portuguese, Italian, Turkish,
+localization should come next. Russian, Spanish and Turkish are already available, so
+the choices are German, French, Brazilian Portuguese, Italian,
 Simplified Chinese, Japanese, Korean and Other. Visitors
 can suggest a specific other language through the existing Discord link.
 
 The Italian website is available at `/it/`; an Italian game localization is
 still a poll option, not a released package. Polish and Ukrainian were withdrawn
-from the poll. Any earlier votes for those options stay in D1 but are excluded
+from the poll. Turkish was retired after its 1.0.0 release. Any earlier votes for those options stay in D1 but are excluded
 from the displayed results and total. Their cookies cannot cast a replacement
 vote; the API responds with `already_voted`. Other votes are unchanged.
 

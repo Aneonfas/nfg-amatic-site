@@ -15,7 +15,7 @@ const origin = "https://nfg-system.online";
 const endpoint = `${origin}/api/polls/next-language`;
 const cookieName = "__Host-nfg_language_poll";
 const pollId = "anvil-next-language-v1";
-const optionIds = ["de", "fr", "pt-br", "it", "tr", "zh-cn", "ja", "ko", "other"];
+const optionIds = ["de", "fr", "pt-br", "it", "zh-cn", "ja", "ko", "other"];
 const turnstile = { siteKey: "test-public-site-key", action: "language-poll" };
 const siteverifyUrl = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 const testSecret = "test-server-secret-never-production";
@@ -233,7 +233,7 @@ test("POST stores only the poll-specific hash and choice; other browsers see tot
   assert.deepEqual(instance.errors, []);
 });
 
-test("all nine active options can receive votes and totals equal their sum", async t => {
+test("all active options can receive votes and totals equal their sum", async t => {
   const db = new SqliteD1(t);
   const instance = worker(db);
   for (const option of optionIds) {
@@ -244,15 +244,15 @@ test("all nine active options can receive votes and totals equal their sum", asy
   }
   const { snapshot } = await identity(instance);
   assert.deepEqual(snapshot.options, optionIds.map(id => ({ id, votes: 1 })));
-  assert.equal(snapshot.totalVotes, 9);
-  assert.equal(db.count(), 9);
+  assert.equal(snapshot.totalVotes, optionIds.length);
+  assert.equal(db.count(), optionIds.length);
 });
 
 test("retired votes remain stored but are excluded from results without hiding active votes", async t => {
   const db = new SqliteD1(t);
   const instance = worker(db);
   const voters = [];
-  for (const option of ["pl", "uk"]) {
+  for (const option of ["pl", "uk", "tr"]) {
     const { cookie } = await identity(instance);
     await db.batch([historicalVote(db, cookie, option)]);
     voters.push({ cookie, option });
@@ -262,7 +262,7 @@ test("retired votes remain stored but are excluded from results without hiding a
     pollId, options: optionIds.map(id => ({ id, votes: 0 })), totalVotes: 0, selectedOption: null,
     alreadyVoted: false, turnstile,
   });
-  assert.equal(db.count(), 2);
+  assert.equal(db.count(), 3);
 
   for (const option of ["de", "it", "it"]) {
     const { cookie } = await identity(instance);
@@ -280,7 +280,7 @@ test("retired votes remain stored but are excluded from results without hiding a
     assert.equal(snapshot.selectedOption, optionIds.includes(option) ? option : null);
   }
   assert.deepEqual(storedVotes(db), before);
-  assert.equal(db.count(), 5);
+  assert.equal(db.count(), 6);
   assert.deepEqual(instance.errors, []);
 });
 
@@ -288,7 +288,7 @@ test("retired voters receive already_voted on concurrent retries without changin
   const db = new SqliteD1(t);
   const instances = Array.from({ length: 4 }, () => worker(db));
   const retiredCookies = [];
-  for (const option of ["pl", "uk"]) {
+  for (const option of ["pl", "uk", "tr"]) {
     const { cookie } = await identity(instances[0]);
     await db.batch([historicalVote(db, cookie, option)]);
     retiredCookies.push(cookie);
@@ -298,7 +298,7 @@ test("retired voters receive already_voted on concurrent retries without changin
   const before = storedVotes(db);
   const responses = await Promise.all(Array.from({ length: 36 }, (_, index) =>
     instances[index % 4].handle(request({
-      method: "POST", cookie: retiredCookies[index % 2], option: optionIds[index % optionIds.length],
+      method: "POST", cookie: retiredCookies[index % retiredCookies.length], option: optionIds[index % optionIds.length],
     })),
   ));
   for (const response of responses) {
@@ -313,7 +313,7 @@ test("retired voters receive already_voted on concurrent retries without changin
     });
   }
   for (const cookie of [...retiredCookies, activeCookie, undefined]) {
-    for (const option of ["pl", "uk"]) {
+    for (const option of ["pl", "uk", "tr"]) {
       const response = await instances[0].handle(request({ method: "POST", cookie, option }));
       assert.equal(response.status, 400);
       assert.deepEqual(await response.json(), { error: "invalid_option" });
@@ -329,14 +329,14 @@ test("retired voters receive already_voted on concurrent retries without changin
   const newVote = await instances[0].handle(request({ method: "POST", cookie: newCookie, option: "fr" }));
   assert.equal(newVote.status, 200);
   assert.equal((await newVote.json()).totalVotes, 2);
-  assert.equal(db.count(), 4);
+  assert.equal(db.count(), 5);
   for (const original of before) {
     assert.deepEqual(storedVotes(db).find(row => row.voter_hash === original.voter_hash), original);
   }
 });
 
 test("a legacy retired vote racing an active vote never overwrites the first accepted row", async t => {
-  for (const retired of ["pl", "uk"]) {
+  for (const retired of ["pl", "uk", "tr"]) {
     const db = new SqliteD1(t);
     const instance = worker(db);
     const { cookie } = await identity(instance);
@@ -400,15 +400,15 @@ test("64 concurrent retries across Worker contexts count one SQL row", async t =
 test("distinct browsers voting concurrently keep every vote", async t => {
   const db = new SqliteD1(t);
   const instances = Array.from({ length: 4 }, () => worker(db));
-  const identities = await Promise.all(Array.from({ length: 27 }, (_, index) => identity(instances[index % 4])));
+  const identities = await Promise.all(Array.from({ length: optionIds.length * 3 }, (_, index) => identity(instances[index % 4])));
   const responses = await Promise.all(identities.map(({ cookie }, index) =>
     instances[index % 4].handle(request({ method: "POST", cookie, option: optionIds[index % optionIds.length] })),
   ));
   assert.ok(responses.every(response => response.status === 200));
   const { snapshot } = await identity(instances[0]);
-  assert.equal(snapshot.totalVotes, 27);
+  assert.equal(snapshot.totalVotes, identities.length);
   assert.deepEqual(snapshot.options, optionIds.map(id => ({ id, votes: 3 })));
-  assert.equal(db.count(), 27);
+  assert.equal(db.count(), identities.length);
 });
 
 test("absent, malformed and ambiguous cookies cannot create a vote; GET then retry recovers", async t => {
@@ -436,7 +436,7 @@ test("strict JSON schema rejects unsupported choices, free text, extra fields an
   const db = new SqliteD1(t);
   const instance = worker(db);
   const { cookie } = await identity(instance);
-  const invalidOptions = ["en", "ru", "es", "pl", "uk", "DE", "de ", "__proto__", "de'); DROP TABLE language_poll_votes;--", ""];
+  const invalidOptions = ["en", "ru", "es", "pl", "uk", "tr", "DE", "de ", "__proto__", "de'); DROP TABLE language_poll_votes;--", ""];
   const bodies = [
     ...invalidOptions.map(option => JSON.stringify({ option })),
     "null", "[]", '"de"', "42", "{}", '{"option":null}', '{"option":true}',

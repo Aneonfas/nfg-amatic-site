@@ -132,7 +132,7 @@ function fixture(locale = "ru", { autoVerify = true } = {}) {
   };
 }
 
-test("poll copies have the same complete schema and the nine approved options", () => {
+test("poll copies have the same complete schema and the eight approved options", () => {
   const expectedKeys = Object.keys(content.locales.en.poll).sort();
   const errorKeys = Object.keys(content.locales.en.poll.errors).sort();
   const verificationKeys = Object.keys(content.locales.en.poll.verification).sort();
@@ -152,8 +152,8 @@ test("poll copies have the same complete schema and the nine approved options", 
     assert.match(poll.voted, /\{language\}/);
     assert.match(poll.verification.wait, /\{seconds\}/);
   }
-  assert.deepEqual(POLL_OPTIONS, ["de", "fr", "pt-br", "it", "tr", "zh-cn", "ja", "ko", "other"]);
-  for (const excluded of ["en", "ru", "es", "pl", "uk"]) assert.ok(!POLL_OPTIONS.includes(excluded));
+  assert.deepEqual(POLL_OPTIONS, ["de", "fr", "pt-br", "it", "zh-cn", "ja", "ko", "other"]);
+  for (const excluded of ["en", "ru", "es", "pl", "uk", "tr"]) assert.ok(!POLL_OPTIONS.includes(excluded));
   assert.doesNotMatch(source, /localStorage|sessionStorage|innerHTML/);
 });
 
@@ -427,15 +427,15 @@ test("duplicate POST response retains the original server choice, not the attemp
 for (const withSnapshot of [true, false]) {
   test(`already_voted error ${withSnapshot ? "with snapshot" : "followed by GET"} recovers the saved choice`, async () => {
     const f = fixture();
-    const saved = snapshot({ tr: 1 }, "tr");
+    const saved = snapshot({ fr: 1 }, "fr");
     f.queue.push(json(snapshot()), json({ error: "already_voted", ...(withSnapshot ? saved : {}) }, 409));
     if (!withSnapshot) f.queue.push(json(saved));
     await initLanguagePoll(f.root, f.fetcher, f.runtime);
     await f.select("de");
     await f.submit();
-    assert.equal(f.radios.find((radio) => radio.checked).value, "tr");
+    assert.equal(f.radios.find((radio) => radio.checked).value, "fr");
     assert.equal(f.nodes.form.hidden, true);
-    assert.equal(f.nodes.status.textContent, "Ваш голос учтён: Турецкий.");
+    assert.equal(f.nodes.status.textContent, "Ваш голос учтён: Французский.");
   });
 }
 

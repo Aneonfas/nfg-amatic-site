@@ -1,6 +1,6 @@
 {
   "lastModified": "2026-09-28",
-  "assetRevision": "20260827-localization-guides-v1",
+  "assetRevision": "20260928-turkish-release-v1",
   "locales": {
     "en": {
       "lang": "en",
@@ -9,7 +9,7 @@
       "autonym": "English",
       "shortLabel": "EN",
       "title": "NFG Projects",
-      "description": "NFG projects: Anvil Planner, Russian and Spanish localizations for Anvil Empires, Anvil Forge Helper, and NFG Hub.",
+      "description": "NFG projects: Anvil Planner, Russian, Spanish and Turkish localizations for Anvil Empires, and NFG Hub.",
       "skipLink": "Skip to projects",
       "homeAria": "NFG — home",
       "projectsNav": "Projects",
@@ -22,7 +22,7 @@
         "shortcut": "Poll: next language",
         "eyebrow": "Anvil Empires · Community poll",
         "title": "Which language should we localize next?",
-        "description": "Russian and Spanish localizations are already available. Help us choose the next language for Anvil Empires.",
+        "description": "Russian, Spanish and Turkish localizations are available. Help us choose the next language for Anvil Empires.",
         "choose": "Choose one language",
         "choiceRequired": "Choose a language before voting.",
         "submit": "Vote",
@@ -61,9 +61,14 @@
           "verification_unavailable": "Verification is temporarily unavailable. Please try later."
         },
         "options": {
-          "de": "German", "fr": "French", "pt-br": "Portuguese (Brazil)",
-          "it": "Italian", "tr": "Turkish", "zh-cn": "Chinese (Simplified)",
-          "ja": "Japanese", "ko": "Korean", "other": "Other language"
+          "de": "German",
+          "fr": "French",
+          "pt-br": "Portuguese (Brazil)",
+          "it": "Italian",
+          "zh-cn": "Chinese (Simplified)",
+          "ja": "Japanese",
+          "ko": "Korean",
+          "other": "Other language"
         }
       },
       "projects": [
@@ -89,11 +94,11 @@
           "aria": "Download Anvil Empires Spanish Localization 1.1.0-beta.2 from GitHub in a new tab"
         },
         {
-          "title": "Anvil Forge Helper",
-          "primary": "An Anvil Empires interface mod with compact forging quality markers.",
-          "secondary": "Helps align the result precisely with the cooling bar.",
-          "action": "Open on GitHub",
-          "aria": "Open Anvil Forge Helper on GitHub in a new tab"
+          "title": "Anvil Empires Turkish Localization",
+          "primary": "An unofficial Turkish translation for Anvil Empires on Windows/Steam.",
+          "secondary": "3,233 entries, Turkish character support, and selected screens checked in game.",
+          "action": "Download 1.0.0",
+          "aria": "Download 1.0.0 — Anvil Empires Turkish Localization — GitHub (opens in a new tab)"
         },
         {
           "title": "NFG Hub",
@@ -111,7 +116,7 @@
       "autonym": "Русский",
       "shortLabel": "RU",
       "title": "Проекты NFG",
-      "description": "Проекты NFG: Anvil Planner, локализации Anvil Empires на русском и испанском, Anvil Forge Helper и NFG Hub.",
+      "description": "Проекты NFG: Anvil Planner, локализации Anvil Empires на русском, испанском и турецком, NFG Hub.",
       "skipLink": "Перейти к проектам",
       "homeAria": "NFG — главная",
       "projectsNav": "Проекты",
@@ -124,7 +129,7 @@
         "shortcut": "Опрос: следующий язык",
         "eyebrow": "Anvil Empires · Голосование",
         "title": "Какой язык локализации добавить следующим?",
-        "description": "Русская и испанская локализации уже доступны. Помогите выбрать следующий язык для Anvil Empires.",
+        "description": "Русская, испанская и турецкая локализации уже доступны. Помогите выбрать следующий язык для Anvil Empires.",
         "choose": "Выберите один язык",
         "choiceRequired": "Выберите язык, прежде чем голосовать.",
         "submit": "Голосовать",
@@ -163,9 +168,14 @@
           "verification_unavailable": "Проверка временно недоступна. Попробуйте позже."
         },
         "options": {
-          "de": "Немецкий", "fr": "Французский", "pt-br": "Португальский (Бразилия)",
-          "it": "Итальянский", "tr": "Турецкий", "zh-cn": "Китайский (упрощённый)",
-          "ja": "Японский", "ko": "Корейский", "other": "Другой язык"
+          "de": "Немецкий",
+          "fr": "Французский",
+          "pt-br": "Португальский (Бразилия)",
+          "it": "Итальянский",
+          "zh-cn": "Китайский (упрощённый)",
+          "ja": "Японский",
+          "ko": "Корейский",
+          "other": "Другой язык"
         }
       },
       "projects": [
@@ -191,11 +201,11 @@
           "aria": "Скачать испанскую локализацию Anvil Empires 1.1.0-beta.2 с GitHub в новой вкладке"
         },
         {
-          "title": "Anvil Forge Helper",
-          "primary": "Модификация интерфейса Anvil Empires с компактными метками качества ковки.",
-          "secondary": "Помогает точно совмещать результат с полосой охлаждения.",
-          "action": "Открыть на GitHub",
-          "aria": "Открыть Anvil Forge Helper на GitHub в новой вкладке"
+          "title": "Турецкая локализация Anvil Empires",
+          "primary": "Неофициальный турецкий перевод Anvil Empires для Windows/Steam.",
+          "secondary": "3 233 записи, поддержка турецких букв и проверка отдельных экранов в игре.",
+          "action": "Скачать 1.0.0",
+          "aria": "Скачать 1.0.0 — Турецкая локализация Anvil Empires — GitHub (в новой вкладке)"
         },
         {
           "title": "NFG Hub",
@@ -213,7 +223,7 @@
       "autonym": "Español",
       "shortLabel": "ES",
       "title": "Proyectos NFG",
-      "description": "Proyectos NFG: Anvil Planner, localizaciones de Anvil Empires en ruso y español, Anvil Forge Helper y NFG Hub.",
+      "description": "Proyectos NFG: Anvil Planner, traducciones de Anvil Empires al ruso, español y turco, y NFG Hub.",
       "skipLink": "Ir a los proyectos",
       "homeAria": "NFG — inicio",
       "projectsNav": "Proyectos",
@@ -226,7 +236,7 @@
         "shortcut": "Encuesta: próximo idioma",
         "eyebrow": "Anvil Empires · Encuesta",
         "title": "¿Cuál debería ser el próximo idioma de la localización?",
-        "description": "Las localizaciones al ruso y al español ya están disponibles. Ayúdanos a elegir el próximo idioma para Anvil Empires.",
+        "description": "Ya están disponibles las traducciones al ruso, español y turco. Ayúdanos a elegir el próximo idioma de Anvil Empires.",
         "choose": "Elige un idioma",
         "choiceRequired": "Elige un idioma antes de votar.",
         "submit": "Votar",
@@ -265,9 +275,14 @@
           "verification_unavailable": "La verificación no está disponible temporalmente. Inténtalo más tarde."
         },
         "options": {
-          "de": "Alemán", "fr": "Francés", "pt-br": "Portugués (Brasil)",
-          "it": "Italiano", "tr": "Turco", "zh-cn": "Chino (simplificado)",
-          "ja": "Japonés", "ko": "Coreano", "other": "Otro idioma"
+          "de": "Alemán",
+          "fr": "Francés",
+          "pt-br": "Portugués (Brasil)",
+          "it": "Italiano",
+          "zh-cn": "Chino (simplificado)",
+          "ja": "Japonés",
+          "ko": "Coreano",
+          "other": "Otro idioma"
         }
       },
       "projects": [
@@ -293,11 +308,11 @@
           "aria": "Descargar la localización española de Anvil Empires 1.1.0-beta.2 desde GitHub en una pestaña nueva"
         },
         {
-          "title": "Anvil Forge Helper",
-          "primary": "Mod de interfaz de Anvil Empires con marcadores compactos de calidad de forja.",
-          "secondary": "Ayuda a alinear el resultado con precisión con la barra de enfriamiento.",
-          "action": "Abrir en GitHub",
-          "aria": "Abrir Anvil Forge Helper en GitHub en una pestaña nueva"
+          "title": "Anvil Empires en turco",
+          "primary": "Traducción no oficial de Anvil Empires al turco para Windows/Steam.",
+          "secondary": "3.233 entradas, caracteres turcos y pantallas seleccionadas comprobadas en el juego.",
+          "action": "Descargar 1.0.0",
+          "aria": "Descargar 1.0.0 — Anvil Empires en turco — GitHub (se abre en una nueva pestaña)"
         },
         {
           "title": "NFG Hub",
@@ -315,7 +330,7 @@
       "autonym": "Deutsch",
       "shortLabel": "DE",
       "title": "NFG-Projekte",
-      "description": "Projekte von NFG: Anvil Planner, russische und spanische Lokalisierungen für Anvil Empires, Anvil Forge Helper und NFG Hub.",
+      "description": "NFG-Projekte: Anvil Planner, russische, spanische und türkische Übersetzungen von Anvil Empires sowie NFG Hub.",
       "skipLink": "Zu den Projekten springen",
       "homeAria": "NFG – Startseite",
       "projectsNav": "Projekte",
@@ -328,7 +343,7 @@
         "shortcut": "Umfrage: nächste Sprache",
         "eyebrow": "Anvil Empires · Umfrage",
         "title": "Welche Sprache sollen wir als Nächstes hinzufügen?",
-        "description": "Russische und spanische Lokalisierungen sind bereits verfügbar. Hilf uns, die nächste Sprache für Anvil Empires auszuwählen.",
+        "description": "Russisch, Spanisch und Türkisch sind bereits verfügbar. Hilf uns, die nächste Sprache für Anvil Empires zu wählen.",
         "choose": "Wähle eine Sprache",
         "choiceRequired": "Wähle vor der Abstimmung eine Sprache.",
         "submit": "Abstimmen",
@@ -367,9 +382,14 @@
           "verification_unavailable": "Die Prüfung ist vorübergehend nicht verfügbar. Bitte versuche es später."
         },
         "options": {
-          "de": "Deutsch", "fr": "Französisch", "pt-br": "Portugiesisch (Brasilien)",
-          "it": "Italienisch", "tr": "Türkisch", "zh-cn": "Chinesisch (vereinfacht)",
-          "ja": "Japanisch", "ko": "Koreanisch", "other": "Andere Sprache"
+          "de": "Deutsch",
+          "fr": "Französisch",
+          "pt-br": "Portugiesisch (Brasilien)",
+          "it": "Italienisch",
+          "zh-cn": "Chinesisch (vereinfacht)",
+          "ja": "Japanisch",
+          "ko": "Koreanisch",
+          "other": "Andere Sprache"
         }
       },
       "projects": [
@@ -395,11 +415,11 @@
           "aria": "Spanische Lokalisierung für Anvil Empires 1.1.0-beta.2 von GitHub in einem neuen Tab herunterladen"
         },
         {
-          "title": "Anvil Forge Helper",
-          "primary": "Benutzeroberflächen-Mod für Anvil Empires mit kompakten Qualitätsmarkierungen beim Schmieden.",
-          "secondary": "Hilft dabei, das Ergebnis präzise an der Abkühlleiste auszurichten.",
-          "action": "Auf GitHub öffnen",
-          "aria": "Anvil Forge Helper auf GitHub in einem neuen Tab öffnen"
+          "title": "Anvil Empires auf Türkisch",
+          "primary": "Inoffizielle türkische Übersetzung von Anvil Empires für Windows/Steam.",
+          "secondary": "3.233 Einträge, türkische Schriftzeichen und ausgewählte Ansichten im Spiel geprüft.",
+          "action": "1.0.0 herunterladen",
+          "aria": "1.0.0 herunterladen — Anvil Empires auf Türkisch — GitHub (öffnet in einem neuen Tab)"
         },
         {
           "title": "NFG Hub",
@@ -417,7 +437,7 @@
       "autonym": "Français",
       "shortLabel": "FR",
       "title": "Projets NFG",
-      "description": "Projets NFG : Anvil Planner, localisations russe et espagnole d’Anvil Empires, Anvil Forge Helper et NFG Hub.",
+      "description": "Projets NFG : Anvil Planner, traductions russe, espagnole et turque d’Anvil Empires et NFG Hub.",
       "skipLink": "Aller aux projets",
       "homeAria": "NFG — accueil",
       "projectsNav": "Projets",
@@ -430,7 +450,7 @@
         "shortcut": "Sondage : prochaine langue",
         "eyebrow": "Anvil Empires · Sondage",
         "title": "Dans quelle langue traduire le jeu ensuite ?",
-        "description": "Les localisations russe et espagnole sont déjà disponibles. Aidez-nous à choisir la prochaine langue pour Anvil Empires.",
+        "description": "Les traductions russe, espagnole et turque sont disponibles. Aidez-nous à choisir la prochaine langue d’Anvil Empires.",
         "choose": "Choisissez une langue",
         "choiceRequired": "Choisissez une langue avant de voter.",
         "submit": "Voter",
@@ -469,9 +489,14 @@
           "verification_unavailable": "La vérification est temporairement indisponible. Réessayez plus tard."
         },
         "options": {
-          "de": "Allemand", "fr": "Français", "pt-br": "Portugais (Brésil)",
-          "it": "Italien", "tr": "Turc", "zh-cn": "Chinois (simplifié)",
-          "ja": "Japonais", "ko": "Coréen", "other": "Autre langue"
+          "de": "Allemand",
+          "fr": "Français",
+          "pt-br": "Portugais (Brésil)",
+          "it": "Italien",
+          "zh-cn": "Chinois (simplifié)",
+          "ja": "Japonais",
+          "ko": "Coréen",
+          "other": "Autre langue"
         }
       },
       "projects": [
@@ -497,11 +522,11 @@
           "aria": "Télécharger la localisation espagnole 1.1.0-beta.2 d’Anvil Empires depuis GitHub dans un nouvel onglet"
         },
         {
-          "title": "Anvil Forge Helper",
-          "primary": "Mod d’interface pour Anvil Empires avec des indicateurs compacts de qualité de forge.",
-          "secondary": "Aide à aligner précisément le résultat sur la barre de refroidissement.",
-          "action": "Ouvrir sur GitHub",
-          "aria": "Ouvrir Anvil Forge Helper sur GitHub dans un nouvel onglet"
+          "title": "Anvil Empires en turc",
+          "primary": "Traduction non officielle d’Anvil Empires en turc pour Windows/Steam.",
+          "secondary": "3 233 entrées, caractères turcs et vérification de certains écrans en jeu.",
+          "action": "Télécharger 1.0.0",
+          "aria": "Télécharger 1.0.0 — Anvil Empires en turc — GitHub (ouvre un nouvel onglet)"
         },
         {
           "title": "NFG Hub",
@@ -519,7 +544,7 @@
       "autonym": "Italiano",
       "shortLabel": "IT",
       "title": "Progetti NFG",
-      "description": "Progetti NFG: Anvil Planner, localizzazioni di Anvil Empires in russo e spagnolo, Anvil Forge Helper e NFG Hub.",
+      "description": "Progetti NFG: Anvil Planner, traduzioni russa, spagnola e turca di Anvil Empires e NFG Hub.",
       "skipLink": "Vai ai progetti",
       "homeAria": "NFG — pagina iniziale",
       "projectsNav": "Progetti",
@@ -532,7 +557,7 @@
         "shortcut": "Sondaggio: prossima lingua",
         "eyebrow": "Anvil Empires · Sondaggio",
         "title": "Quale lingua vorresti per la prossima localizzazione?",
-        "description": "Le localizzazioni in russo e spagnolo sono già disponibili. Aiutaci a scegliere la prossima lingua per Anvil Empires.",
+        "description": "Le traduzioni russa, spagnola e turca sono disponibili. Aiutaci a scegliere la prossima lingua di Anvil Empires.",
         "choose": "Scegli una lingua",
         "choiceRequired": "Scegli una lingua prima di votare.",
         "submit": "Vota",
@@ -571,9 +596,14 @@
           "verification_unavailable": "La verifica è temporaneamente non disponibile. Riprova più tardi."
         },
         "options": {
-          "de": "Tedesco", "fr": "Francese", "pt-br": "Portoghese (Brasile)",
-          "it": "Italiano", "tr": "Turco", "zh-cn": "Cinese (semplificato)",
-          "ja": "Giapponese", "ko": "Coreano", "other": "Altra lingua"
+          "de": "Tedesco",
+          "fr": "Francese",
+          "pt-br": "Portoghese (Brasile)",
+          "it": "Italiano",
+          "zh-cn": "Cinese (semplificato)",
+          "ja": "Giapponese",
+          "ko": "Coreano",
+          "other": "Altra lingua"
         }
       },
       "projects": [
@@ -599,11 +629,11 @@
           "aria": "Scarica la localizzazione spagnola 1.1.0-beta.2 di Anvil Empires da GitHub in una nuova scheda"
         },
         {
-          "title": "Anvil Forge Helper",
-          "primary": "Mod per l’interfaccia di Anvil Empires con indicatori compatti della qualità della forgiatura.",
-          "secondary": "Aiuta ad allineare con precisione il risultato alla barra di raffreddamento.",
-          "action": "Apri su GitHub",
-          "aria": "Apri Anvil Forge Helper su GitHub in una nuova scheda"
+          "title": "Anvil Empires in turco",
+          "primary": "Traduzione non ufficiale di Anvil Empires in turco per Windows/Steam.",
+          "secondary": "3.233 voci, caratteri turchi e alcune schermate verificate nel gioco.",
+          "action": "Scarica 1.0.0",
+          "aria": "Scarica 1.0.0 — Anvil Empires in turco — GitHub (si apre in una nuova scheda)"
         },
         {
           "title": "NFG Hub",
@@ -621,7 +651,7 @@
       "autonym": "Português (Brasil)",
       "shortLabel": "PT-BR",
       "title": "Projetos da NFG",
-      "description": "Projetos da NFG: Anvil Planner, localizações de Anvil Empires em russo e espanhol, Anvil Forge Helper e NFG Hub.",
+      "description": "Projetos NFG: Anvil Planner, traduções de Anvil Empires para russo, espanhol e turco, e NFG Hub.",
       "skipLink": "Ir para os projetos",
       "homeAria": "NFG — página inicial",
       "projectsNav": "Projetos",
@@ -634,7 +664,7 @@
         "shortcut": "Enquete: próximo idioma",
         "eyebrow": "Anvil Empires · Enquete",
         "title": "Qual deve ser o próximo idioma da localização?",
-        "description": "As localizações em russo e espanhol já estão disponíveis. Ajude a escolher o próximo idioma para Anvil Empires.",
+        "description": "As traduções para russo, espanhol e turco já estão disponíveis. Ajude a escolher o próximo idioma de Anvil Empires.",
         "choose": "Escolha um idioma",
         "choiceRequired": "Escolha um idioma antes de votar.",
         "submit": "Votar",
@@ -673,9 +703,14 @@
           "verification_unavailable": "A verificação está temporariamente indisponível. Tente mais tarde."
         },
         "options": {
-          "de": "Alemão", "fr": "Francês", "pt-br": "Português (Brasil)",
-          "it": "Italiano", "tr": "Turco", "zh-cn": "Chinês (simplificado)",
-          "ja": "Japonês", "ko": "Coreano", "other": "Outro idioma"
+          "de": "Alemão",
+          "fr": "Francês",
+          "pt-br": "Português (Brasil)",
+          "it": "Italiano",
+          "zh-cn": "Chinês (simplificado)",
+          "ja": "Japonês",
+          "ko": "Coreano",
+          "other": "Outro idioma"
         }
       },
       "projects": [
@@ -701,11 +736,11 @@
           "aria": "Baixar a localização de Anvil Empires em espanhol, versão 1.1.0-beta.2, do GitHub em uma nova guia"
         },
         {
-          "title": "Anvil Forge Helper",
-          "primary": "Mod de interface para Anvil Empires com marcadores compactos de qualidade da forja.",
-          "secondary": "Ajuda a alinhar com precisão o resultado com a barra de resfriamento.",
-          "action": "Abrir no GitHub",
-          "aria": "Abrir o Anvil Forge Helper no GitHub em uma nova guia"
+          "title": "Anvil Empires em turco",
+          "primary": "Tradução não oficial de Anvil Empires para turco no Windows/Steam.",
+          "secondary": "3.233 entradas, caracteres turcos e algumas telas verificadas no jogo.",
+          "action": "Baixar 1.0.0",
+          "aria": "Baixar 1.0.0 — Anvil Empires em turco — GitHub (abre em uma nova aba)"
         },
         {
           "title": "NFG Hub",
@@ -723,7 +758,7 @@
       "autonym": "简体中文",
       "shortLabel": "中文",
       "title": "NFG 项目",
-      "description": "NFG 项目：Anvil Planner、Anvil Empires 的俄语与西班牙语本地化、Anvil Forge Helper 以及 NFG Hub。",
+      "description": "NFG 项目：Anvil Planner、Anvil Empires 俄语、西班牙语和土耳其语本地化，以及 NFG Hub。",
       "skipLink": "跳转到项目",
       "homeAria": "NFG 首页",
       "projectsNav": "项目",
@@ -736,7 +771,7 @@
         "shortcut": "投票：下一种语言",
         "eyebrow": "Anvil Empires · 社区投票",
         "title": "你希望接下来添加哪种语言的本地化？",
-        "description": "俄语和西班牙语本地化已发布。帮助我们为 Anvil Empires 选择下一种语言。",
+        "description": "俄语、西班牙语和土耳其语翻译现已推出。帮助我们选择 Anvil Empires 的下一个翻译语言。",
         "choose": "请选择一种语言",
         "choiceRequired": "请先选择一种语言，再投票。",
         "submit": "投票",
@@ -775,9 +810,14 @@
           "verification_unavailable": "验证暂时不可用，请稍后重试。"
         },
         "options": {
-          "de": "德语", "fr": "法语", "pt-br": "葡萄牙语（巴西）",
-          "it": "意大利语", "tr": "土耳其语", "zh-cn": "简体中文",
-          "ja": "日语", "ko": "韩语", "other": "其他语言"
+          "de": "德语",
+          "fr": "法语",
+          "pt-br": "葡萄牙语（巴西）",
+          "it": "意大利语",
+          "zh-cn": "简体中文",
+          "ja": "日语",
+          "ko": "韩语",
+          "other": "其他语言"
         }
       },
       "projects": [
@@ -803,11 +843,11 @@
           "aria": "在新标签页中从 GitHub 下载 Anvil Empires 西班牙语本地化 1.1.0-beta.2"
         },
         {
-          "title": "Anvil Forge Helper",
-          "primary": "为 Anvil Empires 添加紧凑锻造品质标记的界面模组。",
-          "secondary": "帮助将锻造结果精准对齐冷却条。",
-          "action": "在 GitHub 上查看",
-          "aria": "在新标签页中打开 Anvil Forge Helper 的 GitHub 页面"
+          "title": "Anvil Empires 土耳其语本地化",
+          "primary": "适用于 Windows/Steam 的 Anvil Empires 非官方土耳其语翻译。",
+          "secondary": "包含 3,233 条本地化文本，支持土耳其语字符，部分界面已在游戏中验证。",
+          "action": "下载 1.0.0",
+          "aria": "下载 1.0.0 — Anvil Empires 土耳其语本地化 — GitHub (在新标签页打开)"
         },
         {
           "title": "NFG Hub",
@@ -825,7 +865,7 @@
       "autonym": "日本語",
       "shortLabel": "JA",
       "title": "NFGプロジェクト",
-      "description": "NFGプロジェクト：Anvil Planner、Anvil Empiresのロシア語・スペイン語ローカライズ、Anvil Forge Helper、NFG Hub。",
+      "description": "NFG プロジェクト：Anvil Planner、Anvil Empires のロシア語・スペイン語・トルコ語化、NFG Hub。",
       "skipLink": "プロジェクト一覧へスキップ",
       "homeAria": "NFGホーム",
       "projectsNav": "プロジェクト",
@@ -838,7 +878,7 @@
         "shortcut": "投票：次の翻訳言語",
         "eyebrow": "Anvil Empires · アンケート",
         "title": "次はどの言語にローカライズしてほしいですか？",
-        "description": "ロシア語版とスペイン語版は公開済みです。Anvil Empiresの次の対応言語を選ぶため、ご意見をお聞かせください。",
+        "description": "ロシア語・スペイン語・トルコ語版を公開しています。Anvil Empires の次の翻訳言語を選んでください。",
         "choose": "言語を1つ選択",
         "choiceRequired": "投票する前に言語を選択してください。",
         "submit": "投票する",
@@ -877,9 +917,14 @@
           "verification_unavailable": "認証を一時的に利用できません。しばらくしてからお試しください。"
         },
         "options": {
-          "de": "ドイツ語", "fr": "フランス語", "pt-br": "ポルトガル語（ブラジル）",
-          "it": "イタリア語", "tr": "トルコ語", "zh-cn": "中国語（簡体字）",
-          "ja": "日本語", "ko": "韓国語", "other": "その他の言語"
+          "de": "ドイツ語",
+          "fr": "フランス語",
+          "pt-br": "ポルトガル語（ブラジル）",
+          "it": "イタリア語",
+          "zh-cn": "中国語（簡体字）",
+          "ja": "日本語",
+          "ko": "韓国語",
+          "other": "その他の言語"
         }
       },
       "projects": [
@@ -905,11 +950,11 @@
           "aria": "GitHubからAnvil Empires スペイン語ローカライズ 1.1.0-beta.2をダウンロード（新しいタブで開きます）"
         },
         {
-          "title": "Anvil Forge Helper",
-          "primary": "鍛造品質をコンパクトなマーカーで表示するAnvil Empires向けUI Mod。",
-          "secondary": "鍛造結果を冷却バーに正確に合わせやすくします。",
-          "action": "GitHubで見る",
-          "aria": "Anvil Forge HelperのGitHubページを新しいタブで開く"
+          "title": "Anvil Empires トルコ語化",
+          "primary": "Windows/Steam 向け Anvil Empires の非公式トルコ語翻訳。",
+          "secondary": "3,233 項目を収録。トルコ語文字に対応し、一部の画面をゲーム内で確認済みです。",
+          "action": "1.0.0をダウンロード",
+          "aria": "1.0.0をダウンロード — Anvil Empires トルコ語化 — GitHub (新しいタブで開きます)"
         },
         {
           "title": "NFG Hub",
@@ -927,7 +972,7 @@
       "autonym": "한국어",
       "shortLabel": "KO",
       "title": "NFG 프로젝트",
-      "description": "NFG 프로젝트: Anvil Planner, Anvil Empires 러시아어·스페인어 현지화, Anvil Forge Helper, NFG Hub.",
+      "description": "NFG 프로젝트: Anvil Planner, Anvil Empires 러시아어·스페인어·튀르키예어 번역, NFG Hub.",
       "skipLink": "프로젝트로 건너뛰기",
       "homeAria": "NFG 홈",
       "projectsNav": "프로젝트",
@@ -940,7 +985,7 @@
         "shortcut": "투표: 다음 번역 언어",
         "eyebrow": "Anvil Empires · 커뮤니티 투표",
         "title": "다음에는 어떤 언어로 번역할까요?",
-        "description": "러시아어와 스페인어 현지화는 이미 제공되고 있습니다. Anvil Empires에 다음으로 추가할 언어를 선택해 주세요.",
+        "description": "러시아어, 스페인어, 튀르키예어 번역이 제공됩니다. Anvil Empires의 다음 번역 언어를 골라 주세요.",
         "choose": "언어 하나 선택",
         "choiceRequired": "투표하기 전에 언어를 선택해 주세요.",
         "submit": "투표하기",
@@ -979,9 +1024,14 @@
           "verification_unavailable": "확인을 일시적으로 이용할 수 없습니다. 나중에 다시 시도해 주세요."
         },
         "options": {
-          "de": "독일어", "fr": "프랑스어", "pt-br": "포르투갈어 (브라질)",
-          "it": "이탈리아어", "tr": "튀르키예어", "zh-cn": "중국어 (간체)",
-          "ja": "일본어", "ko": "한국어", "other": "다른 언어"
+          "de": "독일어",
+          "fr": "프랑스어",
+          "pt-br": "포르투갈어 (브라질)",
+          "it": "이탈리아어",
+          "zh-cn": "중국어 (간체)",
+          "ja": "일본어",
+          "ko": "한국어",
+          "other": "다른 언어"
         }
       },
       "projects": [
@@ -1007,11 +1057,11 @@
           "aria": "새 탭에서 GitHub를 열어 Anvil Empires 스페인어 현지화 1.1.0-beta.2 다운로드하기"
         },
         {
-          "title": "Anvil Forge Helper",
-          "primary": "Anvil Empires에 간결한 단조 품질 표식을 추가하는 UI 모드입니다.",
-          "secondary": "단조 결과를 냉각 게이지에 정확히 맞출 수 있도록 도와줍니다.",
-          "action": "GitHub에서 보기",
-          "aria": "새 탭에서 Anvil Forge Helper GitHub 페이지 열기"
+          "title": "Anvil Empires 튀르키예어 번역",
+          "primary": "Windows/Steam용 Anvil Empires 비공식 튀르키예어 번역입니다.",
+          "secondary": "3,233개 항목과 튀르키예어 문자를 지원하며 일부 화면을 게임에서 확인했습니다.",
+          "action": "1.0.0 다운로드",
+          "aria": "1.0.0 다운로드 — Anvil Empires 튀르키예어 번역 — GitHub (새 탭에서 열기)"
         },
         {
           "title": "NFG Hub",
@@ -1029,7 +1079,7 @@
       "autonym": "Türkçe",
       "shortLabel": "TR",
       "title": "NFG Projeleri",
-      "description": "NFG projeleri: Anvil Planner, Anvil Empires için Rusça ve İspanyolca yerelleştirmeler, Anvil Forge Helper ve NFG Hub.",
+      "description": "NFG projeleri: Anvil Planner, Anvil Empires için Rusça, İspanyolca ve Türkçe çeviriler ve NFG Hub.",
       "skipLink": "Projelere geç",
       "homeAria": "NFG — ana sayfa",
       "projectsNav": "Projeler",
@@ -1042,7 +1092,7 @@
         "shortcut": "Anket: sıradaki dil",
         "eyebrow": "Anvil Empires · Topluluk anketi",
         "title": "Sıradaki yerelleştirme hangi dilde olsun?",
-        "description": "Rusça ve İspanyolca yerelleştirmeler zaten mevcut. Anvil Empires için sıradaki dili seçmemize yardımcı olun.",
+        "description": "Rusça, İspanyolca ve Türkçe çeviriler yayımlandı. Anvil Empires için sıradaki dili seçmemize yardımcı olun.",
         "choose": "Bir dil seçin",
         "choiceRequired": "Oy vermeden önce bir dil seçin.",
         "submit": "Oy ver",
@@ -1081,9 +1131,14 @@
           "verification_unavailable": "Doğrulama geçici olarak kullanılamıyor. Daha sonra tekrar deneyin."
         },
         "options": {
-          "de": "Almanca", "fr": "Fransızca", "pt-br": "Portekizce (Brezilya)",
-          "it": "İtalyanca", "tr": "Türkçe", "zh-cn": "Çince (Basitleştirilmiş)",
-          "ja": "Japonca", "ko": "Korece", "other": "Diğer dil"
+          "de": "Almanca",
+          "fr": "Fransızca",
+          "pt-br": "Portekizce (Brezilya)",
+          "it": "İtalyanca",
+          "zh-cn": "Çince (Basitleştirilmiş)",
+          "ja": "Japonca",
+          "ko": "Korece",
+          "other": "Diğer dil"
         }
       },
       "projects": [
@@ -1109,11 +1164,11 @@
           "aria": "Anvil Empires İspanyolca yerelleştirmesi 1.1.0-beta.2 sürümünü GitHub’dan yeni sekmede indir"
         },
         {
-          "title": "Anvil Forge Helper",
-          "primary": "Dövme kalitesini gösteren kompakt işaretlere sahip Anvil Empires arayüz modu.",
-          "secondary": "Sonucu soğuma çubuğuyla hassas biçimde hizalamaya yardımcı olur.",
-          "action": "GitHub’da aç",
-          "aria": "Anvil Forge Helper’ı GitHub’da yeni sekmede aç"
+          "title": "Anvil Empires Türkçe",
+          "primary": "Windows/Steam için resmî olmayan Anvil Empires Türkçe çevirisi.",
+          "secondary": "3.233 girdi, Türkçe karakter desteği ve oyun içinde seçili ekranların kontrolü.",
+          "action": "1.0.0 sürümünü indir",
+          "aria": "1.0.0 sürümünü indir — Anvil Empires Türkçe — GitHub (yeni sekmede açılır)"
         },
         {
           "title": "NFG Hub",
