@@ -21,17 +21,19 @@
 - [Anvil Planner](https://anvil-planner.nfg-system.online/)
 - [Anvil Empires Russian localization](https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.1.0/Anvil-Empires-Russian-v1.1.0-steam-build-25584311.zip)
 - [Anvil Empires Spanish localization](https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.1.0-beta.2/Anvil-Empires-Spanish-v1.1.0-beta.2-steam-build-25584311.zip)
-- [Anvil Forge Helper](https://github.com/nullith2/Anvil-forge-helper)
+- [Anvil Empires Turkish localization](https://github.com/Aneonfas/anvil-empires-localizations/releases/download/tr-v1.0.0/Anvil-Empires-Turkish-v1.0.0-steam-build-25584311.zip)
 - [NFG Hub](https://github.com/Aneonfas/nfg-hub/releases/download/v0.3.0/NFG-Hub-v0.3.0-win-x64.zip)
 
 ## Installation guides
 
 - [Anvil Empires Russian localization: guide and details](https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.ru.md)
 - [Anvil Empires Spanish localization: guide and details](https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.es.md)
+- [Anvil Empires Turkish localization: guide and details](https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.tr.md)
 
 ## Notes
 
-- The Russian and Spanish localization links point to ready release archives.
+- The Russian, Spanish and Turkish localization links point to ready release archives.
 - Spanish localization: Version 1.1.0-beta.2 is available. In-game verification is pending. The next test date remains in English.
+- Turkish localization: selected screens checked in game by the user; comprehensive runtime and native-speaker review remain pending.
 - NFG Hub is the Windows catalog and installer for supported NFG packages.
 - Canonical page metadata and sitemap.xml remain the authoritative discovery sources.

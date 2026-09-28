@@ -15,12 +15,13 @@ const primaryLinks = [
   "https://anvil-planner.nfg-system.online/",
   "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.1.0/Anvil-Empires-Russian-v1.1.0-steam-build-25584311.zip",
   "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.1.0-beta.2/Anvil-Empires-Spanish-v1.1.0-beta.2-steam-build-25584311.zip",
-  "https://github.com/nullith2/Anvil-forge-helper",
+  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/tr-v1.0.0/Anvil-Empires-Turkish-v1.0.0-steam-build-25584311.zip",
   "https://github.com/Aneonfas/nfg-hub/releases/download/v0.3.0/NFG-Hub-v0.3.0-win-x64.zip",
 ];
 const documentationLinks = new Map([
   [1, { href: "https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.ru.md", language: "ru" }],
   [2, { href: "https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.es.md", language: "es" }],
+  [3, { href: "https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.tr.md", language: "tr" }],
 ]);
 const newTabWording = {
   en: /new tab/i,
@@ -60,13 +61,13 @@ test("README link coverage includes every published locale and localized accessi
 });
 
 for (const locale of locales) {
-  test(`${locale}: exactly two secondary README links preserve all primary downloads and JSON-LD`, async () => {
+  test(`${locale}: exactly three secondary README links preserve all primary downloads and JSON-LD`, async () => {
     const copy = content.locales[locale];
     const html = await readFile(path.join(rootDir, locale, "index.html"), "utf8");
     const cards = [...html.matchAll(/<article class="project-row project-row-active">([\s\S]*?)<\/article>/g)].map((match) => match[1]);
     assert.equal(cards.length, primaryLinks.length, "All five project cards must remain");
     const secondaryLinks = anchors(html).filter((anchor) => classes(anchor).includes("project-link-secondary"));
-    assert.equal(secondaryLinks.length, 2, "Only the Russian and Spanish cards receive README links");
+    assert.equal(secondaryLinks.length, 3, "Only the Russian, Spanish and Turkish cards receive README links");
     assert.deepEqual(secondaryLinks.map((anchor) => anchor.attributes.href), [...documentationLinks.values()].map((link) => link.href));
 
     cards.forEach((card, index) => {
@@ -83,7 +84,7 @@ for (const locale of locales) {
       assertExternalLink(primary);
 
       if (!documentation) {
-        assert.doesNotMatch(card, /project-link-secondary|\/blob\/main\/README\.(?:ru|es)\.md/);
+        assert.doesNotMatch(card, /project-link-secondary|\/blob\/main\/README\.(?:ru|es|tr)\.md/);
         return;
       }
 
