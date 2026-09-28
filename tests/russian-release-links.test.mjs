@@ -13,23 +13,21 @@ const russianVersion = "1.1.0";
 const russianDownload =
   "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.1.0/Anvil-Empires-Russian-v1.1.0-steam-build-25584311.zip";
 const oldRussianRepository = /https:\/\/github\.com\/(?:nullith2|Aneonfas)\/anvil-empires-russian(?:\/|\b)/i;
-const spanishVersion = "1.0.0";
-const spanishGameBuild = "90510";
-const spanishSteamBuildId = "24805551";
+const spanishVersion = "1.1.0-beta.2";
 const spanishDownload =
-  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.0.0/Anvil-Empires-Spanish-v1.0.0-steam-build-24805551.zip";
-const lastTestedWording = {
-  en: /last tested/i,
-  ru: /последняя проверка/i,
-  es: /última prueba/i,
-  de: /zuletzt.*getestet/i,
-  fr: /dernier test/i,
-  it: /ultimo test/i,
-  "pt-br": /último teste/i,
-  "zh-cn": /上次测试/,
-  ja: /最終動作確認/,
-  ko: /마지막 테스트/,
-  tr: /son test/i,
+  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.1.0-beta.2/Anvil-Empires-Spanish-v1.1.0-beta.2-steam-build-25584311.zip";
+const pendingRuntimeWording = {
+  en: /In-game verification is pending/,
+  ru: /Проверка в игре ещё не выполнена/,
+  es: /comprobación dentro del juego está pendiente/,
+  de: /Prüfung im Spiel steht noch aus/,
+  fr: /vérification en jeu reste à effectuer/,
+  it: /verifica nel gioco è ancora da eseguire/,
+  "pt-br": /verificação dentro do jogo está pendente/,
+  "zh-cn": /尚未进行游戏内验证/,
+  ja: /ゲーム内での確認はまだ行っていません/,
+  ko: /게임 내 검증은 아직 진행하지 않았습니다/,
+  tr: /Oyun içi doğrulama henüz yapılmadı/,
 };
 const exclusiveBuildWording =
   /\bonly\b|только|\bsolo\b|\bnur\b|\buniquement\b|\bapenas\b|仅适用|専用|전용|yalnızca/i;
@@ -105,41 +103,33 @@ for (const locale of locales) {
     assert.doesNotMatch(html, oldRussianRepository);
   });
 
-  test(`${locale}: Spanish CTA, copy and JSON-LD name the stable release and last tested build`, async () => {
+  test(`${locale}: Spanish CTA, copy and JSON-LD name the beta release and pending in-game verification`, async () => {
     const project = content.locales[locale].projects[2];
     for (const field of ["action", "aria"]) {
       assert.deepEqual(
-        project[field].match(/\d+\.\d+\.\d+/g),
+        project[field].match(/\d+\.\d+\.\d+(?:-beta\.\d+)?/g),
         [spanishVersion],
         `${locale} source ${field} must name Spanish release ${spanishVersion}`,
       );
-      assert.doesNotMatch(project[field], betaWording);
+      assert.match(project[field], betaWording);
     }
     assert.deepEqual(
-      project.secondary.match(/\d+\.\d+\.\d+/g),
+      project.secondary.match(/\d+\.\d+\.\d+(?:-beta\.\d+)?/g),
       [spanishVersion],
       `${locale} Spanish description must name its published release`,
     );
-    assert.deepEqual(
-      project.secondary.match(/\b\d{5,}\b/g),
-      [spanishGameBuild],
-      `${locale} Spanish description must identify the last tested in-game build`,
-    );
-    assert.ok(
-      !project.secondary.includes(spanishSteamBuildId),
-      `${locale} player-facing copy must not substitute the technical Steam BuildID`,
-    );
+    assert.doesNotMatch(project.secondary, /90510|24805551/);
     assert.match(
       project.secondary,
-      lastTestedWording[locale],
-      `${locale} must present the build as testing history`,
+      pendingRuntimeWording[locale],
+      `${locale} must distinguish file checks from pending in-game verification`,
     );
     assert.doesNotMatch(
       project.secondary,
       exclusiveBuildWording,
       `${locale} must not restrict installation to the tested build`,
     );
-    assert.doesNotMatch(project.secondary, betaWording);
+    assert.match(project.secondary, betaWording);
     assert.match(project.secondary, nextTestDateWording[locale]);
 
     const html = await readFile(path.join(rootDir, locale, "index.html"), "utf8");
