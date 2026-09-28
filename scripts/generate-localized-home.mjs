@@ -32,7 +32,7 @@ const PROJECTS = [
   {
     key: "spanish",
     name: "Anvil Empires Spanish localization",
-    href: "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.0.0/Anvil-Empires-Spanish-v1.0.0-steam-build-24805551.zip",
+    href: "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.1.0-beta.2/Anvil-Empires-Spanish-v1.1.0-beta.2-steam-build-25584311.zip",
     documentationHref: "https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.es.md",
     documentationLanguage: "es",
   },
