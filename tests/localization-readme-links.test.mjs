@@ -13,7 +13,7 @@ const generatorSource = await readFile(generatorPath, "utf8");
 const locales = ["en", "ru", "es", "de", "fr", "it", "pt-br", "zh-cn", "ja", "ko", "tr"];
 const primaryLinks = [
   "https://anvil-planner.nfg-system.online/",
-  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.0.2/Anvil-Empires-Russian-v1.0.2-steam-build-24805551.zip",
+  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.1.0/Anvil-Empires-Russian-v1.1.0-steam-build-25584311.zip",
   "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.0.0/Anvil-Empires-Spanish-v1.0.0-steam-build-24805551.zip",
   "https://github.com/nullith2/Anvil-forge-helper",
   "https://github.com/Aneonfas/nfg-hub/releases/download/v0.3.0/NFG-Hub-v0.3.0-win-x64.zip",

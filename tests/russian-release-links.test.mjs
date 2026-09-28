@@ -9,9 +9,9 @@ const content = JSON.parse(
   await readFile(path.join(rootDir, "content", "home.locales.json"), "utf8"),
 );
 const locales = ["en", "ru", "es", "de", "fr", "it", "pt-br", "zh-cn", "ja", "ko", "tr"];
-const russianVersion = "1.0.2";
+const russianVersion = "1.1.0";
 const russianDownload =
-  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.0.2/Anvil-Empires-Russian-v1.0.2-steam-build-24805551.zip";
+  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.1.0/Anvil-Empires-Russian-v1.1.0-steam-build-25584311.zip";
 const oldRussianRepository = /https:\/\/github\.com\/(?:nullith2|Aneonfas)\/anvil-empires-russian(?:\/|\b)/i;
 const spanishVersion = "1.0.0";
 const spanishGameBuild = "90510";

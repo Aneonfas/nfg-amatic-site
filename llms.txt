@@ -19,7 +19,7 @@
 ## Products
 
 - [Anvil Planner](https://anvil-planner.nfg-system.online/)
-- [Anvil Empires Russian localization](https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.0.2/Anvil-Empires-Russian-v1.0.2-steam-build-24805551.zip)
+- [Anvil Empires Russian localization](https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.1.0/Anvil-Empires-Russian-v1.1.0-steam-build-25584311.zip)
 - [Anvil Empires Spanish localization](https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.0.0/Anvil-Empires-Spanish-v1.0.0-steam-build-24805551.zip)
 - [Anvil Forge Helper](https://github.com/nullith2/Anvil-forge-helper)
 - [NFG Hub](https://github.com/Aneonfas/nfg-hub/releases/download/v0.3.0/NFG-Hub-v0.3.0-win-x64.zip)
