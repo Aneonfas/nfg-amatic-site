@@ -17,7 +17,7 @@ const primaryLinks = [
   "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.1.0-beta.2/Anvil-Empires-Spanish-v1.1.0-beta.2-steam-build-25584311.zip",
   "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/tr-v1.0.0/Anvil-Empires-Turkish-v1.0.0-steam-build-25584311.zip",
   "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/de-v1.0.0-beta.1/Anvil-Empires-German-v1.0.0-beta.1-steam-build-25584311.zip",
-  "https://github.com/Aneonfas/nfg-hub/releases/download/v0.3.0/NFG-Hub-v0.3.0-win-x64.zip",
+  "https://github.com/Aneonfas/nfg-hub/releases/download/v0.4.0/NFG-Hub-v0.4.0-win-x64.zip",
 ];
 const documentationLinks = new Map([
   [1, { href: "https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.ru.md", language: "ru" }],
