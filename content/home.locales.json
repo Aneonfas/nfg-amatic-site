@@ -1,6 +1,6 @@
 {
   "lastModified": "2026-09-30",
-  "assetRevision": "20260930-german-release-v1",
+  "assetRevision": "20260930-german-player-copy-v2",
   "locales": {
     "en": {
       "lang": "en",
@@ -22,7 +22,7 @@
         "shortcut": "Poll: next language",
         "eyebrow": "Anvil Empires · Community poll",
         "title": "Which language should we localize next?",
-        "description": "Russian, Spanish and Turkish are available, along with the German beta. Help choose the next language for Anvil Empires.",
+        "description": "Russian, Spanish, Turkish and German are available. Help choose the next language for Anvil Empires.",
         "choose": "Choose one language",
         "choiceRequired": "Choose a language before voting.",
         "submit": "Vote",
@@ -102,9 +102,9 @@
         {
           "title": "Anvil Empires in German",
           "primary": "Unofficial German translation of Anvil Empires for Windows/Steam.",
-          "secondary": "1.0.0-beta.1: 3,233 entries. In-game verification is pending.",
-          "action": "Download 1.0.0-beta.1",
-          "aria": "Download 1.0.0-beta.1 — Anvil Empires in German — GitHub (opens in a new tab)"
+          "secondary": "3,233 entries: menus, items, buildings and crafting.",
+          "action": "Download",
+          "aria": "Download — Anvil Empires in German — GitHub (opens in a new tab)"
         },
         {
           "title": "NFG Hub",
@@ -135,7 +135,7 @@
         "shortcut": "Опрос: следующий язык",
         "eyebrow": "Anvil Empires · Голосование",
         "title": "Какой язык локализации добавить следующим?",
-        "description": "Уже доступны русский, испанский, турецкий и немецкая бета. Помоги выбрать следующий язык для Anvil Empires.",
+        "description": "Уже доступны русский, испанский, турецкий и немецкий переводы. Помоги выбрать следующий язык для Anvil Empires.",
         "choose": "Выберите один язык",
         "choiceRequired": "Выберите язык, прежде чем голосовать.",
         "submit": "Голосовать",
@@ -215,9 +215,9 @@
         {
           "title": "Anvil Empires на немецком",
           "primary": "Неофициальный немецкий перевод Anvil Empires для Windows/Steam.",
-          "secondary": "1.0.0-beta.1: 3 233 записи. Проверка в игре ещё не выполнена.",
-          "action": "Скачать 1.0.0-beta.1",
-          "aria": "Скачать 1.0.0-beta.1 — Anvil Empires на немецком — GitHub (в новой вкладке)"
+          "secondary": "3 233 записи: меню, предметы, постройки и производство.",
+          "action": "Скачать",
+          "aria": "Скачать — Anvil Empires на немецком — GitHub (в новой вкладке)"
         },
         {
           "title": "NFG Hub",
@@ -248,7 +248,7 @@
         "shortcut": "Encuesta: próximo idioma",
         "eyebrow": "Anvil Empires · Encuesta",
         "title": "¿Cuál debería ser el próximo idioma de la localización?",
-        "description": "Ya están disponibles ruso, español y turco, además de la beta en alemán. Ayúdanos a elegir el próximo idioma para Anvil Empires.",
+        "description": "Ya están disponibles ruso, español, turco y alemán. Ayúdanos a elegir el próximo idioma para Anvil Empires.",
         "choose": "Elige un idioma",
         "choiceRequired": "Elige un idioma antes de votar.",
         "submit": "Votar",
@@ -328,9 +328,9 @@
         {
           "title": "Anvil Empires en alemán",
           "primary": "Traducción no oficial al alemán de Anvil Empires para Windows/Steam.",
-          "secondary": "1.0.0-beta.1: 3233 entradas. La comprobación dentro del juego está pendiente.",
-          "action": "Descargar 1.0.0-beta.1",
-          "aria": "Descargar 1.0.0-beta.1 — Anvil Empires en alemán — GitHub (se abre en una nueva pestaña)"
+          "secondary": "3.233 entradas: menús, objetos, edificios y fabricación.",
+          "action": "Descargar",
+          "aria": "Descargar — Anvil Empires en alemán — GitHub (se abre en una nueva pestaña)"
         },
         {
           "title": "NFG Hub",
@@ -361,7 +361,7 @@
         "shortcut": "Umfrage: nächste Sprache",
         "eyebrow": "Anvil Empires · Umfrage",
         "title": "Welche Sprache sollen wir als Nächstes hinzufügen?",
-        "description": "Russisch, Spanisch und Türkisch sowie die deutsche Beta sind verfügbar. Hilf uns, die nächste Sprache für Anvil Empires zu wählen.",
+        "description": "Russisch, Spanisch, Türkisch und Deutsch sind verfügbar. Hilf uns, die nächste Sprache für Anvil Empires zu wählen.",
         "choose": "Wähle eine Sprache",
         "choiceRequired": "Wähle vor der Abstimmung eine Sprache.",
         "submit": "Abstimmen",
@@ -441,9 +441,9 @@
         {
           "title": "Anvil Empires auf Deutsch",
           "primary": "Inoffizielle deutsche Übersetzung von Anvil Empires für Windows/Steam.",
-          "secondary": "1.0.0-beta.1: 3.233 Einträge. Die Prüfung im Spiel steht noch aus.",
-          "action": "1.0.0-beta.1 herunterladen",
-          "aria": "1.0.0-beta.1 herunterladen — Anvil Empires auf Deutsch — GitHub (öffnet in einem neuen Tab)"
+          "secondary": "3.233 Einträge: Menüs, Gegenstände, Bauwerke und Herstellung.",
+          "action": "Herunterladen",
+          "aria": "Herunterladen — Anvil Empires auf Deutsch — GitHub (öffnet in einem neuen Tab)"
         },
         {
           "title": "NFG Hub",
@@ -474,7 +474,7 @@
         "shortcut": "Sondage : prochaine langue",
         "eyebrow": "Anvil Empires · Sondage",
         "title": "Dans quelle langue traduire le jeu ensuite ?",
-        "description": "Le russe, l’espagnol, le turc et la bêta allemande sont disponibles. Aidez-nous à choisir la prochaine langue d’Anvil Empires.",
+        "description": "Le russe, l’espagnol, le turc et l’allemand sont disponibles. Aidez-nous à choisir la prochaine langue d’Anvil Empires.",
         "choose": "Choisissez une langue",
         "choiceRequired": "Choisissez une langue avant de voter.",
         "submit": "Voter",
@@ -554,9 +554,9 @@
         {
           "title": "Anvil Empires en allemand",
           "primary": "Traduction non officielle en allemand d’Anvil Empires pour Windows/Steam.",
-          "secondary": "1.0.0-beta.1 : 3 233 entrées. La vérification en jeu reste à effectuer.",
-          "action": "Télécharger 1.0.0-beta.1",
-          "aria": "Télécharger 1.0.0-beta.1 — Anvil Empires en allemand — GitHub (ouvre un nouvel onglet)"
+          "secondary": "3 233 entrées : menus, objets, bâtiments et fabrication.",
+          "action": "Télécharger",
+          "aria": "Télécharger — Anvil Empires en allemand — GitHub (ouvre un nouvel onglet)"
         },
         {
           "title": "NFG Hub",
@@ -587,7 +587,7 @@
         "shortcut": "Sondaggio: prossima lingua",
         "eyebrow": "Anvil Empires · Sondaggio",
         "title": "Quale lingua vorresti per la prossima localizzazione?",
-        "description": "Sono disponibili russo, spagnolo, turco e la beta tedesca. Aiutaci a scegliere la prossima lingua per Anvil Empires.",
+        "description": "Sono disponibili russo, spagnolo, turco e tedesco. Aiutaci a scegliere la prossima lingua per Anvil Empires.",
         "choose": "Scegli una lingua",
         "choiceRequired": "Scegli una lingua prima di votare.",
         "submit": "Vota",
@@ -667,9 +667,9 @@
         {
           "title": "Anvil Empires in tedesco",
           "primary": "Traduzione non ufficiale in tedesco di Anvil Empires per Windows/Steam.",
-          "secondary": "1.0.0-beta.1: 3.233 voci. La verifica nel gioco è ancora da eseguire.",
-          "action": "Scarica 1.0.0-beta.1",
-          "aria": "Scarica 1.0.0-beta.1 — Anvil Empires in tedesco — GitHub (si apre in una nuova scheda)"
+          "secondary": "3.233 voci: menu, oggetti, edifici e produzione.",
+          "action": "Scarica",
+          "aria": "Scarica — Anvil Empires in tedesco — GitHub (si apre in una nuova scheda)"
         },
         {
           "title": "NFG Hub",
@@ -700,7 +700,7 @@
         "shortcut": "Enquete: próximo idioma",
         "eyebrow": "Anvil Empires · Enquete",
         "title": "Qual deve ser o próximo idioma da localização?",
-        "description": "Russo, espanhol, turco e a versão beta em alemão já estão disponíveis. Ajude a escolher o próximo idioma de Anvil Empires.",
+        "description": "Russo, espanhol, turco e alemão já estão disponíveis. Ajude a escolher o próximo idioma de Anvil Empires.",
         "choose": "Escolha um idioma",
         "choiceRequired": "Escolha um idioma antes de votar.",
         "submit": "Votar",
@@ -780,9 +780,9 @@
         {
           "title": "Anvil Empires em alemão",
           "primary": "Tradução não oficial de Anvil Empires para alemão no Windows/Steam.",
-          "secondary": "1.0.0-beta.1: 3.233 entradas. A verificação dentro do jogo está pendente.",
-          "action": "Baixar 1.0.0-beta.1",
-          "aria": "Baixar 1.0.0-beta.1 — Anvil Empires em alemão — GitHub (abre em uma nova aba)"
+          "secondary": "3.233 entradas: menus, itens, construções e fabricação.",
+          "action": "Baixar",
+          "aria": "Baixar — Anvil Empires em alemão — GitHub (abre em uma nova aba)"
         },
         {
           "title": "NFG Hub",
@@ -813,7 +813,7 @@
         "shortcut": "投票：下一种语言",
         "eyebrow": "Anvil Empires · 社区投票",
         "title": "你希望接下来添加哪种语言的本地化？",
-        "description": "俄语、西班牙语、土耳其语和德语测试版现已推出。帮助我们选择 Anvil Empires 的下一个翻译语言。",
+        "description": "俄语、西班牙语、土耳其语和德语版现已推出。帮助我们选择 Anvil Empires 的下一个翻译语言。",
         "choose": "请选择一种语言",
         "choiceRequired": "请先选择一种语言，再投票。",
         "submit": "投票",
@@ -893,9 +893,9 @@
         {
           "title": "Anvil Empires 德语翻译",
           "primary": "适用于 Windows/Steam 的 Anvil Empires 非官方德语翻译。",
-          "secondary": "1.0.0-beta.1：3,233 条文本。尚未进行游戏内验证。",
-          "action": "下载 1.0.0-beta.1",
-          "aria": "下载 1.0.0-beta.1 — Anvil Empires 德语翻译 — GitHub (在新标签页打开)"
+          "secondary": "3,233 条文本：菜单、物品、建筑和制作。",
+          "action": "下载",
+          "aria": "下载 — Anvil Empires 德语翻译 — GitHub (在新标签页打开)"
         },
         {
           "title": "NFG Hub",
@@ -926,7 +926,7 @@
         "shortcut": "投票：次の翻訳言語",
         "eyebrow": "Anvil Empires · アンケート",
         "title": "次はどの言語にローカライズしてほしいですか？",
-        "description": "ロシア語・スペイン語・トルコ語版とドイツ語ベータ版を公開中です。Anvil Empires の次の翻訳言語を選んでください。",
+        "description": "ロシア語・スペイン語・トルコ語・ドイツ語版を公開中です。Anvil Empires の次の翻訳言語を選んでください。",
         "choose": "言語を1つ選択",
         "choiceRequired": "投票する前に言語を選択してください。",
         "submit": "投票する",
@@ -1006,9 +1006,9 @@
         {
           "title": "Anvil Empires ドイツ語翻訳",
           "primary": "Windows/Steam 向け Anvil Empires の非公式ドイツ語翻訳。",
-          "secondary": "1.0.0-beta.1：3,233項目。ゲーム内での確認はまだ行っていません。",
-          "action": "1.0.0-beta.1をダウンロード",
-          "aria": "1.0.0-beta.1をダウンロード — Anvil Empires ドイツ語翻訳 — GitHub (新しいタブで開きます)"
+          "secondary": "3,233項目：メニュー、アイテム、建物、製作。",
+          "action": "ダウンロード",
+          "aria": "ダウンロード — Anvil Empires ドイツ語翻訳 — GitHub (新しいタブで開きます)"
         },
         {
           "title": "NFG Hub",
@@ -1039,7 +1039,7 @@
         "shortcut": "투표: 다음 번역 언어",
         "eyebrow": "Anvil Empires · 커뮤니티 투표",
         "title": "다음에는 어떤 언어로 번역할까요?",
-        "description": "러시아어, 스페인어, 튀르키예어 및 독일어 베타를 이용할 수 있습니다. Anvil Empires의 다음 번역 언어를 선택해 주세요.",
+        "description": "러시아어, 스페인어, 튀르키예어 및 독일어를 이용할 수 있습니다. Anvil Empires의 다음 번역 언어를 선택해 주세요.",
         "choose": "언어 하나 선택",
         "choiceRequired": "투표하기 전에 언어를 선택해 주세요.",
         "submit": "투표하기",
@@ -1119,9 +1119,9 @@
         {
           "title": "Anvil Empires 독일어 번역",
           "primary": "Windows/Steam용 Anvil Empires 비공식 독일어 번역입니다.",
-          "secondary": "1.0.0-beta.1: 3,233개 항목. 게임 내 검증은 아직 진행하지 않았습니다.",
-          "action": "1.0.0-beta.1 다운로드",
-          "aria": "1.0.0-beta.1 다운로드 — Anvil Empires 독일어 번역 — GitHub (새 탭에서 열기)"
+          "secondary": "메뉴, 아이템, 건물, 제작 등 3,233개 항목.",
+          "action": "다운로드",
+          "aria": "다운로드 — Anvil Empires 독일어 번역 — GitHub (새 탭에서 열기)"
         },
         {
           "title": "NFG Hub",
@@ -1152,7 +1152,7 @@
         "shortcut": "Anket: sıradaki dil",
         "eyebrow": "Anvil Empires · Topluluk anketi",
         "title": "Sıradaki yerelleştirme hangi dilde olsun?",
-        "description": "Rusça, İspanyolca, Türkçe ve Almanca beta mevcut. Anvil Empires için sıradaki dili seçmemize yardım et.",
+        "description": "Rusça, İspanyolca, Türkçe ve Almanca mevcut. Anvil Empires için sıradaki dili seçmemize yardım et.",
         "choose": "Bir dil seçin",
         "choiceRequired": "Oy vermeden önce bir dil seçin.",
         "submit": "Oy ver",
@@ -1232,9 +1232,9 @@
         {
           "title": "Anvil Empires Almanca",
           "primary": "Windows/Steam için resmî olmayan Anvil Empires Almanca çevirisi.",
-          "secondary": "1.0.0-beta.1: 3.233 girdi. Oyun içi doğrulama henüz yapılmadı.",
-          "action": "1.0.0-beta.1 sürümünü indir",
-          "aria": "1.0.0-beta.1 sürümünü indir — Anvil Empires Almanca — GitHub (yeni sekmede açılır)"
+          "secondary": "3.233 girdi: menüler, eşyalar, yapılar ve üretim.",
+          "action": "İndir",
+          "aria": "İndir — Anvil Empires Almanca — GitHub (yeni sekmede açılır)"
         },
         {
           "title": "NFG Hub",

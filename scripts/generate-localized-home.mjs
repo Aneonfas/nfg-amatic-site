@@ -606,7 +606,7 @@ ${documentationLinks}
 - The Russian, Spanish, Turkish and German localization links point to ready release archives.
 - Spanish localization: ${spanishDescription}
 - Turkish localization: selected screens checked in game by the user; comprehensive runtime and native-speaker review remain pending.
-- German localization: beta 1.0.0-beta.1, 3,233 entries; runtime visual QA and native-speaker review are pending.
+- German localization: 3,233 entries covering menus, items, buildings and crafting.
 - NFG Hub is the Windows catalog and installer for supported NFG packages.
 - Canonical page metadata and sitemap.xml remain the authoritative discovery sources.
 `;
