@@ -53,7 +53,7 @@ const PROJECTS = [
   {
     key: "hub",
     name: "NFG Hub",
-    href: "https://github.com/Aneonfas/nfg-hub/releases/download/v0.3.0/NFG-Hub-v0.3.0-win-x64.zip",
+    href: "https://github.com/Aneonfas/nfg-hub/releases/download/v0.4.0/NFG-Hub-v0.4.0-win-x64.zip",
   },
 ];
 
