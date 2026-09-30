@@ -100,11 +100,11 @@ const ASSET_PREFIXES = ["/assets/brand/", "/assets/foxhole-helper/"];
 const LANGUAGE_POLL_PATH = "/api/polls/next-language";
 const LANGUAGE_POLL_ID = "anvil-next-language-v1";
 const LANGUAGE_POLL_OPTIONS = [
-  "de", "fr", "pt-br", "it", "zh-cn", "ja", "ko", "other",
+  "fr", "pt-br", "it", "zh-cn", "ja", "ko", "other",
 ];
 // Preserve historical rows from the first poll version, but exclude these
 // choices from active results. Retiring an option must not reset identities.
-const LANGUAGE_POLL_RETIRED_OPTIONS = ["pl", "uk", "tr"];
+const LANGUAGE_POLL_RETIRED_OPTIONS = ["pl", "uk", "tr", "de"];
 const LANGUAGE_POLL_COOKIE = "__Host-nfg_language_poll";
 const LANGUAGE_POLL_BODY_LIMIT = 4096;
 const LANGUAGE_POLL_TURNSTILE_TOKEN_LIMIT = 2048;
