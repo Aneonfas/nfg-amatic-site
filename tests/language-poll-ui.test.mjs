@@ -152,15 +152,15 @@ test("poll copies have the same complete schema and the eight approved options",
     assert.match(poll.voted, /\{language\}/);
     assert.match(poll.verification.wait, /\{seconds\}/);
   }
-  assert.deepEqual(POLL_OPTIONS, ["de", "fr", "pt-br", "it", "zh-cn", "ja", "ko", "other"]);
-  for (const excluded of ["en", "ru", "es", "pl", "uk", "tr"]) assert.ok(!POLL_OPTIONS.includes(excluded));
+  assert.deepEqual(POLL_OPTIONS, ["fr", "pt-br", "it", "zh-cn", "ja", "ko", "other"]);
+  for (const excluded of ["en", "ru", "es", "pl", "uk", "tr", "de"]) assert.ok(!POLL_OPTIONS.includes(excluded));
   assert.doesNotMatch(source, /localStorage|sessionStorage|innerHTML/);
 });
 
 for (const [locale, { poll }] of Object.entries(content.locales)) {
-  test(`${locale}: generated poll follows the five products and has an accessible static fallback`, async () => {
+  test(`${locale}: generated poll follows the six products and has an accessible static fallback`, async () => {
     const html = await readFile(path.join(rootDir, locale, "index.html"), "utf8");
-    assert.equal((html.match(/class="project-row project-row-active"/g) ?? []).length, 5);
+    assert.equal((html.match(/class="project-row project-row-active"/g) ?? []).length, 6);
     assert.equal((html.match(/data-language-poll/g) ?? []).length, 1);
     assert.ok(html.indexOf('id="language-poll"') > html.lastIndexOf("</article>"));
     assert.match(html, /<section[^>]*id="language-poll"[^>]*aria-labelledby="language-poll-title"/);
@@ -241,39 +241,39 @@ test("without IntersectionObserver the poll shortcut remains a working native an
 });
 
 test("snapshot validation normalizes order and refuses inconsistent or incomplete results", () => {
-  const good = snapshot({ de: 2, fr: 1 }, "de");
+  const good = snapshot({ ja: 2, fr: 1 }, "ja");
   assert.deepEqual(validatePollSnapshot({ ...good, options: [...good.options].reverse() }), good);
   const invalid = [
     null, {}, { ...good, pollId: "another-poll" }, { ...good, selectedOption: undefined },
     { ...good, selectedOption: "ru" }, { ...good, selectedOption: "pl" },
-    { ...good, selectedOption: "uk" },
+    { ...good, selectedOption: "uk" }, { ...good, selectedOption: "de" },
     { ...good, totalVotes: 99 }, { ...good, totalVotes: -1 }, { ...good, totalVotes: 3.1 },
     { ...good, options: good.options.slice(1) },
     { ...good, options: good.options.map((item, i) => i === 0 ? { ...item, votes: -1 } : item) },
     { ...good, options: good.options.map((item, i) => i === 0 ? { ...item, votes: 0.5 } : item) },
     { ...good, options: good.options.map((item, i) => i === 0 ? { ...item, votes: Number.MAX_SAFE_INTEGER + 1 } : item) },
     { ...good, options: good.options.map((item, i) => i === 0 ? { ...item, id: "unknown" } : item) },
-    { ...good, options: good.options.map((item, i) => i === 0 ? { ...item, id: "fr" } : item) },
+    { ...good, options: good.options.map((item, i) => i === 0 ? { ...item, id: good.options[1].id } : item) },
   ];
   for (const value of invalid) assert.throws(() => validatePollSnapshot(value), { code: "unavailable" });
 });
 
 test("requests use only the same-origin API with uncached credentials and explicit POST JSON", async () => {
   const calls = [];
-  const fetcher = async (url, options) => { calls.push({ url, ...options }); return json(snapshot({ de: 1 }, "de")); };
+  const fetcher = async (url, options) => { calls.push({ url, ...options }); return json(snapshot({ ja: 1 }, "ja")); };
   await requestPoll("GET", undefined, fetcher);
-  await requestPoll("POST", "de", fetcher, "test-turnstile-token");
+  await requestPoll("POST", "ja", fetcher, "test-turnstile-token");
   assert.deepEqual(calls.map(({ url, method, credentials, cache }) => ({ url, method, credentials, cache })), [
     { url: "/api/polls/next-language", method: "GET", credentials: "same-origin", cache: "no-store" },
     { url: "/api/polls/next-language", method: "POST", credentials: "same-origin", cache: "no-store" },
   ]);
   assert.equal(calls[0].body, undefined);
   assert.equal(calls[1].headers["Content-Type"], "application/json");
-  assert.deepEqual(JSON.parse(calls[1].body), { option: "de", turnstileToken: "test-turnstile-token" });
+  assert.deepEqual(JSON.parse(calls[1].body), { option: "ja", turnstileToken: "test-turnstile-token" });
 });
 
 test("failed HTTP, malformed JSON and network failures are not converted into a tally", async () => {
-  await assert.rejects(requestPoll("POST", "de", async () => json({ error: "cookie_required" }, 428), "test-turnstile-token"), { code: "cookie_required" });
+  await assert.rejects(requestPoll("POST", "ja", async () => json({ error: "cookie_required" }, 428), "test-turnstile-token"), { code: "cookie_required" });
   await assert.rejects(requestPoll("GET", undefined, async () => new Response("<html>Error</html>")), { code: "unavailable" });
   await assert.rejects(requestPoll("GET", undefined, async () => { throw new Error("network"); }), { code: "unavailable" });
 });
@@ -288,7 +288,7 @@ test("loading disables voting and does not display a made-up zero total", async 
   assert.equal(f.nodes.results.hidden, true);
   assert.equal(f.nodes.total.textContent, "");
   assert.equal(f.nodes.status.textContent, f.copy.loading);
-  finish(json(snapshot({ de: 8 })));
+  finish(json(snapshot({ ja: 8 })));
   await ready;
   assert.equal(f.nodes.results.hidden, false);
   assert.equal(f.nodes.total.textContent, "Всего голосов: 8");
@@ -312,9 +312,9 @@ test("unavailable initial poll has a localized retry and no visible results", as
 
 test("selecting does not vote; an explicit submit displays the shared updated tally and selected choice", async () => {
   const f = fixture();
-  f.queue.push(json(snapshot({ fr: 2 })), json(snapshot({ de: 1, fr: 2 }, "de")));
+  f.queue.push(json(snapshot({ fr: 2 })), json(snapshot({ ja: 1, fr: 2 }, "ja")));
   await initLanguagePoll(f.root, f.fetcher, f.runtime);
-  await f.select("de");
+  await f.select("ja");
   assert.equal(f.calls.length, 1);
   assert.equal(f.nodes.submit.disabled, false);
   await f.submit();
@@ -322,10 +322,11 @@ test("selecting does not vote; an explicit submit displays the shared updated ta
   assert.equal(f.nodes.form.hidden, true);
   assert.equal(f.nodes.results.open, true);
   assert.equal(f.nodes.total.textContent, "Всего голосов: 3");
-  assert.equal(f.nodes.status.textContent, "Спасибо! Ваш голос: Немецкий.");
+  assert.equal(f.nodes.status.textContent, "Спасибо! Ваш голос: Японский.");
   assert.equal(f.nodes.status.focused, true);
-  assert.equal(f.rows[0].querySelector("[data-poll-selected]").hidden, false);
-  assert.match(f.rows[0].querySelector("[data-poll-count]").textContent, /Голосов: 1/);
+  const selectedRow = f.rows.find(row => row.dataset.pollResult === "ja");
+  assert.equal(selectedRow.querySelector("[data-poll-selected]").hidden, false);
+  assert.match(selectedRow.querySelector("[data-poll-count]").textContent, /Голосов: 1/);
   await f.submit();
   assert.equal(f.calls.length, 2);
 });
@@ -370,7 +371,7 @@ test("uncertain POST immediately checks GET and recovers a vote accepted before 
 
 test("failed refresh retains the chosen radio, hides unavailable results, and enables it again after retry", async () => {
   const f = fixture();
-  f.queue.push(json(snapshot({ de: 1 })), json({ error: "unavailable" }, 503), json(snapshot({ de: 2 })));
+  f.queue.push(json(snapshot({ ja: 1 })), json({ error: "unavailable" }, 503), json(snapshot({ ja: 2 })));
   const controller = await initLanguagePoll(f.root, f.fetcher, f.runtime);
   await f.select("ko");
   await controller.refresh();
@@ -417,7 +418,7 @@ test("duplicate POST response retains the original server choice, not the attemp
   const f = fixture();
   f.queue.push(json(snapshot()), json(snapshot({ fr: 1 }, "fr")));
   await initLanguagePoll(f.root, f.fetcher, f.runtime);
-  await f.select("de");
+  await f.select("ja");
   await f.submit();
   assert.equal(f.radios.find((radio) => radio.checked).value, "fr");
   assert.equal(f.nodes.status.textContent, "Ваш голос учтён: Французский.");
@@ -431,7 +432,7 @@ for (const withSnapshot of [true, false]) {
     f.queue.push(json(snapshot()), json({ error: "already_voted", ...(withSnapshot ? saved : {}) }, 409));
     if (!withSnapshot) f.queue.push(json(saved));
     await initLanguagePoll(f.root, f.fetcher, f.runtime);
-    await f.select("de");
+    await f.select("ja");
     await f.submit();
     assert.equal(f.radios.find((radio) => radio.checked).value, "fr");
     assert.equal(f.nodes.form.hidden, true);
@@ -442,7 +443,7 @@ for (const withSnapshot of [true, false]) {
 for (const withSnapshot of [true, false]) {
   test(`a withdrawn prior choice ${withSnapshot ? "with snapshot" : "followed by GET"} shows active results and stays locked`, async () => {
     const f = fixture("it");
-    const activeResults = snapshot({ de: 2 });
+    const activeResults = snapshot({ ja: 2 });
     f.queue.push(json(activeResults), json({ error: "already_voted", ...(withSnapshot ? activeResults : {}) }, 409));
     if (!withSnapshot) f.queue.push(json(activeResults));
     await initLanguagePoll(f.root, f.fetcher, f.runtime);
@@ -475,25 +476,25 @@ test("a successful HTTP status without a confirmed vote cannot show success", as
   const f = fixture();
   f.queue.push(json(snapshot()), json(snapshot()), json(snapshot()));
   await initLanguagePoll(f.root, f.fetcher, f.runtime);
-  await f.select("de");
+  await f.select("ja");
   await f.submit();
   assert.equal(f.nodes.status.textContent, f.copy.errors.vote_failed);
   assert.equal(f.nodes.form.hidden, false);
-  assert.equal(f.radios.find((radio) => radio.checked).value, "de");
+  assert.equal(f.radios.find((radio) => radio.checked).value, "ja");
 });
 
 test("unknown error codes cannot display unlocalized inherited object properties", async () => {
   const f = fixture();
   f.queue.push(json(snapshot()), json({ error: "__proto__" }, 500), json(snapshot()));
   await initLanguagePoll(f.root, f.fetcher, f.runtime);
-  await f.select("de");
+  await f.select("ja");
   await f.submit();
   assert.equal(f.nodes.status.textContent, f.copy.errors.vote_failed);
 });
 
 test("missing or invalid Turnstile config does not discard valid public results", () => {
   for (const config of [null, undefined, {}, { siteKey: "key", action: "other" }, { siteKey: "<script>", action: "language-poll" }]) {
-    const data = snapshot({ de: 7 });
+    const data = snapshot({ ja: 7 });
     data.turnstile = config;
     const result = validatePollSnapshot(data);
     assert.equal(result.totalVotes, 7);
@@ -515,12 +516,12 @@ test("Turnstile language codes follow all eleven page locales including regional
 
 test("POST refuses missing or oversized verification tokens before any network request", async () => {
   let requests = 0;
-  const fetcher = async () => { requests += 1; return json(snapshot({ de: 1 }, "de")); };
+  const fetcher = async () => { requests += 1; return json(snapshot({ ja: 1 }, "ja")); };
   for (const token of [undefined, null, "", "x".repeat(2049)]) {
-    await assert.rejects(requestPoll("POST", "de", fetcher, token), { code: "verification_required" });
+    await assert.rejects(requestPoll("POST", "ja", fetcher, token), { code: "verification_required" });
   }
   assert.equal(requests, 0);
-  await requestPoll("POST", "de", fetcher, "x".repeat(2048));
+  await requestPoll("POST", "ja", fetcher, "x".repeat(2048));
   assert.equal(requests, 1);
 });
 
@@ -639,7 +640,7 @@ test("existing active and withdrawn votes skip the widget and show results witho
     f.queue.push(json(data));
     const controller = await initLanguagePoll(f.root, f.fetcher, f.runtime);
     await controller.beginVerification();
-    await f.select("de");
+    await f.select("ja");
     await f.submit();
     assert.equal(f.scriptLoads.length, 0);
     assert.equal(f.renders.length, 0);
@@ -652,9 +653,9 @@ test("existing active and withdrawn votes skip the widget and show results witho
 
 test("absent configuration keeps results readable and prevents voting until a configured GET", async () => {
   const f = fixture("ru", { autoVerify: false });
-  f.queue.push(json(snapshot({ de: 9 }, null, null)), json(snapshot({ de: 9 })));
+  f.queue.push(json(snapshot({ ja: 9 }, null, null)), json(snapshot({ ja: 9 })));
   await initLanguagePoll(f.root, f.fetcher, f.runtime);
-  await f.select("de");
+  await f.select("ja");
   await f.submit();
   assert.equal(f.calls.length, 1);
   assert.equal(f.scriptLoads.length, 0);
@@ -664,7 +665,7 @@ test("absent configuration keeps results readable and prevents voting until a co
   assert.equal(f.nodes["verification-status"].textContent, f.copy.verification.unavailable);
   await f.retry();
   assert.equal(f.renders.length, 1);
-  assert.equal(f.radios.find((radio) => radio.checked).value, "de");
+  assert.equal(f.radios.find((radio) => radio.checked).value, "ja");
   f.verify();
   assert.equal(f.nodes.submit.disabled, false);
 });
@@ -674,10 +675,10 @@ test("script failure preserves selection and results, and the localized retry re
   f.queue.push(json(snapshot({ fr: 2 })));
   f.scriptQueue.push(new Error("script blocked"));
   await initLanguagePoll(f.root, f.fetcher, f.runtime);
-  await f.select("de");
+  await f.select("ja");
   assert.equal(f.nodes.submit.disabled, true);
   assert.equal(f.nodes.results.hidden, false);
-  assert.equal(f.radios.find((radio) => radio.checked).value, "de");
+  assert.equal(f.radios.find((radio) => radio.checked).value, "ja");
   assert.equal(f.nodes["verification-status"].textContent, f.copy.verification.unavailable);
   assert.equal(f.nodes["verification-retry"].hidden, false);
   assert.equal(f.nodes["verification-retry"].disabled, false);
@@ -693,7 +694,7 @@ test("verification is required, expires, and ignores callbacks from a replaced w
   const f = fixture("ru", { autoVerify: false });
   f.queue.push(json(snapshot()));
   await initLanguagePoll(f.root, f.fetcher, f.runtime);
-  await f.select("de");
+  await f.select("ja");
   await f.submit();
   assert.equal(f.calls.length, 1);
   assert.equal(f.nodes.submit.disabled, true);
@@ -703,7 +704,7 @@ test("verification is required, expires, and ignores callbacks from a replaced w
   oldCallbacks["expired-callback"]();
   assert.equal(f.nodes.submit.disabled, true);
   assert.equal(f.nodes["verification-status"].textContent, f.copy.verification.expired);
-  assert.equal(f.radios.find((radio) => radio.checked).value, "de");
+  assert.equal(f.radios.find((radio) => radio.checked).value, "ja");
   await f.retryVerification();
   oldCallbacks.callback("token-A");
   assert.equal(f.nodes.submit.disabled, true);
@@ -731,9 +732,9 @@ test("a late script load cannot render a widget after GET discovers a saved vote
   const f = fixture("ru", { autoVerify: false });
   let finish;
   f.scriptQueue.push(() => new Promise((resolve) => { finish = resolve; }));
-  f.queue.push(json(snapshot()), json(snapshot({ de: 1 }, "de")));
+  f.queue.push(json(snapshot()), json(snapshot({ ja: 1 }, "ja")));
   const controller = await initLanguagePoll(f.root, f.fetcher, f.runtime);
-  const selecting = f.select("de");
+  const selecting = f.select("ja");
   await controller.refresh();
   finish(f.widgetApi);
   await selecting;
@@ -791,18 +792,18 @@ test("429 honors Retry-After, blocks retries during cooldown and still needs a f
 
 test("uncertain POST plus failed recovery GET blocks further POST until a later GET resolves the saved state", async () => {
   const f = fixture();
-  f.queue.push(json(snapshot()), new Error("lost response"), json({ error: "unavailable" }, 503), json(snapshot({ de: 1 }, "de")));
+  f.queue.push(json(snapshot()), new Error("lost response"), json({ error: "unavailable" }, 503), json(snapshot({ ja: 1 }, "ja")));
   await initLanguagePoll(f.root, f.fetcher, f.runtime);
-  await f.select("de");
+  await f.select("ja");
   await f.submit();
   assert.deepEqual(f.calls.map((call) => call.method), ["GET", "POST", "GET"]);
   assert.equal(f.nodes.status.textContent, f.copy.errors.vote_failed);
   assert.equal(f.nodes.submit.disabled, true);
-  assert.equal(f.radios.find((radio) => radio.checked).value, "de");
+  assert.equal(f.radios.find((radio) => radio.checked).value, "ja");
   await f.submit();
   assert.equal(f.calls.length, 3);
   await f.retry();
-  assert.equal(f.nodes.status.textContent, "Ваш голос учтён: Немецкий.");
+  assert.equal(f.nodes.status.textContent, "Ваш голос учтён: Японский.");
   assert.equal(f.nodes.form.hidden, true);
   assert.equal(f.scriptLoads.length, 1);
 });

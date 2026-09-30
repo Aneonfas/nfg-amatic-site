@@ -85,7 +85,7 @@ for (const locale of locales) {
     const articles = [...html.matchAll(
       /<article class="project-row project-row-active">([\s\S]*?)<\/article>/g,
     )];
-    assert.equal(articles.length, 5, `${locale} must retain all five products`);
+    assert.equal(articles.length, 6, `${locale} must retain all six products`);
     const russianCard = articles[1][1];
     const anchor = russianCard.match(/<a\s+([\s\S]*?)>([\s\S]*?)<\/a>/);
     assert.ok(anchor, `${locale} Russian download link is missing`);

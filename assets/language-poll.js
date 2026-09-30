@@ -1,6 +1,6 @@
 export const POLL_ID = "anvil-next-language-v1";
 export const POLL_OPTIONS = Object.freeze([
-  "de", "fr", "pt-br", "it", "zh-cn", "ja", "ko", "other",
+  "fr", "pt-br", "it", "zh-cn", "ja", "ko", "other",
 ]);
 
 const ENDPOINT = "/api/polls/next-language";
