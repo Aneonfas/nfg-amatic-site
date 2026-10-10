@@ -1,6 +1,6 @@
 {
-  "lastModified": "2026-09-30",
-  "assetRevision": "20260930-german-player-copy-v2",
+  "lastModified": "2026-10-10",
+  "assetRevision": "20261010-anvil-stable-25835022",
   "locales": {
     "en": {
       "lang": "en",
@@ -81,30 +81,30 @@
         {
           "title": "Anvil Empires Russian Localization",
           "primary": "An unofficial Russian translation for Anvil Empires Pre-Alpha on Windows/Steam.",
-          "secondary": "Covers the interface, items, structures, production, quests, and system messages.",
-          "action": "Download 1.1.0",
-          "aria": "Download Anvil Empires Russian Localization 1.1.0 from GitHub in a new tab"
+          "secondary": "Stable 1.2.0 for Steam build 25835022. In-game operation confirmed by the user.",
+          "action": "Download 1.2.0",
+          "aria": "Download Anvil Empires Russian Localization 1.2.0 from GitHub in a new tab"
         },
         {
           "title": "Anvil Empires Spanish Localization",
           "primary": "An unofficial Spanish translation for Anvil Empires Pre-Alpha on Windows/Steam.",
-          "secondary": "Version 1.1.0-beta.2 is available. In-game verification is pending. The next test date remains in English.",
-          "action": "Download 1.1.0-beta.2",
-          "aria": "Download Anvil Empires Spanish Localization 1.1.0-beta.2 from GitHub in a new tab"
+          "secondary": "Stable 1.2.0 for Steam build 25835022. In-game operation confirmed by the user. The next test date remains in English.",
+          "action": "Download 1.2.0",
+          "aria": "Download Anvil Empires Spanish Localization 1.2.0 from GitHub in a new tab"
         },
         {
           "title": "Anvil Empires Turkish Localization",
           "primary": "An unofficial Turkish translation for Anvil Empires on Windows/Steam.",
-          "secondary": "3,233 entries, Turkish character support, and selected screens checked in game.",
-          "action": "Download 1.0.0",
-          "aria": "Download 1.0.0 — Anvil Empires Turkish Localization — GitHub (opens in a new tab)"
+          "secondary": "Stable 1.1.0 for Steam build 25835022. In-game operation confirmed by the user.",
+          "action": "Download 1.1.0",
+          "aria": "Download 1.1.0 — Anvil Empires Turkish Localization — GitHub (opens in a new tab)"
         },
         {
           "title": "Anvil Empires in German",
           "primary": "Unofficial German translation of Anvil Empires for Windows/Steam.",
-          "secondary": "3,233 entries: menus, items, buildings and crafting.",
-          "action": "Download",
-          "aria": "Download — Anvil Empires in German — GitHub (opens in a new tab)"
+          "secondary": "Stable 1.1.0 for Steam build 25835022. In-game operation confirmed by the user.",
+          "action": "Download 1.1.0",
+          "aria": "Download — Anvil Empires in German — GitHub (opens in a new tab) — 1.1.0"
         },
         {
           "title": "NFG Hub",
@@ -194,30 +194,30 @@
         {
           "title": "Русская локализация Anvil Empires",
           "primary": "Неофициальный русский перевод Anvil Empires Pre-Alpha для Windows/Steam.",
-          "secondary": "Перевод интерфейса, предметов, сооружений, производства, заданий и системных сообщений.",
-          "action": "Скачать 1.1.0",
-          "aria": "Скачать русскую локализацию Anvil Empires 1.1.0 с GitHub в новой вкладке"
+          "secondary": "Стабильная 1.2.0 для Steam build 25835022. Работа в игре подтверждена пользователем.",
+          "action": "Скачать 1.2.0",
+          "aria": "Скачать русскую локализацию Anvil Empires 1.2.0 с GitHub в новой вкладке"
         },
         {
           "title": "Испанская локализация Anvil Empires",
           "primary": "Неофициальный испанский перевод Anvil Empires Pre-Alpha для Windows/Steam.",
-          "secondary": "Доступна версия 1.1.0-beta.2. Проверка в игре ещё не выполнена. Дата следующего теста остаётся на английском.",
-          "action": "Скачать 1.1.0-beta.2",
-          "aria": "Скачать испанскую локализацию Anvil Empires 1.1.0-beta.2 с GitHub в новой вкладке"
+          "secondary": "Стабильная 1.2.0 для Steam build 25835022. Работа в игре подтверждена пользователем. Дата следующего теста остаётся на английском.",
+          "action": "Скачать 1.2.0",
+          "aria": "Скачать испанскую локализацию Anvil Empires 1.2.0 с GitHub в новой вкладке"
         },
         {
           "title": "Турецкая локализация Anvil Empires",
           "primary": "Неофициальный турецкий перевод Anvil Empires для Windows/Steam.",
-          "secondary": "3 233 записи, поддержка турецких букв и проверка отдельных экранов в игре.",
-          "action": "Скачать 1.0.0",
-          "aria": "Скачать 1.0.0 — Турецкая локализация Anvil Empires — GitHub (в новой вкладке)"
+          "secondary": "Стабильная 1.1.0 для Steam build 25835022. Работа в игре подтверждена пользователем.",
+          "action": "Скачать 1.1.0",
+          "aria": "Скачать 1.1.0 — Турецкая локализация Anvil Empires — GitHub (в новой вкладке)"
         },
         {
           "title": "Anvil Empires на немецком",
           "primary": "Неофициальный немецкий перевод Anvil Empires для Windows/Steam.",
-          "secondary": "3 233 записи: меню, предметы, постройки и производство.",
-          "action": "Скачать",
-          "aria": "Скачать — Anvil Empires на немецком — GitHub (в новой вкладке)"
+          "secondary": "Стабильная 1.1.0 для Steam build 25835022. Работа в игре подтверждена пользователем.",
+          "action": "Скачать 1.1.0",
+          "aria": "Скачать — Anvil Empires на немецком — GitHub (в новой вкладке) — 1.1.0"
         },
         {
           "title": "NFG Hub",
@@ -307,30 +307,30 @@
         {
           "title": "Localización rusa de Anvil Empires",
           "primary": "Traducción no oficial al ruso de Anvil Empires Pre-Alpha para Windows/Steam.",
-          "secondary": "Traduce la interfaz, los objetos, las estructuras, la producción, las misiones y los mensajes del sistema.",
-          "action": "Descargar 1.1.0",
-          "aria": "Descargar la localización rusa de Anvil Empires 1.1.0 desde GitHub en una pestaña nueva"
+          "secondary": "Versión estable 1.2.0 para Steam build 25835022. El usuario confirmó su funcionamiento en el juego.",
+          "action": "Descargar 1.2.0",
+          "aria": "Descargar la localización rusa de Anvil Empires 1.2.0 desde GitHub en una pestaña nueva"
         },
         {
           "title": "Localización española de Anvil Empires",
           "primary": "Traducción no oficial al español de Anvil Empires Pre-Alpha para Windows/Steam.",
-          "secondary": "Versión 1.1.0-beta.2 disponible. La comprobación dentro del juego está pendiente. La fecha de la próxima prueba sigue en inglés.",
-          "action": "Descargar 1.1.0-beta.2",
-          "aria": "Descargar la localización española de Anvil Empires 1.1.0-beta.2 desde GitHub en una pestaña nueva"
+          "secondary": "Versión estable 1.2.0 para Steam build 25835022. El usuario confirmó su funcionamiento en el juego. La fecha de la próxima prueba sigue en inglés.",
+          "action": "Descargar 1.2.0",
+          "aria": "Descargar la localización española de Anvil Empires 1.2.0 desde GitHub en una pestaña nueva"
         },
         {
           "title": "Anvil Empires en turco",
           "primary": "Traducción no oficial de Anvil Empires al turco para Windows/Steam.",
-          "secondary": "3.233 entradas, caracteres turcos y pantallas seleccionadas comprobadas en el juego.",
-          "action": "Descargar 1.0.0",
-          "aria": "Descargar 1.0.0 — Anvil Empires en turco — GitHub (se abre en una nueva pestaña)"
+          "secondary": "Versión estable 1.1.0 para Steam build 25835022. El usuario confirmó su funcionamiento en el juego.",
+          "action": "Descargar 1.1.0",
+          "aria": "Descargar 1.1.0 — Anvil Empires en turco — GitHub (se abre en una nueva pestaña)"
         },
         {
           "title": "Anvil Empires en alemán",
           "primary": "Traducción no oficial al alemán de Anvil Empires para Windows/Steam.",
-          "secondary": "3.233 entradas: menús, objetos, edificios y fabricación.",
-          "action": "Descargar",
-          "aria": "Descargar — Anvil Empires en alemán — GitHub (se abre en una nueva pestaña)"
+          "secondary": "Versión estable 1.1.0 para Steam build 25835022. El usuario confirmó su funcionamiento en el juego.",
+          "action": "Descargar 1.1.0",
+          "aria": "Descargar — Anvil Empires en alemán — GitHub (se abre en una nueva pestaña) — 1.1.0"
         },
         {
           "title": "NFG Hub",
@@ -420,30 +420,30 @@
         {
           "title": "Russische Lokalisierung für Anvil Empires",
           "primary": "Inoffizielle russische Übersetzung von Anvil Empires Pre-Alpha für Windows/Steam.",
-          "secondary": "Übersetzt Benutzeroberfläche, Gegenstände, Gebäude, Produktion, Quests und Systemmeldungen.",
-          "action": "1.1.0 herunterladen",
-          "aria": "Russische Lokalisierung für Anvil Empires 1.1.0 von GitHub in einem neuen Tab herunterladen"
+          "secondary": "Stabile Version 1.2.0 für Steam-Build 25835022. Funktion im Spiel vom Nutzer bestätigt.",
+          "action": "1.2.0 herunterladen",
+          "aria": "Russische Lokalisierung für Anvil Empires 1.2.0 von GitHub in einem neuen Tab herunterladen"
         },
         {
           "title": "Spanische Lokalisierung für Anvil Empires",
           "primary": "Inoffizielle spanische Übersetzung von Anvil Empires Pre-Alpha für Windows/Steam.",
-          "secondary": "Version 1.1.0-beta.2 ist verfügbar. Die Prüfung im Spiel steht noch aus. Das Datum des nächsten Tests bleibt auf Englisch.",
-          "action": "1.1.0-beta.2 herunterladen",
-          "aria": "Spanische Lokalisierung für Anvil Empires 1.1.0-beta.2 von GitHub in einem neuen Tab herunterladen"
+          "secondary": "Stabile Version 1.2.0 für Steam-Build 25835022. Funktion im Spiel vom Nutzer bestätigt. Das Datum des nächsten Tests bleibt auf Englisch.",
+          "action": "1.2.0 herunterladen",
+          "aria": "Spanische Lokalisierung für Anvil Empires 1.2.0 von GitHub in einem neuen Tab herunterladen"
         },
         {
           "title": "Anvil Empires auf Türkisch",
           "primary": "Inoffizielle türkische Übersetzung von Anvil Empires für Windows/Steam.",
-          "secondary": "3.233 Einträge, türkische Schriftzeichen und ausgewählte Ansichten im Spiel geprüft.",
-          "action": "1.0.0 herunterladen",
-          "aria": "1.0.0 herunterladen — Anvil Empires auf Türkisch — GitHub (öffnet in einem neuen Tab)"
+          "secondary": "Stabile Version 1.1.0 für Steam-Build 25835022. Funktion im Spiel vom Nutzer bestätigt.",
+          "action": "1.1.0 herunterladen",
+          "aria": "1.1.0 herunterladen — Anvil Empires auf Türkisch — GitHub (öffnet in einem neuen Tab)"
         },
         {
           "title": "Anvil Empires auf Deutsch",
           "primary": "Inoffizielle deutsche Übersetzung von Anvil Empires für Windows/Steam.",
-          "secondary": "3.233 Einträge: Menüs, Gegenstände, Bauwerke und Herstellung.",
-          "action": "Herunterladen",
-          "aria": "Herunterladen — Anvil Empires auf Deutsch — GitHub (öffnet in einem neuen Tab)"
+          "secondary": "Stabile Version 1.1.0 für Steam-Build 25835022. Funktion im Spiel vom Nutzer bestätigt.",
+          "action": "1.1.0 herunterladen",
+          "aria": "Herunterladen — Anvil Empires auf Deutsch — GitHub (öffnet in einem neuen Tab) — 1.1.0"
         },
         {
           "title": "NFG Hub",
@@ -533,30 +533,30 @@
         {
           "title": "Localisation russe d’Anvil Empires",
           "primary": "Traduction russe non officielle de la version pré-alpha d’Anvil Empires pour Windows/Steam.",
-          "secondary": "Traduit l’interface, les objets, les bâtiments, la production, les quêtes et les messages système.",
-          "action": "Télécharger 1.1.0",
-          "aria": "Télécharger la localisation russe 1.1.0 d’Anvil Empires depuis GitHub dans un nouvel onglet"
+          "secondary": "Version stable 1.2.0 pour Steam build 25835022. Fonctionnement en jeu confirmé par l’utilisateur.",
+          "action": "Télécharger 1.2.0",
+          "aria": "Télécharger la localisation russe 1.2.0 d’Anvil Empires depuis GitHub dans un nouvel onglet"
         },
         {
           "title": "Localisation espagnole d’Anvil Empires",
           "primary": "Traduction espagnole non officielle de la version pré-alpha d’Anvil Empires pour Windows/Steam.",
-          "secondary": "Version 1.1.0-beta.2 disponible. La vérification en jeu reste à effectuer. La date du prochain test reste en anglais.",
-          "action": "Télécharger 1.1.0-beta.2",
-          "aria": "Télécharger la localisation espagnole 1.1.0-beta.2 d’Anvil Empires depuis GitHub dans un nouvel onglet"
+          "secondary": "Version stable 1.2.0 pour Steam build 25835022. Fonctionnement en jeu confirmé par l’utilisateur. La date du prochain test reste en anglais.",
+          "action": "Télécharger 1.2.0",
+          "aria": "Télécharger la localisation espagnole 1.2.0 d’Anvil Empires depuis GitHub dans un nouvel onglet"
         },
         {
           "title": "Anvil Empires en turc",
           "primary": "Traduction non officielle d’Anvil Empires en turc pour Windows/Steam.",
-          "secondary": "3 233 entrées, caractères turcs et vérification de certains écrans en jeu.",
-          "action": "Télécharger 1.0.0",
-          "aria": "Télécharger 1.0.0 — Anvil Empires en turc — GitHub (ouvre un nouvel onglet)"
+          "secondary": "Version stable 1.1.0 pour Steam build 25835022. Fonctionnement en jeu confirmé par l’utilisateur.",
+          "action": "Télécharger 1.1.0",
+          "aria": "Télécharger 1.1.0 — Anvil Empires en turc — GitHub (ouvre un nouvel onglet)"
         },
         {
           "title": "Anvil Empires en allemand",
           "primary": "Traduction non officielle en allemand d’Anvil Empires pour Windows/Steam.",
-          "secondary": "3 233 entrées : menus, objets, bâtiments et fabrication.",
-          "action": "Télécharger",
-          "aria": "Télécharger — Anvil Empires en allemand — GitHub (ouvre un nouvel onglet)"
+          "secondary": "Version stable 1.1.0 pour Steam build 25835022. Fonctionnement en jeu confirmé par l’utilisateur.",
+          "action": "Télécharger 1.1.0",
+          "aria": "Télécharger — Anvil Empires en allemand — GitHub (ouvre un nouvel onglet) — 1.1.0"
         },
         {
           "title": "NFG Hub",
@@ -646,30 +646,30 @@
         {
           "title": "Localizzazione russa di Anvil Empires",
           "primary": "Traduzione russa non ufficiale di Anvil Empires Pre-Alpha per Windows/Steam.",
-          "secondary": "Traduce l’interfaccia, gli oggetti, le strutture, la produzione, le missioni e i messaggi di sistema.",
-          "action": "Scarica 1.1.0",
-          "aria": "Scarica la localizzazione russa 1.1.0 di Anvil Empires da GitHub in una nuova scheda"
+          "secondary": "Versione stabile 1.2.0 per Steam build 25835022. Funzionamento nel gioco confermato dall’utente.",
+          "action": "Scarica 1.2.0",
+          "aria": "Scarica la localizzazione russa 1.2.0 di Anvil Empires da GitHub in una nuova scheda"
         },
         {
           "title": "Localizzazione spagnola di Anvil Empires",
           "primary": "Traduzione spagnola non ufficiale di Anvil Empires Pre-Alpha per Windows/Steam.",
-          "secondary": "È disponibile la versione 1.1.0-beta.2. La verifica nel gioco è ancora da eseguire. La data del prossimo test resta in inglese.",
-          "action": "Scarica 1.1.0-beta.2",
-          "aria": "Scarica la localizzazione spagnola 1.1.0-beta.2 di Anvil Empires da GitHub in una nuova scheda"
+          "secondary": "Versione stabile 1.2.0 per Steam build 25835022. Funzionamento nel gioco confermato dall’utente. La data del prossimo test resta in inglese.",
+          "action": "Scarica 1.2.0",
+          "aria": "Scarica la localizzazione spagnola 1.2.0 di Anvil Empires da GitHub in una nuova scheda"
         },
         {
           "title": "Anvil Empires in turco",
           "primary": "Traduzione non ufficiale di Anvil Empires in turco per Windows/Steam.",
-          "secondary": "3.233 voci, caratteri turchi e alcune schermate verificate nel gioco.",
-          "action": "Scarica 1.0.0",
-          "aria": "Scarica 1.0.0 — Anvil Empires in turco — GitHub (si apre in una nuova scheda)"
+          "secondary": "Versione stabile 1.1.0 per Steam build 25835022. Funzionamento nel gioco confermato dall’utente.",
+          "action": "Scarica 1.1.0",
+          "aria": "Scarica 1.1.0 — Anvil Empires in turco — GitHub (si apre in una nuova scheda)"
         },
         {
           "title": "Anvil Empires in tedesco",
           "primary": "Traduzione non ufficiale in tedesco di Anvil Empires per Windows/Steam.",
-          "secondary": "3.233 voci: menu, oggetti, edifici e produzione.",
-          "action": "Scarica",
-          "aria": "Scarica — Anvil Empires in tedesco — GitHub (si apre in una nuova scheda)"
+          "secondary": "Versione stabile 1.1.0 per Steam build 25835022. Funzionamento nel gioco confermato dall’utente.",
+          "action": "Scarica 1.1.0",
+          "aria": "Scarica — Anvil Empires in tedesco — GitHub (si apre in una nuova scheda) — 1.1.0"
         },
         {
           "title": "NFG Hub",
@@ -759,30 +759,30 @@
         {
           "title": "Localização de Anvil Empires em russo",
           "primary": "Tradução não oficial para o russo da versão pré-alfa de Anvil Empires para Windows/Steam.",
-          "secondary": "Traduz a interface, os itens, as construções, a produção, as missões e as mensagens do sistema.",
-          "action": "Baixar 1.1.0",
-          "aria": "Baixar a localização de Anvil Empires em russo, versão 1.1.0, do GitHub em uma nova guia"
+          "secondary": "Versão estável 1.2.0 para Steam build 25835022. Funcionamento no jogo confirmado pelo usuário.",
+          "action": "Baixar 1.2.0",
+          "aria": "Baixar a localização de Anvil Empires em russo, versão 1.2.0, do GitHub em uma nova guia"
         },
         {
           "title": "Localização de Anvil Empires em espanhol",
           "primary": "Tradução não oficial para o espanhol da versão pré-alfa de Anvil Empires para Windows/Steam.",
-          "secondary": "Versão 1.1.0-beta.2 disponível. A verificação dentro do jogo está pendente. A data do próximo teste continua em inglês.",
-          "action": "Baixar 1.1.0-beta.2",
-          "aria": "Baixar a localização de Anvil Empires em espanhol, versão 1.1.0-beta.2, do GitHub em uma nova guia"
+          "secondary": "Versão estável 1.2.0 para Steam build 25835022. Funcionamento no jogo confirmado pelo usuário. A data do próximo teste continua em inglês.",
+          "action": "Baixar 1.2.0",
+          "aria": "Baixar a localização de Anvil Empires em espanhol, versão 1.2.0, do GitHub em uma nova guia"
         },
         {
           "title": "Anvil Empires em turco",
           "primary": "Tradução não oficial de Anvil Empires para turco no Windows/Steam.",
-          "secondary": "3.233 entradas, caracteres turcos e algumas telas verificadas no jogo.",
-          "action": "Baixar 1.0.0",
-          "aria": "Baixar 1.0.0 — Anvil Empires em turco — GitHub (abre em uma nova aba)"
+          "secondary": "Versão estável 1.1.0 para Steam build 25835022. Funcionamento no jogo confirmado pelo usuário.",
+          "action": "Baixar 1.1.0",
+          "aria": "Baixar 1.1.0 — Anvil Empires em turco — GitHub (abre em uma nova aba)"
         },
         {
           "title": "Anvil Empires em alemão",
           "primary": "Tradução não oficial de Anvil Empires para alemão no Windows/Steam.",
-          "secondary": "3.233 entradas: menus, itens, construções e fabricação.",
-          "action": "Baixar",
-          "aria": "Baixar — Anvil Empires em alemão — GitHub (abre em uma nova aba)"
+          "secondary": "Versão estável 1.1.0 para Steam build 25835022. Funcionamento no jogo confirmado pelo usuário.",
+          "action": "Baixar 1.1.0",
+          "aria": "Baixar — Anvil Empires em alemão — GitHub (abre em uma nova aba) — 1.1.0"
         },
         {
           "title": "NFG Hub",
@@ -872,30 +872,30 @@
         {
           "title": "Anvil Empires 俄语本地化",
           "primary": "面向 Windows/Steam 版 Anvil Empires Pre-Alpha 的非官方俄语翻译。",
-          "secondary": "涵盖界面、物品、建筑、生产、任务和系统消息。",
-          "action": "下载 1.1.0",
-          "aria": "在新标签页中从 GitHub 下载 Anvil Empires 俄语本地化 1.1.0"
+          "secondary": "适用于 Steam 构建版本 25835022 的稳定版 1.2.0。用户已确认可在游戏中使用。",
+          "action": "下载 1.2.0",
+          "aria": "在新标签页中从 GitHub 下载 Anvil Empires 俄语本地化 1.2.0"
         },
         {
           "title": "Anvil Empires 西班牙语本地化",
           "primary": "面向 Windows/Steam 版 Anvil Empires Pre-Alpha 的非官方西班牙语翻译。",
-          "secondary": "1.1.0-beta.2 已发布，尚未进行游戏内验证。下次测试的日期仍以英语显示。",
-          "action": "下载 1.1.0-beta.2",
-          "aria": "在新标签页中从 GitHub 下载 Anvil Empires 西班牙语本地化 1.1.0-beta.2"
+          "secondary": "适用于 Steam 构建版本 25835022 的稳定版 1.2.0。用户已确认可在游戏中使用。 下次测试的日期仍以英语显示。",
+          "action": "下载 1.2.0",
+          "aria": "在新标签页中从 GitHub 下载 Anvil Empires 西班牙语本地化 1.2.0"
         },
         {
           "title": "Anvil Empires 土耳其语本地化",
           "primary": "适用于 Windows/Steam 的 Anvil Empires 非官方土耳其语翻译。",
-          "secondary": "包含 3,233 条本地化文本，支持土耳其语字符，部分界面已在游戏中验证。",
-          "action": "下载 1.0.0",
-          "aria": "下载 1.0.0 — Anvil Empires 土耳其语本地化 — GitHub (在新标签页打开)"
+          "secondary": "适用于 Steam 构建版本 25835022 的稳定版 1.1.0。用户已确认可在游戏中使用。",
+          "action": "下载 1.1.0",
+          "aria": "下载 1.1.0 — Anvil Empires 土耳其语本地化 — GitHub (在新标签页打开)"
         },
         {
           "title": "Anvil Empires 德语翻译",
           "primary": "适用于 Windows/Steam 的 Anvil Empires 非官方德语翻译。",
-          "secondary": "3,233 条文本：菜单、物品、建筑和制作。",
-          "action": "下载",
-          "aria": "下载 — Anvil Empires 德语翻译 — GitHub (在新标签页打开)"
+          "secondary": "适用于 Steam 构建版本 25835022 的稳定版 1.1.0。用户已确认可在游戏中使用。",
+          "action": "下载 1.1.0",
+          "aria": "下载 — Anvil Empires 德语翻译 — GitHub (在新标签页打开) — 1.1.0"
         },
         {
           "title": "NFG Hub",
@@ -985,30 +985,30 @@
         {
           "title": "Anvil Empires ロシア語ローカライズ",
           "primary": "Windows/Steam版Anvil Empires Pre-Alpha向けの非公式ロシア語翻訳。",
-          "secondary": "UI、アイテム、建造物、生産、クエスト、システムメッセージを翻訳。",
-          "action": "1.1.0をダウンロード",
-          "aria": "GitHubからAnvil Empires ロシア語ローカライズ 1.1.0をダウンロード（新しいタブで開きます）"
+          "secondary": "Steam ビルド 25835022 向けの安定版 1.2.0。ユーザーがゲーム内での動作を確認しました。",
+          "action": "1.2.0をダウンロード",
+          "aria": "GitHubからAnvil Empires ロシア語ローカライズ 1.2.0をダウンロード（新しいタブで開きます）"
         },
         {
           "title": "Anvil Empires スペイン語ローカライズ",
           "primary": "Windows/Steam版Anvil Empires Pre-Alpha向けの非公式スペイン語翻訳。",
-          "secondary": "1.1.0-beta.2を公開中。ゲーム内での確認はまだ行っていません。次回テストの日時は英語表示のままです。",
-          "action": "1.1.0-beta.2をダウンロード",
-          "aria": "GitHubからAnvil Empires スペイン語ローカライズ 1.1.0-beta.2をダウンロード（新しいタブで開きます）"
+          "secondary": "Steam ビルド 25835022 向けの安定版 1.2.0。ユーザーがゲーム内での動作を確認しました。 次回テストの日時は英語表示のままです。",
+          "action": "1.2.0をダウンロード",
+          "aria": "GitHubからAnvil Empires スペイン語ローカライズ 1.2.0をダウンロード（新しいタブで開きます）"
         },
         {
           "title": "Anvil Empires トルコ語化",
           "primary": "Windows/Steam 向け Anvil Empires の非公式トルコ語翻訳。",
-          "secondary": "3,233 項目を収録。トルコ語文字に対応し、一部の画面をゲーム内で確認済みです。",
-          "action": "1.0.0をダウンロード",
-          "aria": "1.0.0をダウンロード — Anvil Empires トルコ語化 — GitHub (新しいタブで開きます)"
+          "secondary": "Steam ビルド 25835022 向けの安定版 1.1.0。ユーザーがゲーム内での動作を確認しました。",
+          "action": "1.1.0をダウンロード",
+          "aria": "1.1.0をダウンロード — Anvil Empires トルコ語化 — GitHub (新しいタブで開きます)"
         },
         {
           "title": "Anvil Empires ドイツ語翻訳",
           "primary": "Windows/Steam 向け Anvil Empires の非公式ドイツ語翻訳。",
-          "secondary": "3,233項目：メニュー、アイテム、建物、製作。",
-          "action": "ダウンロード",
-          "aria": "ダウンロード — Anvil Empires ドイツ語翻訳 — GitHub (新しいタブで開きます)"
+          "secondary": "Steam ビルド 25835022 向けの安定版 1.1.0。ユーザーがゲーム内での動作を確認しました。",
+          "action": "1.1.0をダウンロード",
+          "aria": "ダウンロード — Anvil Empires ドイツ語翻訳 — GitHub (新しいタブで開きます) — 1.1.0"
         },
         {
           "title": "NFG Hub",
@@ -1098,30 +1098,30 @@
         {
           "title": "Anvil Empires 러시아어 현지화",
           "primary": "Windows/Steam용 Anvil Empires Pre-Alpha의 비공식 러시아어 번역입니다.",
-          "secondary": "인터페이스, 아이템, 건축물, 생산, 퀘스트, 시스템 메시지를 번역합니다.",
-          "action": "1.1.0 다운로드",
-          "aria": "새 탭에서 GitHub를 열어 Anvil Empires 러시아어 현지화 1.1.0 다운로드하기"
+          "secondary": "Steam 빌드 25835022용 안정 버전 1.2.0. 사용자가 게임 내 작동을 확인했습니다.",
+          "action": "1.2.0 다운로드",
+          "aria": "새 탭에서 GitHub를 열어 Anvil Empires 러시아어 현지화 1.2.0 다운로드하기"
         },
         {
           "title": "Anvil Empires 스페인어 현지화",
           "primary": "Windows/Steam용 Anvil Empires Pre-Alpha의 비공식 스페인어 번역입니다.",
-          "secondary": "1.1.0-beta.2이 공개되었습니다. 게임 내 검증은 아직 진행하지 않았습니다. 다음 테스트 날짜는 영어로 표시됩니다.",
-          "action": "1.1.0-beta.2 다운로드",
-          "aria": "새 탭에서 GitHub를 열어 Anvil Empires 스페인어 현지화 1.1.0-beta.2 다운로드하기"
+          "secondary": "Steam 빌드 25835022용 안정 버전 1.2.0. 사용자가 게임 내 작동을 확인했습니다. 다음 테스트 날짜는 영어로 표시됩니다.",
+          "action": "1.2.0 다운로드",
+          "aria": "새 탭에서 GitHub를 열어 Anvil Empires 스페인어 현지화 1.2.0 다운로드하기"
         },
         {
           "title": "Anvil Empires 튀르키예어 번역",
           "primary": "Windows/Steam용 Anvil Empires 비공식 튀르키예어 번역입니다.",
-          "secondary": "3,233개 항목과 튀르키예어 문자를 지원하며 일부 화면을 게임에서 확인했습니다.",
-          "action": "1.0.0 다운로드",
-          "aria": "1.0.0 다운로드 — Anvil Empires 튀르키예어 번역 — GitHub (새 탭에서 열기)"
+          "secondary": "Steam 빌드 25835022용 안정 버전 1.1.0. 사용자가 게임 내 작동을 확인했습니다.",
+          "action": "1.1.0 다운로드",
+          "aria": "1.1.0 다운로드 — Anvil Empires 튀르키예어 번역 — GitHub (새 탭에서 열기)"
         },
         {
           "title": "Anvil Empires 독일어 번역",
           "primary": "Windows/Steam용 Anvil Empires 비공식 독일어 번역입니다.",
-          "secondary": "메뉴, 아이템, 건물, 제작 등 3,233개 항목.",
-          "action": "다운로드",
-          "aria": "다운로드 — Anvil Empires 독일어 번역 — GitHub (새 탭에서 열기)"
+          "secondary": "Steam 빌드 25835022용 안정 버전 1.1.0. 사용자가 게임 내 작동을 확인했습니다.",
+          "action": "1.1.0 다운로드",
+          "aria": "다운로드 — Anvil Empires 독일어 번역 — GitHub (새 탭에서 열기) — 1.1.0"
         },
         {
           "title": "NFG Hub",
@@ -1211,30 +1211,30 @@
         {
           "title": "Anvil Empires için Rusça yerelleştirme",
           "primary": "Anvil Empires Pre-Alpha’nın Windows/Steam için resmî olmayan Rusça çevirisi.",
-          "secondary": "Arayüzü, eşyaları, yapıları, üretimi, görevleri ve sistem mesajlarını kapsar.",
-          "action": "1.1.0 sürümünü indir",
-          "aria": "Anvil Empires Rusça yerelleştirmesi 1.1.0 sürümünü GitHub’dan yeni sekmede indir"
+          "secondary": "Steam build 25835022 için kararlı 1.2.0 sürümü. Kullanıcı oyunda çalıştığını doğruladı.",
+          "action": "1.2.0 sürümünü indir",
+          "aria": "Anvil Empires Rusça yerelleştirmesi 1.2.0 sürümünü GitHub’dan yeni sekmede indir"
         },
         {
           "title": "Anvil Empires için İspanyolca yerelleştirme",
           "primary": "Anvil Empires Pre-Alpha’nın Windows/Steam için resmî olmayan İspanyolca çevirisi.",
-          "secondary": "1.1.0-beta.2 sürümü yayımlandı. Oyun içi doğrulama henüz yapılmadı. Sonraki testin tarihi İngilizce kalır.",
-          "action": "1.1.0-beta.2 sürümünü indir",
-          "aria": "Anvil Empires İspanyolca yerelleştirmesi 1.1.0-beta.2 sürümünü GitHub’dan yeni sekmede indir"
+          "secondary": "Steam build 25835022 için kararlı 1.2.0 sürümü. Kullanıcı oyunda çalıştığını doğruladı. Sonraki testin tarihi İngilizce kalır.",
+          "action": "1.2.0 sürümünü indir",
+          "aria": "Anvil Empires İspanyolca yerelleştirmesi 1.2.0 sürümünü GitHub’dan yeni sekmede indir"
         },
         {
           "title": "Anvil Empires Türkçe",
           "primary": "Windows/Steam için resmî olmayan Anvil Empires Türkçe çevirisi.",
-          "secondary": "3.233 girdi, Türkçe karakter desteği ve oyun içinde seçili ekranların kontrolü.",
-          "action": "1.0.0 sürümünü indir",
-          "aria": "1.0.0 sürümünü indir — Anvil Empires Türkçe — GitHub (yeni sekmede açılır)"
+          "secondary": "Steam build 25835022 için kararlı 1.1.0 sürümü. Kullanıcı oyunda çalıştığını doğruladı.",
+          "action": "1.1.0 sürümünü indir",
+          "aria": "1.1.0 sürümünü indir — Anvil Empires Türkçe — GitHub (yeni sekmede açılır)"
         },
         {
           "title": "Anvil Empires Almanca",
           "primary": "Windows/Steam için resmî olmayan Anvil Empires Almanca çevirisi.",
-          "secondary": "3.233 girdi: menüler, eşyalar, yapılar ve üretim.",
-          "action": "İndir",
-          "aria": "İndir — Anvil Empires Almanca — GitHub (yeni sekmede açılır)"
+          "secondary": "Steam build 25835022 için kararlı 1.1.0 sürümü. Kullanıcı oyunda çalıştığını doğruladı.",
+          "action": "1.1.0 sürümünü indir",
+          "aria": "İndir — Anvil Empires Almanca — GitHub (yeni sekmede açılır) — 1.1.0"
         },
         {
           "title": "NFG Hub",

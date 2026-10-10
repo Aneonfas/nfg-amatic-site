@@ -9,13 +9,13 @@ const content = JSON.parse(
   await readFile(path.join(rootDir, "content", "home.locales.json"), "utf8"),
 );
 const locales = ["en", "ru", "es", "de", "fr", "it", "pt-br", "zh-cn", "ja", "ko", "tr"];
-const russianVersion = "1.1.0";
+const russianVersion = "1.2.0";
 const russianDownload =
-  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.1.0/Anvil-Empires-Russian-v1.1.0-steam-build-25584311.zip";
+  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.2.0/Anvil-Empires-Russian-v1.2.0-steam-build-25835022.zip";
 const oldRussianRepository = /https:\/\/github\.com\/(?:nullith2|Aneonfas)\/anvil-empires-russian(?:\/|\b)/i;
-const spanishVersion = "1.1.0-beta.2";
+const spanishVersion = "1.2.0";
 const spanishDownload =
-  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.1.0-beta.2/Anvil-Empires-Spanish-v1.1.0-beta.2-steam-build-25584311.zip";
+  "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.2.0/Anvil-Empires-Spanish-v1.2.0-steam-build-25835022.zip";
 const pendingRuntimeWording = {
   en: /In-game verification is pending/,
   ru: /Проверка в игре ещё не выполнена/,
@@ -103,7 +103,7 @@ for (const locale of locales) {
     assert.doesNotMatch(html, oldRussianRepository);
   });
 
-  test(`${locale}: Spanish CTA, copy and JSON-LD name the beta release and pending in-game verification`, async () => {
+  test(`${locale}: Spanish CTA, copy and JSON-LD name the stable release and confirmed in-game operation`, async () => {
     const project = content.locales[locale].projects[2];
     for (const field of ["action", "aria"]) {
       assert.deepEqual(
@@ -111,7 +111,7 @@ for (const locale of locales) {
         [spanishVersion],
         `${locale} source ${field} must name Spanish release ${spanishVersion}`,
       );
-      assert.match(project[field], betaWording);
+      assert.doesNotMatch(project[field], betaWording);
     }
     assert.deepEqual(
       project.secondary.match(/\d+\.\d+\.\d+(?:-beta\.\d+)?/g),
@@ -119,17 +119,17 @@ for (const locale of locales) {
       `${locale} Spanish description must name its published release`,
     );
     assert.doesNotMatch(project.secondary, /90510|24805551/);
-    assert.match(
+    assert.doesNotMatch(
       project.secondary,
       pendingRuntimeWording[locale],
-      `${locale} must distinguish file checks from pending in-game verification`,
+      `${locale} must remove obsolete pending verification wording`,
     );
     assert.doesNotMatch(
       project.secondary,
       exclusiveBuildWording,
       `${locale} must not restrict installation to the tested build`,
     );
-    assert.match(project.secondary, betaWording);
+    assert.doesNotMatch(project.secondary, betaWording);
     assert.match(project.secondary, nextTestDateWording[locale]);
 
     const html = await readFile(path.join(rootDir, locale, "index.html"), "utf8");
