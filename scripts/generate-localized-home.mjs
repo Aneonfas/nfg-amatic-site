@@ -25,28 +25,28 @@ const PROJECTS = [
   {
     key: "russian",
     name: "Anvil Empires Russian localization",
-    href: "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.1.0/Anvil-Empires-Russian-v1.1.0-steam-build-25584311.zip",
+    href: "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/ru-v1.2.0/Anvil-Empires-Russian-v1.2.0-steam-build-25835022.zip",
     documentationHref: "https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.ru.md",
     documentationLanguage: "ru",
   },
   {
     key: "spanish",
     name: "Anvil Empires Spanish localization",
-    href: "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.1.0-beta.2/Anvil-Empires-Spanish-v1.1.0-beta.2-steam-build-25584311.zip",
+    href: "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/es-v1.2.0/Anvil-Empires-Spanish-v1.2.0-steam-build-25835022.zip",
     documentationHref: "https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.es.md",
     documentationLanguage: "es",
   },
   {
     key: "turkish",
     name: "Anvil Empires Turkish localization",
-    href: "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/tr-v1.0.0/Anvil-Empires-Turkish-v1.0.0-steam-build-25584311.zip",
+    href: "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/tr-v1.1.0/Anvil-Empires-Turkish-v1.1.0-steam-build-25835022.zip",
     documentationHref: "https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.tr.md",
     documentationLanguage: "tr",
   },
   {
     key: "german",
     name: "Anvil Empires German localization",
-    href: "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/de-v1.0.0-beta.1/Anvil-Empires-German-v1.0.0-beta.1-steam-build-25584311.zip",
+    href: "https://github.com/Aneonfas/anvil-empires-localizations/releases/download/de-v1.1.0/Anvil-Empires-German-v1.1.0-steam-build-25835022.zip",
     documentationHref: "https://github.com/Aneonfas/anvil-empires-localizations/blob/main/README.de.md",
     documentationLanguage: "de",
   },
@@ -606,7 +606,7 @@ ${documentationLinks}
 - The Russian, Spanish, Turkish and German localization links point to ready release archives.
 - Spanish localization: ${spanishDescription}
 - Turkish localization: selected screens checked in game by the user; comprehensive runtime and native-speaker review remain pending.
-- German localization: 3,233 entries covering menus, items, buildings and crafting.
+- German localization: 3,244 entries covering menus, items, buildings and crafting.
 - NFG Hub is the Windows catalog and installer for supported NFG packages.
 - Canonical page metadata and sitemap.xml remain the authoritative discovery sources.
 `;
